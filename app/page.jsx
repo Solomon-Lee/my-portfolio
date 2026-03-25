@@ -55,7 +55,7 @@ const JOBS = [
   {
     id: 0,
     company: "Databricks",
-    role: "Software Engineer",
+    role: "Software Engineer - Engine",
     date: "Aug 2026 – Present",
     tags: ["TBD"],
     desc: "Incoming Software Engineer at Databricks in Palo Alto, CA.",
