@@ -55,18 +55,18 @@ const JOBS = [
   {
     id: 0,
     company: "Databricks",
-    role: "Software Engineer — Engine org",
+    role: "Software Engineer",
     date: "Aug 2026 – Present",
-    tags: ["Go", "Python", "Spark", "Delta Lake"],
-    desc: "Building distributed data processing infrastructure on the Databricks Lakehouse platform. Contributing to core Spark runtime performance optimizations and platform reliability systems.",
+    tags: ["TBD"],
+    desc: "Incoming Software Engineer at Databricks in Palo Alto, CA.",
   },
   {
     id: 1,
     company: "Google",
-    role: "Software Engineer Intern — Core Airlock",
+    role: "Software Engineer Intern",
     date: "Aug – Nov 2025",
-    tags: ["Java", "GCP", "Vertex AI", "Spring", "MCP"],
-    desc: "Built an AI-powered package recommendation engine and MCP service for Airlock, Google's internal package management platform. Deployed a Java Spring MCP server on Cloud Run with UberProxy auth. Shipped in both Gemini Code Assist and Gemini CLI, eliminating a common class of hallucination errors in agentic coding workflows.",
+    tags: ["Java", "GCP", "Vertex AI", "Spring", "MCP", "Dataflow"],
+    desc: "Built an AI-powered package recommendation engine using Google Dataflow to ingest millions of package metadata records into Google Cloud Storage, integrated with Vertex AI Search to build searchable indexes. Developed a Model Context Protocol (MCP) tool that interfaces with the Vertex AI Search endpoint, enabling natural language queries in Gemini CLI for intelligent package management workflows. Developed and deployed a Java Spring AI MCP server on Google Cloud Run with a recommendation system accounting for relevance, popularity, ecosystem integration, and licensing, supporting key user journeys including package updates and vulnerability management.",
   },
   {
     id: 2,
@@ -79,10 +79,10 @@ const JOBS = [
   {
     id: 3,
     company: "Amazon Robotics",
-    role: "Software Engineer Co-op — AR Hardware Services",
+    role: "Software Engineer Co-op",
     date: "Aug – Dec 2024",
-    tags: ["Python", "AWS", "C++", "Robotics"],
-    desc: "Achieved a 700% throughput improvement via Python concurrency refactor on a robotic path-planning pipeline. Resolved a live data-corruption incident affecting production warehouse systems.",
+    tags: ["Python", "AWS", "S3", "Git", "SSH"],
+    desc: "Developed the RISE Job Template Uploader Tool, a Python application with a user-friendly UI enabling simplified management and synchronization of job templates across environments (Prod → Gamma → Beta → Dev). Created version control for RISE job templates by integrating Git with AWS S3, enhancing collaboration, tracking, and template consistency while reducing the learning curve for new users. Developed a Python script to automate extraction of log files from drive units using SSH/SCP protocols and uploaded them to AWS S3, enhancing log retrieval efficiency by 60%.",
   },
   {
     id: 4,
