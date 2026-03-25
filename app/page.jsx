@@ -55,7 +55,7 @@ const JOBS = [
   {
     id: 0,
     company: "Databricks",
-    role: "Software Engineer — Unity Catalog",
+    role: "Software Engineer — Engine org",
     date: "Aug 2026 – Present",
     tags: ["Go", "Python", "Spark", "Delta Lake"],
     desc: "Building distributed data processing infrastructure on the Databricks Lakehouse platform. Contributing to core Spark runtime performance optimizations and platform reliability systems.",
