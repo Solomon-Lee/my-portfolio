@@ -63,7 +63,7 @@ const JOBS = [
   {
     id: 1,
     company: "Google",
-    role: "Software Engineer Intern",
+    role: "Software Engineer Intern - Google Core (Airlock)",
     date: "Aug – Nov 2025",
     tags: ["Java", "GCP", "Vertex AI", "Spring", "MCP", "Dataflow"],
     desc: "Built an AI-powered package recommendation engine using Google Dataflow to ingest millions of package metadata records into Google Cloud Storage, integrated with Vertex AI Search to build searchable indexes. Developed a Model Context Protocol (MCP) tool that interfaces with the Vertex AI Search endpoint, enabling natural language queries in Gemini CLI for intelligent package management workflows. Developed and deployed a Java Spring AI MCP server on Google Cloud Run with a recommendation system accounting for relevance, popularity, ecosystem integration, and licensing, supporting key user journeys including package updates and vulnerability management.",
@@ -71,7 +71,7 @@ const JOBS = [
   {
     id: 2,
     company: "Roblox",
-    role: "Software Engineer Intern — ML Platform",
+    role: "Software Engineer Intern — Foundation AI (ML Platform)",
     date: "May – Aug 2025",
     tags: ["Go", "Kubernetes", "GCP", "Prometheus", "Grafana"],
     desc: "Built two systems in Go that transformed how Roblox's ML platform handles GPU resource allocation. The ML Kubernetes Descheduler automatically detects idle RayJobs and Kubeflow pipelines and terminates them using bin-packing algorithms. Also built a real-time cost dashboard with Prometheus and Grafana, replacing a slow Superset setup.",
@@ -79,7 +79,7 @@ const JOBS = [
   {
     id: 3,
     company: "Amazon Robotics",
-    role: "Software Engineer Co-op",
+    role: "Software Engineer Co-op — Amazon Robotics (Hardware Services)",
     date: "Aug – Dec 2024",
     tags: ["Python", "AWS", "S3", "Git", "SSH"],
     desc: "Developed the RISE Job Template Uploader Tool, a Python application with a user-friendly UI enabling simplified management and synchronization of job templates across environments (Prod → Gamma → Beta → Dev). Created version control for RISE job templates by integrating Git with AWS S3, enhancing collaboration, tracking, and template consistency while reducing the learning curve for new users. Developed a Python script to automate extraction of log files from drive units using SSH/SCP protocols and uploaded them to AWS S3, enhancing log retrieval efficiency by 60%.",
@@ -87,7 +87,7 @@ const JOBS = [
   {
     id: 4,
     company: "Roblox",
-    role: "Software Engineer Intern — Avatar Core Services",
+    role: "Software Engineer Intern — Economy (Avatar Core Services)",
     date: "May – Aug 2024",
     tags: ["Python", "Spark", "PySpark", "SQS", "Hive"],
     desc: "Developed an end-to-end rollback and data metric gathering tool handling operations that modified user data and deserialized user metadata to gather metrics. Helped resolve large-scale on-call data corruption issues impacting millions of users. Increased engineering efficiency by 700% using Python workers and threads to enhance message throughput. Utilized Spark, Hive, PySpark Notebooks, and SQS to build tables, optimize message pipelines, and develop low-latency processors.",
