@@ -44,8 +44,8 @@ const TYPE_SPEED = 65;
 
 const CORNELL = {
   gpa: "3.7",
-  courses: ["Machine Learning", "Deep Learning", "Reinforcement Learning", "Operating Systems", "Probability and Statistics", "Computational Genomics", "Analysis of Algorithms"],
-  research: [{ title: "Data Analytics Lab", date: "SP25 - SP26" }, { title: "Undergraduate Research Assistant", lab: "Computer Systems Lab", date: "FA22 - FA24"}],
+  courses: ["Machine Learning", "Deep Learning", "Reinforcement Learning", "Operating Systems", "Probability and Statistics", "Computational Genomics", "Analysis of Algorithms", "Networking Systems"],
+  research: [{ title: "Data Analytics Lab", date: "SP25 - SP26" }, { title: "Computer Systems Lab", date: "FA22 - FA24"}],
   ta: [{ course: "CS4782 (Deep Learning)", date: "SP26"}, { course: "CS4780 (Machine Learning)", date: "SP24 - FA25"}, { course: "CS1112 (Python)", date: "FA22 - SP23" }],
 };
 
