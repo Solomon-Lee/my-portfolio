@@ -178,7 +178,7 @@ function ContactForm({ c }) {
           Message sent!
         </p>
         <p style={{ color: c.muted, fontSize: 13 }}>
-          Thanks for reaching out — I'll get back to you soon.
+          Thanks for reaching out! I'll get back to you ASAP.
         </p>
       </div>
     );
