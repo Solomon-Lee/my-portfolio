@@ -1054,7 +1054,7 @@ export default function Portfolio() {
                 doesn't just live in theory but runs reliably in production.
               </p>
               <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13 }}>
-                Outside of work I'm usually playing sports with friends, working
+                Outside of work I'm usually playing sports / videogames with friends, working
                 out, snowboarding, or spending time with my girlfriend!
               </p>
             </div>
