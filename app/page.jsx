@@ -991,7 +991,7 @@ export default function Portfolio() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "160px 1fr",
+              gridTemplateColumns: "260px 1fr",
               gap: 28,
               alignItems: "start",
               marginBottom: 24,
@@ -1000,8 +1000,8 @@ export default function Portfolio() {
             <Image
               src="/profile.jpg"
               alt="Solomon Lee"
-              width={160}
-              height={190}
+              width={260}
+              height={320}
               style={{
                 borderRadius: 10,
                 objectFit: "cover",
