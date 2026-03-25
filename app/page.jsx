@@ -244,7 +244,7 @@ export default function Portfolio() {
               <p style={{ color: T, fontSize: 13, fontWeight: 600, marginBottom: 14 }}>Software Engineer · Cornell CS '26</p>
               <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13, marginBottom: 10 }}>I'm a Computer Science student at Cornell University graduating in May 2026, and I love building systems that work at scale. Over the past three years I've interned at Google, Roblox (twice), and Amazon Robotics — shipping systems that process hundreds of millions of users, save over $1.3M annually through ML-driven optimization, and build ML recommendation tools running on Google Cloud.</p>
               <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13, marginBottom: 10 }}>I work mainly in Go, Python, and Java across Kubernetes, AWS, and GCP, with hands-on experience in ML systems including LLM fine-tuning, multi-modal pipelines, and model evaluation frameworks. What excites me most is the space where infrastructure meets intelligence: designing systems where ML doesn't just live in theory but runs reliably in production.</p>
-              <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13 }}>Outside of work I'm usually playing sports with friends, working out, snowboarding — I spent this past winter riding at Teine and Niseko Grand Hirafu in Japan — or planning my next trip abroad.</p>
+              <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13 }}>Outside of work I'm usually playing sports with friends, working out, snowboarding, or spending time with my girlfriend!</p>
             </div>
           </div>
 
