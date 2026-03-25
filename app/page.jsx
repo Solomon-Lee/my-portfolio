@@ -89,8 +89,8 @@ const JOBS = [
     company: "Roblox",
     role: "SWE Intern",
     date: "May – Aug 2024",
-    tags: ["TBA"],
-    desc: "TBA",
+    tags: ["Python", "Spark", "PySpark", "SQS", "Hive"],
+    desc: "Developed an end-to-end rollback and data metric gathering tool handling operations that modified user data and deserialized user metadata to gather metrics. Helped resolve large-scale on-call data corruption issues impacting millions of users. Increased engineering efficiency by 700% using Python workers and threads to enhance message throughput. Utilized Spark, Hive, PySpark Notebooks, and SQS to build tables, optimize message pipelines, and develop low-latency processors.",
   },
 ];
 
