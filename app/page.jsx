@@ -60,7 +60,7 @@ function useTypewriter(text, speed) {
 }
 
 function SectionLabel({ children }) {
-  return <p style={{ fontSize: 10, fontWeight: 700, color: T, letterSpacing: 1.2, marginBottom: 10, marginTop: 20, textTransform: "uppercase" }}>{children}</p>;
+  return <p style={{ fontSize: 10, fontWeight: 700, color: c.accent, letterSpacing: 1.2, marginBottom: 10, marginTop: 20, textTransform: "uppercase" }}>{children}</p>;
 }
 
 function CornellModal({ onClose, c }) {
@@ -85,7 +85,7 @@ function CornellModal({ onClose, c }) {
               <p style={{ fontSize: 13, color: c.muted, margin: 0 }}>B.S. Computer Science · College of Engineering</p>
             </div>
           </div>
-          <p style={{ fontSize: 12, color: T, fontWeight: 600, marginBottom: 20 }}>Expected May 2026</p>
+          <p style={{ fontSize: 12, color: c.accent, fontWeight: 600, marginBottom: 20 }}>Expected May 2026</p>
         </div>
 
         <div style={{ padding: "0 24px 24px", overflowY: "auto", flex: 1 }}>
@@ -106,7 +106,7 @@ function CornellModal({ onClose, c }) {
           {CORNELL.research.map((r, i) => (
             <div key={i} style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: "14px 16px", marginBottom: 8, borderLeft: `3px solid ${T}` }}>
               <div style={{ fontWeight: 700, fontSize: 13, color: c.text, marginBottom: 3 }}>{r.title}</div>
-              <div style={{ fontSize: 12, color: T, fontWeight: 600, marginBottom: 3 }}>{r.lab}</div>
+              <div style={{ fontSize: 12, color: c.accent, fontWeight: 600, marginBottom: 3 }}>{r.lab}</div>
               <div style={{ fontSize: 11, color: c.muted, marginBottom: 8 }}>{r.date}</div>
               <div style={{ fontSize: 12, color: c.muted, lineHeight: 1.65 }}>{r.desc}</div>
             </div>
@@ -142,9 +142,9 @@ function Modal({ item, type, onClose, c }) {
       <div style={{ width: "100%", maxWidth: 660, background: c.modalBg, border: `1px solid ${c.border}`, borderRadius: 12, overflow: "hidden", position: "relative", maxHeight: "90vh", display: "flex", flexDirection: "column" }}>
         <div style={{ padding: "24px 24px 0", flexShrink: 0 }}>
           <button onClick={onClose} style={{ position: "absolute", top: 16, right: 16, background: c.card, border: `1px solid ${c.border}`, borderRadius: 6, color: c.muted, width: 30, height: 30, cursor: "pointer", fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "inherit" }}>✕</button>
-          <span style={{ background: "#0D3A30", border: `1px solid ${T}`, color: T, fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 4, display: "inline-block", marginBottom: 12 }}>{isProject ? item.company : item.role}</span>
+          <span style={{ background: "#0D3A30", border: `1px solid ${T}`, color: c.accent, fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 4, display: "inline-block", marginBottom: 12 }}>{isProject ? item.company : item.role}</span>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: c.text, marginBottom: 6, paddingRight: 40 }}>{isProject ? item.name : item.company}</h2>
-          <p style={{ color: LT, fontSize: 13, fontWeight: 600, marginBottom: 20 }}>{isProject ? item.metric : item.date}</p>
+          <p style={{ color: c.accentSub, fontSize: 13, fontWeight: 600, marginBottom: 20 }}>{isProject ? item.metric : item.date}</p>
         </div>
         <div style={{ padding: "0 24px 24px", overflowY: "auto", flex: 1 }}>
           <p style={{ color: c.muted, fontSize: 14, lineHeight: 1.85, marginBottom: 24 }}>{item.desc}</p>
@@ -228,7 +228,7 @@ export default function Portfolio() {
 
       <section ref={el => refs.current.home = el} style={sec({ padding: "60px 0 48px" })}>
         <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
-          <p style={{ fontSize: 11, color: T, fontWeight: 700, marginBottom: 16, letterSpacing: 1.5 }}>CORNELL CS '26 · DATABRICKS SWE</p>
+          <p style={{ fontSize: 11, color: c.accent, fontWeight: 700, marginBottom: 16, letterSpacing: 1.5 }}>CORNELL CS '26 · DATABRICKS SWE</p>
           <h1 style={{ fontSize: 50, fontWeight: 700, lineHeight: 1.1, letterSpacing: -1.5, margin: 0, whiteSpace: "nowrap" }}>
             {displayed}
             <span style={{ display: "inline-block", width: 3, height: "0.85em", background: done ? (blink ? c.text : "transparent") : c.text, marginLeft: 4, verticalAlign: "middle", borderRadius: 1 }} />
@@ -243,7 +243,7 @@ export default function Portfolio() {
             <div style={{ height: 190, background: c.photoBox, border: `1px solid ${c.border}`, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", color: c.muted, fontSize: 12 }}>[ photo ]</div>
             <div>
               <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>Solomon Lee</h3>
-              <p style={{ color: T, fontSize: 13, fontWeight: 600, marginBottom: 14 }}>Software Engineer · Cornell CS '26</p>
+              <p style={{ color: c.accent, fontSize: 13, fontWeight: 600, marginBottom: 14 }}>Software Engineer · Cornell CS '26</p>
               <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13, marginBottom: 10 }}>I'm a Computer Science student at Cornell University graduating in May 2026, and I love building systems that work at scale. Over the past three years I've interned at Google, Roblox (twice), and Amazon Robotics — shipping systems that process hundreds of millions of users, save over $1.3M annually through ML-driven optimization, and build ML recommendation tools running on Google Cloud.</p>
               <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13, marginBottom: 10 }}>I work mainly in Go, Python, and Java across Kubernetes, AWS, and GCP, with hands-on experience in ML systems including LLM fine-tuning, multi-modal pipelines, and model evaluation frameworks. What excites me most is the space where infrastructure meets intelligence: designing systems where ML doesn't just live in theory but runs reliably in production.</p>
               <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13 }}>Outside of work I'm usually playing sports with friends, working out, snowboarding, or spending time with my girlfriend!</p>
@@ -261,7 +261,7 @@ export default function Portfolio() {
               <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 2 }}>Cornell University · B.S. Computer Science</div>
               <div style={{ color: c.muted, fontSize: 12 }}>Expected May 2026 · College of Engineering</div>
             </div>
-            <span style={{ color: T, fontSize: 12, fontWeight: 600, flexShrink: 0 }}>View details ↗</span>
+            <span style={{ color: c.accent, fontSize: 12, fontWeight: 600, flexShrink: 0 }}>View details ↗</span>
           </div>
         </div>
       </section>
@@ -279,12 +279,12 @@ export default function Portfolio() {
                   <div style={{ padding: "14px 18px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8 }}>
                     <div>
                       <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 3 }}>{job.company}</div>
-                      <div style={{ color: T, fontSize: 12, fontWeight: 600, marginBottom: 3 }}>{job.role}</div>
+                      <div style={{ color: c.accent, fontSize: 12, fontWeight: 600, marginBottom: 3 }}>{job.role}</div>
                       <div style={{ color: c.muted, fontSize: 11 }}>{job.date}</div>
                     </div>
                     <div style={{ display: "flex", gap: 5, flexWrap: "wrap", alignItems: "center" }}>
                       {job.tags.map(t => <span key={t} style={chip(true)}>{t}</span>)}
-                      <span style={{ color: T, fontSize: 11, marginLeft: 4, fontWeight: 600 }}>↗</span>
+                      <span style={{ color: c.accent, fontSize: 11, marginLeft: 4, fontWeight: 600 }}>↗</span>
                     </div>
                   </div>
                 </div>
@@ -304,13 +304,13 @@ export default function Portfolio() {
                 <div style={{ display: "grid", gridTemplateColumns: "130px 1fr" }}>
                   <div style={{ background: isDark ? "#111" : "#E0E0E0", display: "flex", alignItems: "center", justifyContent: "center", color: c.muted, fontSize: 11, minHeight: 115 }}>▶ demo</div>
                   <div style={{ padding: "16px 20px" }}>
-                    <div style={{ marginBottom: 8 }}><span style={{ background: "#0D3A30", border: `1px solid ${T}`, color: T, fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 4 }}>{p.company}</span></div>
+                    <div style={{ marginBottom: 8 }}><span style={{ background: "#0D3A30", border: `1px solid ${T}`, color: c.accent, fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 4 }}>{p.company}</span></div>
                     <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>{p.name}</h3>
-                    <p style={{ color: LT, fontSize: 12, fontWeight: 600, marginBottom: 6 }}>{p.metric}</p>
+                    <p style={{ color: c.accentSub, fontSize: 12, fontWeight: 600, marginBottom: 6 }}>{p.metric}</p>
                     <p style={{ color: c.muted, fontSize: 12, lineHeight: 1.6, marginBottom: 8 }}>{p.desc.slice(0, 130)}...</p>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 }}>
                       <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>{p.tags.slice(0, 4).map(t => <span key={t} style={chip(true)}>{t}</span>)}</div>
-                      <span style={{ color: T, fontSize: 11, fontWeight: 600 }}>View details ↗</span>
+                      <span style={{ color: c.accent, fontSize: 11, fontWeight: 600 }}>View details ↗</span>
                     </div>
                   </div>
                 </div>
