@@ -1000,21 +1000,18 @@ export default function Portfolio() {
               marginBottom: 24,
             }}
           >
-            <div
+            <img
+              src="/profile.jpg"
+              alt="Solomon Lee"
               style={{
+                width: 160,
                 height: 190,
-                background: c.photoBox,
-                border: `1px solid ${c.border}`,
                 borderRadius: 10,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: c.muted,
-                fontSize: 12,
+                objectFit: "cover",
+                objectPosition: "center top",
+                flexShrink: 0,
               }}
-            >
-              [ photo ]
-            </div>
+            />
             <div>
               <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>
                 Solomon Lee
@@ -1040,9 +1037,10 @@ export default function Portfolio() {
                 I'm a Computer Science student at Cornell University graduating
                 in May 2026, and I love building systems that work at scale.
                 Over the past three years I've interned at Google, Roblox
-                (twice), and Amazon Robotics where I've shipped systems that process
-                hundreds of millions of users, saved costs through ML infrastructure 
-                optimization, and built ML recommendation engines  on Google Cloud.
+                (twice), and Amazon Robotics where I've shipped systems that
+                process hundreds of millions of users, saved costs through ML
+                infrastructure optimization, and built ML recommendation engines
+                on Google Cloud.
               </p>
               <p
                 style={{
