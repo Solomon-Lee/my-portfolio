@@ -14,7 +14,7 @@ const LIGHT = {
 };
 
 const T = "#0D9488", LT = "#5EEAD4";
-const TABS = ["home", "about", "experience", "projects", "contact", "my life"];
+const TABS = ["home", "about", "experience", "projects", "my life", "contact"];
 const FULL_TEXT = "hello world, it's Solomon!";
 const TYPE_SPEED = 65;
 
