@@ -146,7 +146,7 @@ function ContactForm({ c }) {
     e.preventDefault();
     setStatus("sending");
     const data = new FormData(e.target);
-    const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+    const res = await fetch("https://formspree.io/f/mqegzgee", {
       method: "POST",
       body: data,
       headers: { Accept: "application/json" },
