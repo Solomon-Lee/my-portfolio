@@ -78,7 +78,7 @@ function CornellModal({ onClose, c }) {
         <div style={{ padding: "24px 24px 0", flexShrink: 0 }}>
           <button onClick={onClose} style={{ position: "absolute", top: 16, right: 16, background: c.card, border: `1px solid ${c.border}`, borderRadius: 6, color: c.muted, width: 30, height: 30, cursor: "pointer", fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "inherit" }}>✕</button>
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 6 }}>
-            <div style={{ width: 42, height: 42, background: "#B31B1B", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>🎓</div>
+          <img src="/cornell.png" alt="Cornell" style={{ width: 42, height: 42, borderRadius: 8, objectFit: "cover", flexShrink: 0 }} />
             <div>
               <h2 style={{ fontSize: 18, fontWeight: 700, color: c.text, margin: 0 }}>Cornell University</h2>
               <p style={{ fontSize: 13, color: c.muted, margin: 0 }}>B.S. Computer Science · College of Engineering</p>
