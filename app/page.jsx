@@ -63,7 +63,7 @@ const JOBS = [
   {
     id: 1,
     company: "Google",
-    role: "Software Engineer Intern — Google Core Airlock",
+    role: "Software Engineer Intern — Core Airlock",
     date: "Aug – Nov 2025",
     tags: ["Java", "GCP", "Vertex AI", "Spring", "MCP"],
     desc: "Built an AI-powered package recommendation engine and MCP service for Airlock, Google's internal package management platform. Deployed a Java Spring MCP server on Cloud Run with UberProxy auth. Shipped in both Gemini Code Assist and Gemini CLI, eliminating a common class of hallucination errors in agentic coding workflows.",
