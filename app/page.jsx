@@ -84,6 +84,14 @@ const JOBS = [
     tags: ["Python", "AWS", "C++", "Robotics"],
     desc: "Achieved a 700% throughput improvement via Python concurrency refactor on a robotic path-planning pipeline. Resolved a live data-corruption incident affecting production warehouse systems.",
   },
+  {
+    id: 4,
+    company: "Roblox",
+    role: "SWE Intern",
+    date: "May – Aug 2024",
+    tags: ["TBA"],
+    desc: "TBA",
+  },
 ];
 
 const PROJECTS = [
@@ -1115,7 +1123,7 @@ export default function Portfolio() {
             <div
               style={{
                 position: "absolute",
-                left: 5,
+                left: 9,
                 top: 8,
                 bottom: 8,
                 width: 2,
