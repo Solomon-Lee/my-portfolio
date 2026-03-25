@@ -71,7 +71,7 @@ const JOBS = [
   {
     id: 2,
     company: "Roblox",
-    role: "SWE Intern — ML Platform",
+    role: "Software Engineer Intern — ML Platform",
     date: "May – Aug 2025",
     tags: ["Go", "Kubernetes", "GCP", "Prometheus", "Grafana"],
     desc: "Built two systems in Go that transformed how Roblox's ML platform handles GPU resource allocation. The ML Kubernetes Descheduler automatically detects idle RayJobs and Kubeflow pipelines and terminates them using bin-packing algorithms. Also built a real-time cost dashboard with Prometheus and Grafana, replacing a slow Superset setup.",
@@ -87,7 +87,7 @@ const JOBS = [
   {
     id: 4,
     company: "Roblox",
-    role: "SWE Intern — Avatar Core Services",
+    role: "Software Engineer Intern — Avatar Core Services",
     date: "May – Aug 2024",
     tags: ["Python", "Spark", "PySpark", "SQS", "Hive"],
     desc: "Developed an end-to-end rollback and data metric gathering tool handling operations that modified user data and deserialized user metadata to gather metrics. Helped resolve large-scale on-call data corruption issues impacting millions of users. Increased engineering efficiency by 700% using Python workers and threads to enhance message throughput. Utilized Spark, Hive, PySpark Notebooks, and SQS to build tables, optimize message pipelines, and develop low-latency processors.",
