@@ -323,7 +323,7 @@ export default function Portfolio() {
         <div style={{ maxWidth: 520, margin: "0 auto", padding: "0 24px" }}>
           <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 14 }}>get in touch</h2>
           <p style={{ color: c.muted, fontSize: 13, lineHeight: 1.75, marginBottom: 24 }}>
-            Currently open to full-time SWE roles in infrastructure, ML platforms, and distributed systems. Best way to reach me is email — I respond quickly.
+            Best way to reach me is email. I try to respond quickly!
           </p>
 
           <form action="https://formspree.io/f/mqegzgee" method="POST">
