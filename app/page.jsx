@@ -998,7 +998,7 @@ export default function Portfolio() {
             }}
           >
             <Image
-              src="/photo.jpg"
+              src="/profile.jpg"
               alt="Solomon Lee"
               width={160}
               height={190}
