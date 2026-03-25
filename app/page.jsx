@@ -15,7 +15,6 @@ const LIGHT = {
   accent: "#0F766E", accentSub: "#134E4A", accentBadgeBg: "#CCFBF1", accentBadgeBorder: "#0F766E",
 };
 
-const T = "#0D9488", LT = "#5EEAD4";
 const TABS = ["home", "about", "experience", "projects", "contact"];
 const FULL_TEXT = "hello world, it's Solomon!";
 const TYPE_SPEED = 65;
@@ -59,8 +58,8 @@ function useTypewriter(text, speed) {
   return { displayed, done };
 }
 
-function SectionLabel({ children }) {
-  return <p style={{ fontSize: 10, fontWeight: 700, color: c.accent, letterSpacing: 1.2, marginBottom: 10, marginTop: 20, textTransform: "uppercase" }}>{children}</p>;
+function SectionLabel({ children, accent }) {
+  return <p style={{ fontSize: 10, fontWeight: 700, color: accent, letterSpacing: 1.2, marginBottom: 10, marginTop: 20, textTransform: "uppercase" }}>{children}</p>;
 }
 
 function CornellModal({ onClose, c }) {
@@ -89,22 +88,22 @@ function CornellModal({ onClose, c }) {
         </div>
 
         <div style={{ padding: "0 24px 24px", overflowY: "auto", flex: 1 }}>
-          <SectionLabel>GPA</SectionLabel>
+          <SectionLabel accent={c.accent}>GPA</SectionLabel>
           <div style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: "12px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: 13, color: c.muted }}>Cumulative GPA</span>
             <span style={{ fontSize: 18, fontWeight: 700, color: c.text }}>{CORNELL.gpa}</span>
           </div>
 
-          <SectionLabel>Relevant Coursework</SectionLabel>
+          <SectionLabel accent={c.accent}>Relevant Coursework</SectionLabel>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
             {CORNELL.courses.map((course, i) => (
               <div key={i} style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: "10px 14px", fontSize: 13, color: c.muted }}>{course}</div>
             ))}
           </div>
 
-          <SectionLabel>Research</SectionLabel>
+          <SectionLabel accent={c.accent}>Research</SectionLabel>
           {CORNELL.research.map((r, i) => (
-            <div key={i} style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: "14px 16px", marginBottom: 8, borderLeft: `3px solid ${T}` }}>
+            <div key={i} style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: "14px 16px", marginBottom: 8, borderLeft: `3px solid ${c.accent}` }}>
               <div style={{ fontWeight: 700, fontSize: 13, color: c.text, marginBottom: 3 }}>{r.title}</div>
               <div style={{ fontSize: 12, color: c.accent, fontWeight: 600, marginBottom: 3 }}>{r.lab}</div>
               <div style={{ fontSize: 11, color: c.muted, marginBottom: 8 }}>{r.date}</div>
@@ -112,9 +111,9 @@ function CornellModal({ onClose, c }) {
             </div>
           ))}
 
-          <SectionLabel>Teaching Assistant</SectionLabel>
+          <SectionLabel accent={c.accent}>Teaching Assistant</SectionLabel>
           {CORNELL.ta.map((t, i) => (
-            <div key={i} style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: "14px 16px", marginBottom: 8, borderLeft: `3px solid ${LT}` }}>
+            <div key={i} style={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, padding: "14px 16px", marginBottom: 8, borderLeft: `3px solid ${c.accentSub}` }}>
               <div style={{ fontWeight: 700, fontSize: 13, color: c.text, marginBottom: 3 }}>{t.course}</div>
               <div style={{ fontSize: 11, color: c.muted, marginBottom: 8 }}>{t.date}</div>
               <div style={{ fontSize: 12, color: c.muted, lineHeight: 1.65 }}>{t.desc}</div>
@@ -142,7 +141,7 @@ function Modal({ item, type, onClose, c }) {
       <div style={{ width: "100%", maxWidth: 660, background: c.modalBg, border: `1px solid ${c.border}`, borderRadius: 12, overflow: "hidden", position: "relative", maxHeight: "90vh", display: "flex", flexDirection: "column" }}>
         <div style={{ padding: "24px 24px 0", flexShrink: 0 }}>
           <button onClick={onClose} style={{ position: "absolute", top: 16, right: 16, background: c.card, border: `1px solid ${c.border}`, borderRadius: 6, color: c.muted, width: 30, height: 30, cursor: "pointer", fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "inherit" }}>✕</button>
-          <span style={{ background: "#0D3A30", border: `1px solid ${T}`, color: c.accent, fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 4, display: "inline-block", marginBottom: 12 }}>{isProject ? item.company : item.role}</span>
+          <span style={{ background: c.accentBadgeBg, border: `1px solid ${c.accentBadgeBorder}`, color: c.accent, fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 4, display: "inline-block", marginBottom: 12 }}>{isProject ? item.company : item.role}</span>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: c.text, marginBottom: 6, paddingRight: 40 }}>{isProject ? item.name : item.company}</h2>
           <p style={{ color: c.accentSub, fontSize: 13, fontWeight: 600, marginBottom: 20 }}>{isProject ? item.metric : item.date}</p>
         </div>
@@ -173,7 +172,7 @@ export default function Portfolio() {
   const c = isDark ? DARK : LIGHT;
 
   const chip = (useDark) => ({
-    background: useDark ? c.chipDark : T,
+    background: useDark ? c.chipDark : c.accent,
     color: useDark ? c.text : "#fff",
     fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 4, display: "inline-block",
   });
@@ -217,7 +216,7 @@ export default function Portfolio() {
       {showCornell && <CornellModal onClose={() => setShowCornell(false)} c={c} />}
 
       <nav style={{ position: "sticky", top: 0, zIndex: 100, background: c.nav, borderBottom: `1px solid ${c.border}`, display: "flex", alignItems: "center", padding: "0 20px", height: 50, gap: 3, backdropFilter: "blur(12px)" }}>
-        <div style={{ width: 30, height: 30, borderRadius: "50%", background: T, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "#fff", flexShrink: 0, marginRight: 8 }}>SL</div>
+        <div style={{ width: 30, height: 30, borderRadius: "50%", background: c.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "#fff", flexShrink: 0, marginRight: 8 }}>SL</div>
         {TABS.map(tab => (
           <button key={tab} onClick={() => go(tab)} style={{ background: active === tab ? c.tabActive : "transparent", border: active === tab ? `1px solid ${c.border}` : "1px solid transparent", borderRadius: 6, padding: "4px 11px", fontSize: 12, color: active === tab ? c.text : c.muted, fontWeight: active === tab ? 700 : 400, cursor: "pointer", fontFamily: "inherit", transition: "all 0.15s" }}>{tab}</button>
         ))}
@@ -253,7 +252,7 @@ export default function Portfolio() {
           <div
             onClick={() => setShowCornell(true)}
             style={{ ...cardStyle, padding: 16, display: "flex", alignItems: "center", gap: 14, cursor: "pointer", transition: "border-color 0.15s" }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = T}
+            onMouseEnter={e => e.currentTarget.style.borderColor = c.accent}
             onMouseLeave={e => e.currentTarget.style.borderColor = c.border}
           >
             <div style={{ width: 38, height: 38, background: "#B31B1B", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>🎓</div>
@@ -271,11 +270,11 @@ export default function Portfolio() {
           <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 6 }}>experience</h2>
           <p style={{ color: c.muted, fontSize: 12, marginBottom: 24 }}>Click any card to see full details</p>
           <div style={{ position: "relative", paddingLeft: 26 }}>
-            <div style={{ position: "absolute", left: 5, top: 8, bottom: 8, width: 2, background: T, borderRadius: 2 }} />
+            <div style={{ position: "absolute", left: 5, top: 8, bottom: 8, width: 2, background: c.accent, borderRadius: 2 }} />
             {JOBS.map(job => (
               <div key={job.id} style={{ position: "relative", marginBottom: 10 }}>
-                <div style={{ position: "absolute", left: -22, top: 16, width: 12, height: 12, borderRadius: "50%", background: T, border: `2px solid ${LT}`, zIndex: 1 }} />
-                <div style={{ ...cardStyle, borderLeft: `3px solid ${T}`, cursor: "pointer" }} onClick={() => setModal({ item: job, type: "experience" })}>
+                <div style={{ position: "absolute", left: -22, top: 16, width: 12, height: 12, borderRadius: "50%", background: c.accent, border: `2px solid ${c.accentSub}`, zIndex: 1 }} />
+                <div style={{ ...cardStyle, borderLeft: `3px solid ${c.accent}`, cursor: "pointer" }} onClick={() => setModal({ item: job, type: "experience" })}>
                   <div style={{ padding: "14px 18px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8 }}>
                     <div>
                       <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 3 }}>{job.company}</div>
@@ -304,7 +303,7 @@ export default function Portfolio() {
                 <div style={{ display: "grid", gridTemplateColumns: "130px 1fr" }}>
                   <div style={{ background: isDark ? "#111" : "#E0E0E0", display: "flex", alignItems: "center", justifyContent: "center", color: c.muted, fontSize: 11, minHeight: 115 }}>▶ demo</div>
                   <div style={{ padding: "16px 20px" }}>
-                    <div style={{ marginBottom: 8 }}><span style={{ background: "#0D3A30", border: `1px solid ${T}`, color: c.accent, fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 4 }}>{p.company}</span></div>
+                    <div style={{ marginBottom: 8 }}><span style={{ background: c.accentBadgeBg, border: `1px solid ${c.accentBadgeBorder}`, color: c.accent, fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 4 }}>{p.company}</span></div>
                     <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>{p.name}</h3>
                     <p style={{ color: c.accentSub, fontSize: 12, fontWeight: 600, marginBottom: 6 }}>{p.metric}</p>
                     <p style={{ color: c.muted, fontSize: 12, lineHeight: 1.6, marginBottom: 8 }}>{p.desc.slice(0, 130)}...</p>
@@ -324,7 +323,7 @@ export default function Portfolio() {
         <div style={{ maxWidth: 520, margin: "0 auto", padding: "0 24px" }}>
           <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 14 }}>get in touch</h2>
           <p style={{ color: c.muted, fontSize: 13, lineHeight: 1.75, marginBottom: 24 }}>Currently open to full-time SWE roles in infrastructure, ML platforms, and distributed systems. Best way to reach me is email — I respond quickly.</p>
-          <a href="mailto:ssl242@cornell.edu" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "13px 0", background: T, borderRadius: 8, color: "#fff", fontWeight: 700, fontSize: 14, textDecoration: "none", marginBottom: 10, boxSizing: "border-box" }}>✉ ssl242@cornell.edu</a>
+          <a href="mailto:ssl242@cornell.edu" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "13px 0", background: c.accent, borderRadius: 8, color: "#fff", fontWeight: 700, fontSize: 14, textDecoration: "none", marginBottom: 10, boxSizing: "border-box" }}>✉ ssl242@cornell.edu</a>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 28 }}>
             {["GitHub ↗", "LinkedIn ↗", "Resume PDF ↗"].map(l => (
               <a key={l} href="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px 0", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontWeight: 500, fontSize: 12, textDecoration: "none" }}>{l}</a>
