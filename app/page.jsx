@@ -1040,10 +1040,9 @@ export default function Portfolio() {
                 I'm a Computer Science student at Cornell University graduating
                 in May 2026, and I love building systems that work at scale.
                 Over the past three years I've interned at Google, Roblox
-                (twice), and Amazon Robotics — shipping systems that process
-                hundreds of millions of users, save over $1.3M annually through
-                ML-driven optimization, and build ML recommendation tools
-                running on Google Cloud.
+                (twice), and Amazon Robotics where I've shipped systems that process
+                hundreds of millions of users, saved costs through ML infrastructure 
+                optimization, and built ML recommendation engines  on Google Cloud.
               </p>
               <p
                 style={{
@@ -1365,8 +1364,8 @@ export default function Portfolio() {
             }}
           >
             {[
-              ["GitHub ↗", "https://github.com/YOUR_USERNAME"],
-              ["LinkedIn ↗", "https://linkedin.com/in/YOUR_USERNAME"],
+              ["GitHub ↗", "https://github.com/Solomon-Lee"],
+              ["LinkedIn ↗", "https://linkedin.com/in/solomonslee"],
               ["Resume PDF ↗", "/resume.pdf"],
             ].map(([l, href]) => (
               <a
