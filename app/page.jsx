@@ -6,15 +6,17 @@ const DARK = {
   bg: "#000000", sectionAlt: "#050505", card: "#1A1A1A", border: "#2E2E2E",
   text: "#FFFFFF", muted: "#A0A0A0", nav: "rgba(0,0,0,0.94)", tabActive: "#262626",
   chipDark: "#2A2A2A", photoBox: "#1A1A1A", modalBg: "#111111",
+  accent: "#0D9488", accentSub: "#5EEAD4", accentBadgeBg: "#0D3A30", accentBadgeBorder: "#0D9488",
 };
 const LIGHT = {
   bg: "#FFFFFF", sectionAlt: "#F7F7F7", card: "#F2F2F2", border: "#E0E0E0",
-  text: "#0A0A0A", muted: "#666666", nav: "rgba(255,255,255,0.94)", tabActive: "#E8E8E8",
+  text: "#0A0A0A", muted: "#555555", nav: "rgba(255,255,255,0.94)", tabActive: "#E8E8E8",
   chipDark: "#E0E0E0", photoBox: "#E8E8E8", modalBg: "#FFFFFF",
+  accent: "#0F766E", accentSub: "#134E4A", accentBadgeBg: "#CCFBF1", accentBadgeBorder: "#0F766E",
 };
 
 const T = "#0D9488", LT = "#5EEAD4";
-const TABS = ["home", "about", "experience", "projects", "my life", "contact"];
+const TABS = ["home", "about", "experience", "projects", "contact"];
 const FULL_TEXT = "hello world, it's Solomon!";
 const TYPE_SPEED = 65;
 
