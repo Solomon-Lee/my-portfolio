@@ -333,7 +333,7 @@ function ContactForm({ c }) {
           opacity: status === "sending" ? 0.7 : 1,
         }}
       >
-        {status === "sending" ? "sending..." : "send"}
+        {status === "sending" ? "Sending..." : "Send"}
       </button>
     </form>
   );
