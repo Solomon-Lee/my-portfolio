@@ -14,7 +14,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Solomon Lee",
-  description: "Software Engineer · Cornell CS '26 · Databricks",
+  description: "Solomon Lee — Software Engineer at Databricks, Cornell CS '26. Building infrastructure and ML systems at scale.",
+  keywords: "Solomon Lee, Solomon Lee software engineer, Solomon Lee Cornell, Solomon Lee Databricks",
+  openGraph: {
+    title: "Solomon Lee",
+    description: "Solomon Lee — Software Engineer at Databricks, Cornell CS '26.",
+    url: "https://solomonslee.dev",
+    siteName: "Solomon Lee",
+  },
 };
 
 export default function RootLayout({
