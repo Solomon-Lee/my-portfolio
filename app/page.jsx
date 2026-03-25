@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 const DARK = {
   bg: "#000000",
@@ -433,17 +434,7 @@ function CornellModal({ onClose, c }) {
               marginBottom: 6,
             }}
           >
-            <img
-              src="/cornell.png"
-              alt="Cornell"
-              style={{
-                width: 42,
-                height: 42,
-                borderRadius: 8,
-                objectFit: "cover",
-                flexShrink: 0,
-              }}
-            />
+            <Image src="/cornell.png" alt="Cornell" width={42} height={42} style={{ borderRadius: 8, objectFit: "cover" }} />
             <div>
               <h2
                 style={{
@@ -1000,18 +991,13 @@ export default function Portfolio() {
               marginBottom: 24,
             }}
           >
-            <img
-              src="/profile.jpg"
-              alt="Solomon Lee"
-              style={{
-                width: 160,
-                height: 190,
-                borderRadius: 10,
-                objectFit: "cover",
-                objectPosition: "center top",
-                flexShrink: 0,
-              }}
-            />
+            <Image
+  src="/photo.jpg"
+  alt="Solomon Lee"
+  width={160}
+  height={190}
+  style={{ borderRadius: 10, objectFit: "cover", objectPosition: "center top" }}
+/>
             <div>
               <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>
                 Solomon Lee
@@ -1078,17 +1064,7 @@ export default function Portfolio() {
             onMouseEnter={(e) => (e.currentTarget.style.borderColor = c.accent)}
             onMouseLeave={(e) => (e.currentTarget.style.borderColor = c.border)}
           >
-            <img
-              src="/cornell.png"
-              alt="Cornell"
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 8,
-                objectFit: "cover",
-                flexShrink: 0,
-              }}
-            />
+            <Image src="/cornell.png" alt="Cornell" width={38} height={38} style={{ borderRadius: 8, objectFit: "cover" }} />
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 2 }}>
                 Cornell University · B.S. Computer Science
