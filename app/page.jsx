@@ -322,8 +322,37 @@ export default function Portfolio() {
       <section ref={el => refs.current.contact = el} style={{ padding: "40px 0" }}>
         <div style={{ maxWidth: 520, margin: "0 auto", padding: "0 24px" }}>
           <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 14 }}>get in touch</h2>
-          <p style={{ color: c.muted, fontSize: 13, lineHeight: 1.75, marginBottom: 24 }}>Currently open to full-time SWE roles in infrastructure, ML platforms, and distributed systems. Best way to reach me is email — I respond quickly.</p>
-          <a href="mailto:ssl242@cornell.edu" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "13px 0", background: c.accent, borderRadius: 8, color: "#fff", fontWeight: 700, fontSize: 14, textDecoration: "none", marginBottom: 10, boxSizing: "border-box" }}>✉ ssl242@cornell.edu</a>
+          <p style={{ color: c.muted, fontSize: 13, lineHeight: 1.75, marginBottom: 24 }}>
+            Currently open to full-time SWE roles in infrastructure, ML platforms, and distributed systems. Best way to reach me is email — I respond quickly.
+          </p>
+
+          <form action="https://formspree.io/f/mqegzgee" method="POST">
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Name</label>
+              <input name="name" type="text" placeholder="Your name" required
+                style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box" }} />
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Email</label>
+              <input name="email" type="email" placeholder="Your email" required
+                style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box" }} />
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Subject</label>
+              <input name="subject" type="text" placeholder="Subject" required
+                style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box" }} />
+            </div>
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Message</label>
+              <textarea name="message" placeholder="Your message" required rows={6}
+                style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", resize: "vertical", boxSizing: "border-box" }} />
+            </div>
+            <button type="submit"
+              style={{ width: "100%", padding: "13px 0", background: c.accent, border: "none", borderRadius: 8, color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit", marginBottom: 24 }}>
+              send
+            </button>
+          </form>
+
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 28 }}>
             {["GitHub ↗", "LinkedIn ↗", "Resume PDF ↗"].map(l => (
               <a key={l} href="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px 0", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontWeight: 500, fontSize: 12, textDecoration: "none" }}>{l}</a>
@@ -331,7 +360,7 @@ export default function Portfolio() {
           </div>
           <div style={{ borderTop: `1px solid ${c.border}`, paddingTop: 18 }}>
             <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4 }}>Solomon S. Lee</div>
-            <div style={{ color: c.muted, fontSize: 12 }}>Cornell University CS '26 · Databricks SWE</div>
+            <div style={{ color: c.muted, fontSize: 12 }}>Cornell University CS `26 · Databricks SWE</div>
           </div>
         </div>
       </section>
