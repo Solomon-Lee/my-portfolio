@@ -79,7 +79,7 @@ const JOBS = [
   {
     id: 3,
     company: "Amazon Robotics",
-    role: "Software Engineer Co-op — Amazon Robotics Hardware Services",
+    role: "Software Engineer Co-op — AR Hardware Services",
     date: "Aug – Dec 2024",
     tags: ["Python", "AWS", "C++", "Robotics"],
     desc: "Achieved a 700% throughput improvement via Python concurrency refactor on a robotic path-planning pipeline. Resolved a live data-corruption incident affecting production warehouse systems.",
