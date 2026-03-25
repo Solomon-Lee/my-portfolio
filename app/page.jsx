@@ -55,7 +55,7 @@ const JOBS = [
   {
     id: 0,
     company: "Databricks",
-    role: "Software Engineer",
+    role: "Software Engineer - Unity Catalog",
     date: "Aug 2026 – Present",
     tags: ["Go", "Python", "Spark", "Delta Lake"],
     desc: "Building distributed data processing infrastructure on the Databricks Lakehouse platform. Contributing to core Spark runtime performance optimizations and platform reliability systems.",
@@ -63,7 +63,7 @@ const JOBS = [
   {
     id: 1,
     company: "Google",
-    role: "Software Engineer Intern",
+    role: "Software Engineer Intern - Google Core Airlock",
     date: "Aug – Nov 2025",
     tags: ["Java", "GCP", "Vertex AI", "Spring", "MCP"],
     desc: "Built an AI-powered package recommendation engine and MCP service for Airlock, Google's internal package management platform. Deployed a Java Spring MCP server on Cloud Run with UberProxy auth. Shipped in both Gemini Code Assist and Gemini CLI, eliminating a common class of hallucination errors in agentic coding workflows.",
@@ -79,7 +79,7 @@ const JOBS = [
   {
     id: 3,
     company: "Amazon Robotics",
-    role: "Software Engineer Co-op",
+    role: "Software Engineer Co-op - Amazon Robotics Hardware Services",
     date: "Aug – Dec 2024",
     tags: ["Python", "AWS", "C++", "Robotics"],
     desc: "Achieved a 700% throughput improvement via Python concurrency refactor on a robotic path-planning pipeline. Resolved a live data-corruption incident affecting production warehouse systems.",
@@ -87,7 +87,7 @@ const JOBS = [
   {
     id: 4,
     company: "Roblox",
-    role: "SWE Intern",
+    role: "SWE Intern - Avatar Core Services",
     date: "May – Aug 2024",
     tags: ["Python", "Spark", "PySpark", "SQS", "Hive"],
     desc: "Developed an end-to-end rollback and data metric gathering tool handling operations that modified user data and deserialized user metadata to gather metrics. Helped resolve large-scale on-call data corruption issues impacting millions of users. Increased engineering efficiency by 700% using Python workers and threads to enhance message throughput. Utilized Spark, Hive, PySpark Notebooks, and SQS to build tables, optimize message pipelines, and develop low-latency processors.",
