@@ -44,10 +44,10 @@ const TYPE_SPEED = 65;
 
 // ── FILL THESE IN ────────────────────────────────────────────────────────────
 const CORNELL = {
-  gpa: "TBA",
+  gpa: "3.7",
   courses: ["TBA", "TBA", "TBA", "TBA", "TBA", "TBA"],
-  research: [{ title: "TBA", lab: "TBA", date: "TBA", desc: "TBA" }],
-  ta: [{ course: "TBA", date: "TBA", desc: "TBA" }],
+  research: [{ title: "TBA", lab: "Computer Systems Lab", date: "TBA", desc: "TBA" }, { title: "TBA", lab: "Data Analytics Lab", date: "TBA", desc: "TBA" }],
+  ta: [{ course: "CS1112 (Introduction to Python)", date: "TBA", desc: "TBA" }, { course: "TBA", date: "TBA", desc: "TBA" }],
 };
 // ─────────────────────────────────────────────────────────────────────────────
 
