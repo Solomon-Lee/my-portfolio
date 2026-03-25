@@ -147,44 +147,192 @@ function ContactForm({ c }) {
     setStatus("sending");
     const data = new FormData(e.target);
     const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-      method: "POST", body: data, headers: { Accept: "application/json" },
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
     });
     setStatus(res.ok ? "sent" : "error");
     if (res.ok) e.target.reset();
   };
 
-  if (status === "sent") return (
-    <div style={{ background: c.card, border: `1px solid ${c.accent}`, borderRadius: 8, padding: "20px 16px", textAlign: "center", marginBottom: 24 }}>
-      <p style={{ color: c.accent, fontWeight: 700, fontSize: 14, marginBottom: 4 }}>Message sent!</p>
-      <p style={{ color: c.muted, fontSize: 13 }}>Thanks for reaching out — I'll get back to you soon.</p>
-    </div>
-  );
+  if (status === "sent")
+    return (
+      <div
+        style={{
+          background: c.card,
+          border: `1px solid ${c.accent}`,
+          borderRadius: 8,
+          padding: "20px 16px",
+          textAlign: "center",
+          marginBottom: 24,
+        }}
+      >
+        <p
+          style={{
+            color: c.accent,
+            fontWeight: 700,
+            fontSize: 14,
+            marginBottom: 4,
+          }}
+        >
+          Message sent!
+        </p>
+        <p style={{ color: c.muted, fontSize: 13 }}>
+          Thanks for reaching out — I'll get back to you soon.
+        </p>
+      </div>
+    );
 
   return (
     <form onSubmit={handleSubmit}>
       <div style={{ marginBottom: 16 }}>
-        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Name</label>
-        <input name="name" type="text" placeholder="Your name" required
-          style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box" }} />
+        <label
+          style={{
+            display: "block",
+            fontSize: 12,
+            fontWeight: 600,
+            color: c.muted,
+            marginBottom: 6,
+          }}
+        >
+          Name
+        </label>
+        <input
+          name="name"
+          type="text"
+          placeholder="Your name"
+          required
+          style={{
+            width: "100%",
+            padding: "10px 14px",
+            background: c.card,
+            border: `1px solid ${c.border}`,
+            borderRadius: 8,
+            color: c.text,
+            fontSize: 13,
+            fontFamily: "inherit",
+            outline: "none",
+            boxSizing: "border-box",
+          }}
+        />
       </div>
       <div style={{ marginBottom: 16 }}>
-        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Email</label>
-        <input name="email" type="email" placeholder="Your email" required
-          style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box" }} />
+        <label
+          style={{
+            display: "block",
+            fontSize: 12,
+            fontWeight: 600,
+            color: c.muted,
+            marginBottom: 6,
+          }}
+        >
+          Email
+        </label>
+        <input
+          name="email"
+          type="email"
+          placeholder="Your email"
+          required
+          style={{
+            width: "100%",
+            padding: "10px 14px",
+            background: c.card,
+            border: `1px solid ${c.border}`,
+            borderRadius: 8,
+            color: c.text,
+            fontSize: 13,
+            fontFamily: "inherit",
+            outline: "none",
+            boxSizing: "border-box",
+          }}
+        />
       </div>
       <div style={{ marginBottom: 16 }}>
-        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Subject</label>
-        <input name="subject" type="text" placeholder="Subject" required
-          style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box" }} />
+        <label
+          style={{
+            display: "block",
+            fontSize: 12,
+            fontWeight: 600,
+            color: c.muted,
+            marginBottom: 6,
+          }}
+        >
+          Subject
+        </label>
+        <input
+          name="subject"
+          type="text"
+          placeholder="Subject"
+          required
+          style={{
+            width: "100%",
+            padding: "10px 14px",
+            background: c.card,
+            border: `1px solid ${c.border}`,
+            borderRadius: 8,
+            color: c.text,
+            fontSize: 13,
+            fontFamily: "inherit",
+            outline: "none",
+            boxSizing: "border-box",
+          }}
+        />
       </div>
       <div style={{ marginBottom: 20 }}>
-        <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: c.muted, marginBottom: 6 }}>Message</label>
-        <textarea name="message" placeholder="Your message" required rows={6}
-          style={{ width: "100%", padding: "10px 14px", background: c.card, border: `1px solid ${c.border}`, borderRadius: 8, color: c.text, fontSize: 13, fontFamily: "inherit", outline: "none", resize: "vertical", boxSizing: "border-box" }} />
+        <label
+          style={{
+            display: "block",
+            fontSize: 12,
+            fontWeight: 600,
+            color: c.muted,
+            marginBottom: 6,
+          }}
+        >
+          Message
+        </label>
+        <textarea
+          name="message"
+          placeholder="Your message"
+          required
+          rows={6}
+          style={{
+            width: "100%",
+            padding: "10px 14px",
+            background: c.card,
+            border: `1px solid ${c.border}`,
+            borderRadius: 8,
+            color: c.text,
+            fontSize: 13,
+            fontFamily: "inherit",
+            outline: "none",
+            resize: "vertical",
+            boxSizing: "border-box",
+          }}
+        />
       </div>
-      {status === "error" && <p style={{ color: "#EF4444", fontSize: 12, marginBottom: 12 }}>Something went wrong. Please try again.</p>}
-      <button type="submit" disabled={status === "sending"}
-        style={{ width: "100%", padding: "13px 0", background: c.accent, border: "none", borderRadius: 8, color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit", marginBottom: 24, opacity: status === "sending" ? 0.7 : 1 }}>
+      {status === "error" && (
+        <p style={{ color: "#EF4444", fontSize: 12, marginBottom: 12 }}>
+          Something went wrong. Please try again.
+        </p>
+      )}
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        style={{
+          width: "100%",
+          padding: "13px 0",
+          background: c.accent,
+          border: "none",
+          borderRadius: 8,
+          color: "#fff",
+          fontWeight: 700,
+          fontSize: 14,
+          cursor: "pointer",
+          fontFamily: "inherit",
+          marginBottom: 24,
+          opacity: status === "sending" ? 0.7 : 1,
+        }}
+      >
         {status === "sending" ? "sending..." : "send"}
       </button>
     </form>
@@ -1216,10 +1364,16 @@ export default function Portfolio() {
               marginBottom: 28,
             }}
           >
-            {["GitHub ↗", "LinkedIn ↗", "Resume PDF ↗"].map((l) => (
+            {[
+              ["GitHub ↗", "https://github.com/YOUR_USERNAME"],
+              ["LinkedIn ↗", "https://linkedin.com/in/YOUR_USERNAME"],
+              ["Resume PDF ↗", "/resume.pdf"],
+            ].map(([l, href]) => (
               <a
                 key={l}
-                href="#"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display: "flex",
                   alignItems: "center",
