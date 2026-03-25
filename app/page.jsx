@@ -471,7 +471,7 @@ function CornellModal({ onClose, c }) {
               marginBottom: 20,
             }}
           >
-            Expected May 2026
+            May 2026
           </p>
         </div>
 
@@ -1093,7 +1093,7 @@ export default function Portfolio() {
                 Cornell University · B.S. Computer Science
               </div>
               <div style={{ color: c.muted, fontSize: 12 }}>
-                Expected May 2026 · College of Engineering
+                May 2026 · College of Engineering
               </div>
             </div>
             <span
