@@ -255,7 +255,7 @@ export default function Portfolio() {
             onMouseEnter={e => e.currentTarget.style.borderColor = c.accent}
             onMouseLeave={e => e.currentTarget.style.borderColor = c.border}
           >
-            <div style={{ width: 38, height: 38, background: "#B31B1B", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>🎓</div>
+            <img src="/cornell.png" alt="Cornell" style={{ width: 38, height: 38, borderRadius: 8, objectFit: "cover", flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 2 }}>Cornell University · B.S. Computer Science</div>
               <div style={{ color: c.muted, fontSize: 12 }}>Expected May 2026 · College of Engineering</div>
