@@ -53,7 +53,7 @@ const JOBS = [
   {
     id: 0,
     company: "Databricks",
-    role: "Software Engineer - Engine",
+    role: "Software Engineer — Engine",
     date: "Aug 2026 – Present",
     tags: ["TBD"],
     desc: "Incoming Software Engineer at Databricks in Palo Alto, CA.",
@@ -61,7 +61,7 @@ const JOBS = [
   {
     id: 1,
     company: "Google",
-    role: "Software Engineer Intern - Google Core (Airlock)",
+    role: "Software Engineer Intern — Google Core (Airlock)",
     date: "Aug – Nov 2025",
     tags: ["Java", "GCP", "Vertex AI", "Spring", "MCP", "Dataflow"],
     desc: "Built an AI-powered package recommendation engine using Google Dataflow to ingest millions of package metadata records into Google Cloud Storage, integrated with Vertex AI Search to build searchable indexes. Developed a Model Context Protocol (MCP) tool that interfaces with the Vertex AI Search endpoint, enabling natural language queries in Gemini CLI for intelligent package management workflows. Developed and deployed a Java Spring AI MCP server on Google Cloud Run with a recommendation system accounting for relevance, popularity, ecosystem integration, and licensing, supporting key user journeys including package updates and vulnerability management.",
