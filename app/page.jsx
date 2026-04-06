@@ -1037,12 +1037,9 @@ export default function Portfolio() {
                 }}
               >
                 I'm a Computer Science student at Cornell University graduating
-                in May 2026, and I love building systems that work at scale.
+                in May 2026.
                 Over the past three years I've interned at Google, Roblox
-                (twice), and Amazon Robotics where I've shipped systems that
-                process hundreds of millions of users, saved costs through ML
-                infrastructure optimization, and built ML recommendation engines
-                on Google Cloud.
+                (twice), and Amazon Robotics.
               </p>
               <p
                 style={{
@@ -1053,11 +1050,9 @@ export default function Portfolio() {
                 }}
               >
                 I work mainly in Go, Python, and Java across Kubernetes, AWS,
-                and GCP, with hands-on experience in ML systems including LLM
+                and GCP, with experience in ML systems including LLM
                 fine-tuning, multi-modal pipelines, and model evaluation
-                frameworks. What excites me most is the space where
-                infrastructure meets intelligence: designing systems where ML
-                doesn't just live in theory but runs reliably in production.
+                frameworks.
               </p>
               <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13 }}>
                 Outside of work I'm usually playing sports / videogames with
