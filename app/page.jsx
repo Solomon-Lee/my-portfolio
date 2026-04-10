@@ -1019,12 +1019,14 @@ export default function Portfolio() {
                   marginBottom: 12,
                   breakInside: "avoid",
                   cursor: "default",
-                  transition: "box-shadow 0.2s",
+                  transition: "border-color 0.15s, box-shadow 0.2s",
                 }}
                 onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = c.accent;
                   e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
                 }}
                 onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = c.border;
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
@@ -1071,486 +1073,515 @@ export default function Portfolio() {
         </div>
       ) : (
         <>
-
-      <section
-        ref={(el) => (refs.current.home = el)}
-        style={sec({ padding: "60px 0 48px" })}
-      >
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
-          <p
-            style={{
-              fontSize: 11,
-              color: c.accent,
-              fontWeight: 700,
-              marginBottom: 16,
-              letterSpacing: 1.5,
-            }}
+          <section
+            ref={(el) => (refs.current.home = el)}
+            style={sec({ padding: "60px 0 48px" })}
           >
-            CORNELL CS '26 · DATABRICKS SWE
-          </p>
-          <h1
-            style={{
-              fontSize: 50,
-              fontWeight: 700,
-              lineHeight: 1.1,
-              letterSpacing: -1.5,
-              margin: 0,
-              whiteSpace: "nowrap",
-            }}
-          >
-            {displayed}
-            <span
-              style={{
-                display: "inline-block",
-                width: 3,
-                height: "0.85em",
-                background: done ? (blink ? c.text : "transparent") : c.text,
-                marginLeft: 4,
-                verticalAlign: "middle",
-                borderRadius: 1,
-              }}
-            />
-          </h1>
-        </div>
-      </section>
-
-      <section
-        ref={(el) => (refs.current.about = el)}
-        style={sec({ background: c.sectionAlt })}
-      >
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
-          <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>
-            about me
-          </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "260px 1fr",
-              gap: 28,
-              alignItems: "start",
-              marginBottom: 24,
-            }}
-          >
-            <Image
-              src="/profile.jpg"
-              alt="Solomon Lee"
-              width={260}
-              height={320}
-              style={{
-                borderRadius: 10,
-                objectFit: "cover",
-                objectPosition: "center top",
-              }}
-            />
-            <div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>
-                Solomon Lee
-              </h3>
+            <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
               <p
                 style={{
+                  fontSize: 11,
                   color: c.accent,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  marginBottom: 14,
+                  fontWeight: 700,
+                  marginBottom: 16,
+                  letterSpacing: 1.5,
                 }}
               >
-                Software Engineer · Cornell CS '26
+                CORNELL CS '26 · DATABRICKS SWE
               </p>
-              <p
+              <h1
                 style={{
-                  color: c.muted,
-                  lineHeight: 1.8,
-                  fontSize: 13,
-                  marginBottom: 10,
+                  fontSize: 50,
+                  fontWeight: 700,
+                  lineHeight: 1.1,
+                  letterSpacing: -1.5,
+                  margin: 0,
+                  whiteSpace: "nowrap",
                 }}
               >
-                I'm a Computer Science student at Cornell University graduating
-                in May 2026. Over the past three years I've interned at Google,
-                Roblox (twice), and Amazon Robotics.
-              </p>
-              <p
-                style={{
-                  color: c.muted,
-                  lineHeight: 1.8,
-                  fontSize: 13,
-                  marginBottom: 10,
-                }}
-              >
-                I work mainly in Go, Python, and Java across Kubernetes, AWS,
-                and GCP, with experience in ML systems including LLM
-                fine-tuning, multi-modal pipelines, and model evaluation
-                frameworks.
-              </p>
-              <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13 }}>
-                Outside of work I'm usually playing sports / videogames with
-                friends, working out, snowboarding, or spending time with my
-                girlfriend!
-              </p>
+                {displayed}
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: 3,
+                    height: "0.85em",
+                    background: done
+                      ? blink
+                        ? c.text
+                        : "transparent"
+                      : c.text,
+                    marginLeft: 4,
+                    verticalAlign: "middle",
+                    borderRadius: 1,
+                  }}
+                />
+              </h1>
             </div>
-          </div>
+          </section>
 
-          <div
-            onClick={() => setShowCornell(true)}
-            style={{
-              ...cardStyle,
-              padding: 16,
-              display: "flex",
-              alignItems: "center",
-              gap: 14,
-              cursor: "pointer",
-              transition: "border-color 0.15s, box-shadow 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = c.accent;
-              e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = c.border;
-              e.currentTarget.style.boxShadow = "none";
-            }}
+          <section
+            ref={(el) => (refs.current.about = el)}
+            style={sec({ background: c.sectionAlt })}
           >
-            <Image
-              src="/cornell.png"
-              alt="Cornell"
-              width={38}
-              height={38}
-              style={{ borderRadius: 8, objectFit: "cover" }}
-            />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 2 }}>
-                Cornell University · B.S. Computer Science
+            <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
+              <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>
+                about me
+              </h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "260px 1fr",
+                  gap: 28,
+                  alignItems: "start",
+                  marginBottom: 24,
+                }}
+              >
+                <Image
+                  src="/profile.jpg"
+                  alt="Solomon Lee"
+                  width={260}
+                  height={320}
+                  style={{
+                    borderRadius: 10,
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                  }}
+                />
+                <div>
+                  <h3
+                    style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}
+                  >
+                    Solomon Lee
+                  </h3>
+                  <p
+                    style={{
+                      color: c.accent,
+                      fontSize: 13,
+                      fontWeight: 600,
+                      marginBottom: 14,
+                    }}
+                  >
+                    Software Engineer · Cornell CS '26
+                  </p>
+                  <p
+                    style={{
+                      color: c.muted,
+                      lineHeight: 1.8,
+                      fontSize: 13,
+                      marginBottom: 10,
+                    }}
+                  >
+                    I'm a Computer Science student at Cornell University
+                    graduating in May 2026. Over the past three years I've
+                    interned at Google, Roblox (twice), and Amazon Robotics.
+                  </p>
+                  <p
+                    style={{
+                      color: c.muted,
+                      lineHeight: 1.8,
+                      fontSize: 13,
+                      marginBottom: 10,
+                    }}
+                  >
+                    I work mainly in Go, Python, and Java across Kubernetes,
+                    AWS, and GCP, with experience in ML systems including LLM
+                    fine-tuning, multi-modal pipelines, and model evaluation
+                    frameworks.
+                  </p>
+                  <p style={{ color: c.muted, lineHeight: 1.8, fontSize: 13 }}>
+                    Outside of work I'm usually playing sports / videogames with
+                    friends, working out, snowboarding, or spending time with my
+                    girlfriend!
+                  </p>
+                </div>
               </div>
-              <div style={{ color: c.muted, fontSize: 12 }}>
-                May 2026 · College of Engineering
+
+              <div
+                onClick={() => setShowCornell(true)}
+                style={{
+                  ...cardStyle,
+                  padding: 16,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 14,
+                  cursor: "pointer",
+                  transition: "border-color 0.15s, box-shadow 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = c.accent;
+                  e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = c.border;
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                <Image
+                  src="/cornell.png"
+                  alt="Cornell"
+                  width={38}
+                  height={38}
+                  style={{ borderRadius: 8, objectFit: "cover" }}
+                />
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{ fontWeight: 700, fontSize: 13, marginBottom: 2 }}
+                  >
+                    Cornell University · B.S. Computer Science
+                  </div>
+                  <div style={{ color: c.muted, fontSize: 12 }}>
+                    May 2026 · College of Engineering
+                  </div>
+                </div>
+                <span
+                  style={{
+                    color: c.accent,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    flexShrink: 0,
+                  }}
+                >
+                  View details ↗
+                </span>
               </div>
             </div>
-            <span
-              style={{
-                color: c.accent,
-                fontSize: 12,
-                fontWeight: 600,
-                flexShrink: 0,
-              }}
-            >
-              View details ↗
-            </span>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      <section ref={(el) => (refs.current.experience = el)} style={sec()}>
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
-          <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 6 }}>
-            experience
-          </h2>
-          <p style={{ color: c.muted, fontSize: 12, marginBottom: 24 }}>
-            Click any card to see full details
-          </p>
-          <div style={{ position: "relative", paddingLeft: 26 }}>
-            <div
-              style={{
-                position: "absolute",
-                left: 9,
-                top: 8,
-                bottom: 8,
-                width: 2,
-                background: c.accent,
-                borderRadius: 2,
-              }}
-            />
-            {JOBS.map((job) => (
-              <div
-                key={job.id}
-                style={{ position: "relative", marginBottom: 10 }}
-              >
+          <section ref={(el) => (refs.current.experience = el)} style={sec()}>
+            <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
+              <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 6 }}>
+                experience
+              </h2>
+              <p style={{ color: c.muted, fontSize: 12, marginBottom: 24 }}>
+                Click any card to see full details
+              </p>
+              <div style={{ position: "relative", paddingLeft: 26 }}>
                 <div
                   style={{
                     position: "absolute",
-                    left: -22,
-                    top: 16,
-                    width: 12,
-                    height: 12,
-                    borderRadius: "50%",
+                    left: 9,
+                    top: 8,
+                    bottom: 8,
+                    width: 2,
                     background: c.accent,
-                    border: `2px solid ${c.accentSub}`,
-                    zIndex: 1,
+                    borderRadius: 2,
                   }}
                 />
-                <div
-                  style={{
-                    ...cardStyle,
-                    borderLeft: `3px solid ${c.accent}`,
-                    cursor: "pointer",
-                    transition: "box-shadow 0.2s",
-                  }}
-                  onClick={() => setModal({ item: job, type: "experience" })}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
+                {JOBS.map((job) => (
                   <div
-                    style={{
-                      padding: "14px 18px",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
-                      flexWrap: "wrap",
-                      gap: 8,
-                    }}
+                    key={job.id}
+                    style={{ position: "relative", marginBottom: 10 }}
                   >
-                    <div>
-                      <div
-                        style={{
-                          fontWeight: 700,
-                          fontSize: 14,
-                          marginBottom: 3,
-                        }}
-                      >
-                        {job.company}
-                      </div>
-                      <div
-                        style={{
-                          color: c.accent,
-                          fontSize: 12,
-                          fontWeight: 600,
-                          marginBottom: 3,
-                        }}
-                      >
-                        {job.role}
-                      </div>
-                      <div style={{ color: c.muted, fontSize: 11 }}>
-                        {job.date}
-                      </div>
-                    </div>
                     <div
                       style={{
-                        display: "flex",
-                        gap: 5,
-                        flexWrap: "wrap",
-                        alignItems: "center",
+                        position: "absolute",
+                        left: -22,
+                        top: 16,
+                        width: 12,
+                        height: 12,
+                        borderRadius: "50%",
+                        background: c.accent,
+                        border: `2px solid ${c.accentSub}`,
+                        zIndex: 1,
+                      }}
+                    />
+                    <div
+                      style={{
+                        ...cardStyle,
+                        borderLeft: `3px solid ${c.accent}`,
+                        cursor: "pointer",
+                        transition: "border-color 0.15s, box-shadow 0.2s",
+                      }}
+                      onClick={() =>
+                        setModal({ item: job, type: "experience" })
+                      }
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = c.accent;
+                        e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = c.border;
+                        e.currentTarget.style.boxShadow = "none";
                       }}
                     >
-                      {job.tags.map((t) => (
-                        <span key={t} style={chip(true)}>
-                          {t}
-                        </span>
-                      ))}
-                      <span
+                      <div
                         style={{
-                          color: c.accent,
-                          fontSize: 11,
-                          marginLeft: 4,
-                          fontWeight: 600,
+                          padding: "14px 18px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          flexWrap: "wrap",
+                          gap: 8,
                         }}
                       >
-                        ↗
-                      </span>
+                        <div>
+                          <div
+                            style={{
+                              fontWeight: 700,
+                              fontSize: 14,
+                              marginBottom: 3,
+                            }}
+                          >
+                            {job.company}
+                          </div>
+                          <div
+                            style={{
+                              color: c.accent,
+                              fontSize: 12,
+                              fontWeight: 600,
+                              marginBottom: 3,
+                            }}
+                          >
+                            {job.role}
+                          </div>
+                          <div style={{ color: c.muted, fontSize: 11 }}>
+                            {job.date}
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: 5,
+                            flexWrap: "wrap",
+                            alignItems: "center",
+                          }}
+                        >
+                          {job.tags.map((t) => (
+                            <span key={t} style={chip(true)}>
+                              {t}
+                            </span>
+                          ))}
+                          <span
+                            style={{
+                              color: c.accent,
+                              fontSize: 11,
+                              marginLeft: 4,
+                              fontWeight: 600,
+                            }}
+                          >
+                            ↗
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
 
-      <section
-        ref={(el) => (refs.current.projects = el)}
-        style={sec({ background: c.sectionAlt })}
-      >
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
-          <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 6 }}>
-            projects
-          </h2>
-          <p style={{ color: c.muted, fontSize: 12, marginBottom: 24 }}>
-            Click any card to see full details
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {PROJECTS.map((p) => (
+          <section
+            ref={(el) => (refs.current.projects = el)}
+            style={sec({ background: c.sectionAlt })}
+          >
+            <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
+              <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 6 }}>
+                projects
+              </h2>
+              <p style={{ color: c.muted, fontSize: 12, marginBottom: 24 }}>
+                Click any card to see full details
+              </p>
               <div
-                key={p.id}
+                style={{ display: "flex", flexDirection: "column", gap: 10 }}
+              >
+                {PROJECTS.map((p) => (
+                  <div
+                    key={p.id}
+                    style={{
+                      ...cardStyle,
+                      cursor: "pointer",
+                      transition: "border-color 0.15s, box-shadow 0.2s",
+                    }}
+                    onClick={() => setModal({ item: p, type: "project" })}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = c.accent;
+                      e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = c.border;
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "130px 1fr",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: isDark ? "#111" : "#E0E0E0",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: c.muted,
+                          fontSize: 11,
+                          minHeight: 115,
+                        }}
+                      >
+                        ▶ demo
+                      </div>
+                      <div style={{ padding: "16px 20px" }}>
+                        <div style={{ marginBottom: 8 }}>
+                          <span
+                            style={{
+                              background: c.accentBadgeBg,
+                              border: `1px solid ${c.accentBadgeBorder}`,
+                              color: c.accent,
+                              fontSize: 10,
+                              fontWeight: 600,
+                              padding: "2px 8px",
+                              borderRadius: 4,
+                            }}
+                          >
+                            {p.company}
+                          </span>
+                        </div>
+                        <h3
+                          style={{
+                            fontSize: 14,
+                            fontWeight: 700,
+                            marginBottom: 4,
+                          }}
+                        >
+                          {p.name}
+                        </h3>
+                        <p
+                          style={{
+                            color: c.accentSub,
+                            fontSize: 12,
+                            fontWeight: 600,
+                            marginBottom: 6,
+                          }}
+                        >
+                          {p.metric}
+                        </p>
+                        <p
+                          style={{
+                            color: c.muted,
+                            fontSize: 12,
+                            lineHeight: 1.6,
+                            marginBottom: 8,
+                          }}
+                        >
+                          {p.desc.slice(0, 130)}...
+                        </p>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            flexWrap: "wrap",
+                            gap: 6,
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: 5,
+                              flexWrap: "wrap",
+                            }}
+                          >
+                            {p.tags.slice(0, 4).map((t) => (
+                              <span key={t} style={chip(true)}>
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                          <span
+                            style={{
+                              color: c.accent,
+                              fontSize: 11,
+                              fontWeight: 600,
+                            }}
+                          >
+                            View details ↗
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section
+            ref={(el) => (refs.current.contact = el)}
+            style={{ padding: "40px 0" }}
+          >
+            <div style={{ maxWidth: 520, margin: "0 auto", padding: "0 24px" }}>
+              <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 14 }}>
+                get in touch
+              </h2>
+              <p
                 style={{
-                  ...cardStyle,
-                  cursor: "pointer",
-                  transition: "box-shadow 0.2s",
-                }}
-                onClick={() => setModal({ item: p, type: "project" })}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "none";
+                  color: c.muted,
+                  fontSize: 13,
+                  lineHeight: 1.75,
+                  marginBottom: 24,
                 }}
               >
-                <div
-                  style={{ display: "grid", gridTemplateColumns: "130px 1fr" }}
-                >
-                  <div
+                Best way to reach me is email. I try to respond quickly!
+              </p>
+              <ContactForm c={c} />
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr",
+                  gap: 8,
+                  marginBottom: 28,
+                }}
+              >
+                {[
+                  ["GitHub ↗", "https://github.com/Solomon-Lee"],
+                  ["LinkedIn ↗", "https://linkedin.com/in/solomonslee"],
+                  ["Resume PDF ↗", "/resume.pdf"],
+                ].map(([l, href]) => (
+                  <a
+                    key={l}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
-                      background: isDark ? "#111" : "#E0E0E0",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: c.muted,
-                      fontSize: 11,
-                      minHeight: 115,
+                      padding: "10px 0",
+                      background: c.card,
+                      border: `1px solid ${c.border}`,
+                      borderRadius: 8,
+                      color: c.text,
+                      fontWeight: 500,
+                      fontSize: 12,
+                      textDecoration: "none",
+                      transition: "border-color 0.15s, box-shadow 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = c.accent;
+                      e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = c.border;
+                      e.currentTarget.style.boxShadow = "none";
                     }}
                   >
-                    ▶ demo
-                  </div>
-                  <div style={{ padding: "16px 20px" }}>
-                    <div style={{ marginBottom: 8 }}>
-                      <span
-                        style={{
-                          background: c.accentBadgeBg,
-                          border: `1px solid ${c.accentBadgeBorder}`,
-                          color: c.accent,
-                          fontSize: 10,
-                          fontWeight: 600,
-                          padding: "2px 8px",
-                          borderRadius: 4,
-                        }}
-                      >
-                        {p.company}
-                      </span>
-                    </div>
-                    <h3
-                      style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}
-                    >
-                      {p.name}
-                    </h3>
-                    <p
-                      style={{
-                        color: c.accentSub,
-                        fontSize: 12,
-                        fontWeight: 600,
-                        marginBottom: 6,
-                      }}
-                    >
-                      {p.metric}
-                    </p>
-                    <p
-                      style={{
-                        color: c.muted,
-                        fontSize: 12,
-                        lineHeight: 1.6,
-                        marginBottom: 8,
-                      }}
-                    >
-                      {p.desc.slice(0, 130)}...
-                    </p>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        flexWrap: "wrap",
-                        gap: 6,
-                      }}
-                    >
-                      <div
-                        style={{ display: "flex", gap: 5, flexWrap: "wrap" }}
-                      >
-                        {p.tags.slice(0, 4).map((t) => (
-                          <span key={t} style={chip(true)}>
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                      <span
-                        style={{
-                          color: c.accent,
-                          fontSize: 11,
-                          fontWeight: 600,
-                        }}
-                      >
-                        View details ↗
-                      </span>
-                    </div>
-                  </div>
+                    {l}
+                  </a>
+                ))}
+              </div>
+              <div
+                style={{ borderTop: `1px solid ${c.border}`, paddingTop: 18 }}
+              >
+                <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4 }}>
+                  Solomon S. Lee
+                </div>
+                <div style={{ color: c.muted, fontSize: 12 }}>
+                  Cornell University CS `26 · Databricks SWE
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        ref={(el) => (refs.current.contact = el)}
-        style={{ padding: "40px 0" }}
-      >
-        <div style={{ maxWidth: 520, margin: "0 auto", padding: "0 24px" }}>
-          <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 14 }}>
-            get in touch
-          </h2>
-          <p
-            style={{
-              color: c.muted,
-              fontSize: 13,
-              lineHeight: 1.75,
-              marginBottom: 24,
-            }}
-          >
-            Best way to reach me is email. I try to respond quickly!
-          </p>
-          <ContactForm c={c} />
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              gap: 8,
-              marginBottom: 28,
-            }}
-          >
-            {[
-              ["GitHub ↗", "https://github.com/Solomon-Lee"],
-              ["LinkedIn ↗", "https://linkedin.com/in/solomonslee"],
-              ["Resume PDF ↗", "/resume.pdf"],
-            ].map(([l, href]) => (
-              <a
-                key={l}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "10px 0",
-                  background: c.card,
-                  border: `1px solid ${c.border}`,
-                  borderRadius: 8,
-                  color: c.text,
-                  fontWeight: 500,
-                  fontSize: 12,
-                  textDecoration: "none",
-                  transition: "box-shadow 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                {l}
-              </a>
-            ))}
-          </div>
-          <div style={{ borderTop: `1px solid ${c.border}`, paddingTop: 18 }}>
-            <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4 }}>
-              Solomon S. Lee
             </div>
-            <div style={{ color: c.muted, fontSize: 12 }}>
-              Cornell University CS `26 · Databricks SWE
-            </div>
-          </div>
-        </div>
-      </section>
-
+          </section>
         </>
       )}
     </div>
