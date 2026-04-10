@@ -861,9 +861,82 @@ function Starfield({ isDark }) {
     });
     if (containerRef.current) ro.observe(containerRef.current);
 
+    function drawSaturn(t) {
+      const cx = canvas.width * 0.82;
+      const cy = canvas.height * 0.55;
+      const planetR = Math.min(canvas.width, canvas.height) * 0.1;
+      const tilt = -0.35;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(tilt);
+
+      // Outer glow
+      const glow = ctx.createRadialGradient(0, 0, planetR * 0.8, 0, 0, planetR * 2.5);
+      glow.addColorStop(0, "rgba(210, 180, 120, 0.06)");
+      glow.addColorStop(1, "rgba(210, 180, 120, 0)");
+      ctx.beginPath();
+      ctx.arc(0, 0, planetR * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // Ring behind planet (bottom half of ellipse)
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 2.2, planetR * 0.45, 0, 0, Math.PI);
+      ctx.strokeStyle = "rgba(190, 170, 130, 0.18)";
+      ctx.lineWidth = planetR * 0.18;
+      ctx.stroke();
+      // Second ring
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 1.7, planetR * 0.35, 0, 0, Math.PI);
+      ctx.strokeStyle = "rgba(200, 180, 140, 0.12)";
+      ctx.lineWidth = planetR * 0.1;
+      ctx.stroke();
+
+      // Planet body
+      const bodyGrad = ctx.createRadialGradient(
+        -planetR * 0.3, -planetR * 0.2, planetR * 0.1,
+        0, 0, planetR
+      );
+      bodyGrad.addColorStop(0, "rgba(225, 200, 150, 0.35)");
+      bodyGrad.addColorStop(0.5, "rgba(190, 160, 110, 0.28)");
+      bodyGrad.addColorStop(1, "rgba(140, 110, 70, 0.2)");
+      ctx.beginPath();
+      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.fillStyle = bodyGrad;
+      ctx.fill();
+
+      // Subtle banding on planet
+      const bandAlpha = 0.06 + Math.sin(t * 0.2) * 0.02;
+      for (let i = -3; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.ellipse(0, i * planetR * 0.2, planetR * 0.95, planetR * 0.06, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 240, 200, ${bandAlpha})`;
+        ctx.fill();
+      }
+
+      // Ring in front of planet (top half of ellipse)
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 2.2, planetR * 0.45, 0, Math.PI, Math.PI * 2);
+      ctx.strokeStyle = "rgba(190, 170, 130, 0.18)";
+      ctx.lineWidth = planetR * 0.18;
+      ctx.stroke();
+      // Second ring front
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 1.7, planetR * 0.35, 0, Math.PI, Math.PI * 2);
+      ctx.strokeStyle = "rgba(200, 180, 140, 0.12)";
+      ctx.lineWidth = planetR * 0.1;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
     function draw(time) {
       const t = time / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Saturn behind stars
+      drawSaturn(t);
 
       for (const s of stars) {
         const twinkle = Math.sin(t * s.speed + s.phase) * 0.3 + 0.7;
