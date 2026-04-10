@@ -54,6 +54,7 @@ const LIFE_PHOTOS = [
   { src: "/life/68BDCE2A-B219-462C-9455-03A230CC32EB_1_105_c.jpeg", caption: "Dressing up in the Forbidden City!"},
   { src: "/life/54BF910D-6140-4487-89F6-63849F4144FD_1_105_c.jpeg", caption: "Summer Palace Vibes!"},
   { src: "/life/406A303F-456A-42C9-8A83-C005C4807EDC_1_105_c.jpeg", caption: "Skiing in Japan with the Sis!"},
+  { src: "/life/B5CA8A6E-E9EA-44ED-8FFF-F3DD5ABBAA2B_1_105_c.jpeg", caption: "Xiao Mi!!!!"}
 ];
 
 const CORNELL = {
