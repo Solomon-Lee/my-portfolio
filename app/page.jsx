@@ -44,9 +44,25 @@ const TYPE_SPEED = 65;
 
 const CORNELL = {
   gpa: "3.7",
-  courses: ["Machine Learning", "Deep Learning", "Reinforcement Learning", "Operating Systems", "Probability and Statistics", "Computational Genomics", "Analysis of Algorithms", "Networking Systems"],
-  research: [{ title: "Data Analytics Lab", date: "SP25 - SP26" }, { title: "Computer Systems Lab", date: "FA22 - FA24"}],
-  ta: [{ course: "CS4782 (Deep Learning)", date: "SP26"}, { course: "CS4780 (Machine Learning)", date: "SP24 - FA25"}, { course: "CS1112 (Python)", date: "FA22 - SP23" }],
+  courses: [
+    "Machine Learning",
+    "Deep Learning",
+    "Reinforcement Learning",
+    "Operating Systems",
+    "Probability and Statistics",
+    "Computational Genomics",
+    "Analysis of Algorithms",
+    "Networking Systems",
+  ],
+  research: [
+    { title: "Data Analytics Lab", date: "SP25 - SP26" },
+    { title: "Computer Systems Lab", date: "FA22 - FA24" },
+  ],
+  ta: [
+    { course: "CS4782 (Deep Learning)", date: "SP26" },
+    { course: "CS4780 (Machine Learning)", date: "SP24 - FA25" },
+    { course: "CS1112 (Python)", date: "FA22 - SP23" },
+  ],
 };
 
 const JOBS = [
@@ -719,19 +735,38 @@ function Modal({ item, type, onClose, c }) {
           >
             {item.desc}
           </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              gap: 8,
-              marginBottom: 12,
-            }}
-          >
-            {["[ photo ]", "[ photo ]", "[ photo ]"].map((l, i) => (
+          {isProject && (
+            <>
               <div
-                key={i}
                 style={{
-                  height: 90,
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr",
+                  gap: 8,
+                  marginBottom: 12,
+                }}
+              >
+                {["[ photo ]", "[ photo ]", "[ photo ]"].map((l, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      height: 90,
+                      background: c.photoBox,
+                      border: `1px solid ${c.border}`,
+                      borderRadius: 8,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: c.muted,
+                      fontSize: 11,
+                    }}
+                  >
+                    {l}
+                  </div>
+                ))}
+              </div>
+              <div
+                style={{
+                  height: 140,
                   background: c.photoBox,
                   border: `1px solid ${c.border}`,
                   borderRadius: 8,
@@ -739,29 +774,14 @@ function Modal({ item, type, onClose, c }) {
                   alignItems: "center",
                   justifyContent: "center",
                   color: c.muted,
-                  fontSize: 11,
+                  fontSize: 12,
+                  marginBottom: 20,
                 }}
               >
-                {l}
+                ▶ [ video / demo ]
               </div>
-            ))}
-          </div>
-          <div
-            style={{
-              height: 140,
-              background: c.photoBox,
-              border: `1px solid ${c.border}`,
-              borderRadius: 8,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: c.muted,
-              fontSize: 12,
-              marginBottom: 20,
-            }}
-          >
-            ▶ [ video / demo ]
-          </div>
+            </>
+          )}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
             {item.tags.map((t) => (
               <span key={t} style={chip}>
@@ -1037,9 +1057,8 @@ export default function Portfolio() {
                 }}
               >
                 I'm a Computer Science student at Cornell University graduating
-                in May 2026.
-                Over the past three years I've interned at Google, Roblox
-                (twice), and Amazon Robotics.
+                in May 2026. Over the past three years I've interned at Google,
+                Roblox (twice), and Amazon Robotics.
               </p>
               <p
                 style={{
