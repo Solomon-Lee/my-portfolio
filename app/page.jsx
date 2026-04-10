@@ -804,6 +804,133 @@ function Modal({ item, type, onClose, c }) {
   );
 }
 
+function Starfield({ isDark }) {
+  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isDark) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animId;
+    let stars = [];
+    let shootingStars = [];
+    let lastShootTime = 0;
+
+    function resize() {
+      const container = containerRef.current;
+      if (!container) return;
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+    }
+
+    function initStars() {
+      stars = [];
+      for (let i = 0; i < 120; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: 0.5 + Math.random() * 1.5,
+          baseAlpha: 0.3 + Math.random() * 0.7,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.3 + Math.random() * 0.7,
+          hue: 200 + Math.random() * 40,
+        });
+      }
+    }
+
+    function spawnShootingStar(now) {
+      shootingStars.push({
+        x: Math.random() * canvas.width * 0.8,
+        y: Math.random() * canvas.height * 0.3,
+        len: 60 + Math.random() * 80,
+        speed: 6 + Math.random() * 6,
+        angle: Math.PI / 6 + Math.random() * 0.3,
+        life: 0,
+        maxLife: 40 + Math.random() * 30,
+      });
+      lastShootTime = now;
+    }
+
+    resize();
+    initStars();
+
+    const ro = new ResizeObserver(() => {
+      resize();
+      initStars();
+    });
+    if (containerRef.current) ro.observe(containerRef.current);
+
+    function draw(time) {
+      const t = time / 1000;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const s of stars) {
+        const twinkle = Math.sin(t * s.speed + s.phase) * 0.3 + 0.7;
+        const alpha = s.baseAlpha * twinkle;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${s.hue}, 60%, 88%, ${alpha})`;
+        ctx.fill();
+      }
+
+      if (time - lastShootTime > 2500 + Math.random() * 3000 && shootingStars.length < 2) {
+        spawnShootingStar(time);
+      }
+
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const ss = shootingStars[i];
+        ss.life++;
+        const progress = ss.life / ss.maxLife;
+        const alpha = progress < 0.5 ? 1 : 1 - (progress - 0.5) * 2;
+        const headX = ss.x + Math.cos(ss.angle) * ss.speed * ss.life;
+        const headY = ss.y + Math.sin(ss.angle) * ss.speed * ss.life;
+        const tailX = headX - Math.cos(ss.angle) * ss.len;
+        const tailY = headY - Math.sin(ss.angle) * ss.len;
+
+        const grad = ctx.createLinearGradient(tailX, tailY, headX, headY);
+        grad.addColorStop(0, `rgba(255,255,255,0)`);
+        grad.addColorStop(1, `rgba(255,255,255,${alpha * 0.8})`);
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(headX, headY);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        if (ss.life >= ss.maxLife) shootingStars.splice(i, 1);
+      }
+
+      animId = requestAnimationFrame(draw);
+    }
+
+    animId = requestAnimationFrame(draw);
+    return () => {
+      cancelAnimationFrame(animId);
+      ro.disconnect();
+    };
+  }, [isDark]);
+
+  if (!isDark) return null;
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        overflow: "hidden",
+        pointerEvents: "none",
+      }}
+    >
+      <canvas ref={canvasRef} style={{ display: "block", width: "100%", height: "100%" }} />
+    </div>
+  );
+}
+
 export default function Portfolio() {
   const [isDark, setIsDark] = useState(true);
   const [active, setActive] = useState("home");
@@ -1075,9 +1202,10 @@ export default function Portfolio() {
         <>
           <section
             ref={(el) => (refs.current.home = el)}
-            style={sec({ padding: "60px 0 48px" })}
+            style={sec({ padding: "60px 0 48px", position: "relative" })}
           >
-            <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
+            <Starfield isDark={isDark} />
+            <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
               <p
                 style={{
                   fontSize: 11,
