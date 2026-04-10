@@ -47,7 +47,7 @@ const LIFE_PHOTOS = [
   { src: "/life/90E01CF2-8DC3-4B4A-A5B4-A74069B9D35F.jpeg" },
   { src: "/life/F73D66E0-6DCE-4027-A777-5B17506280E0_1_105_c.jpeg", caption: "The Streets of Bratislava." },
   { src: "/life/E7670BB4-40BC-4B84-AB4F-AC6341EADE92.jpeg", caption: "Finished a Porsche Cayman Track Day at the Red Bull Ring!" },
-  { src: "/life/placeholder5.jpg" },
+  { src: "/life/3DDE2CF1-0A59-4EE6-92BA-345AF91D8B9B_4_5005_c.jpeg", caption: "In Boston Before Spring Break 2026!" },
   { src: "/life/placeholder6.jpg" },
 ];
 
