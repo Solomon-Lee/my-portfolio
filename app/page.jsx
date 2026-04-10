@@ -1296,11 +1296,15 @@ export default function Portfolio() {
                         setModal({ item: job, type: "experience" })
                       }
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = c.accent;
+                        e.currentTarget.style.borderTopColor = c.accent;
+                        e.currentTarget.style.borderRightColor = c.accent;
+                        e.currentTarget.style.borderBottomColor = c.accent;
                         e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = c.border;
+                        e.currentTarget.style.borderTopColor = c.border;
+                        e.currentTarget.style.borderRightColor = c.border;
+                        e.currentTarget.style.borderBottomColor = c.border;
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     >
