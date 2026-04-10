@@ -816,6 +816,8 @@ function Starfield({ isDark }) {
     let stars = [];
     let shootingStars = [];
     let lastShootTime = 0;
+    let rocket = null;
+    let lastRocketTime = 0;
 
     function resize() {
       const container = containerRef.current;
@@ -996,6 +998,98 @@ function Starfield({ isDark }) {
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${s.hue}, 60%, 88%, ${alpha})`;
         ctx.fill();
+      }
+
+      // Rocket ship
+      if (!rocket && time - lastRocketTime > 15000 + Math.random() * 20000) {
+        const fromLeft = Math.random() > 0.5;
+        const angle = (fromLeft ? 1 : -1) * (0.1 + Math.random() * 0.3);
+        rocket = {
+          x: fromLeft ? -40 : canvas.width + 40,
+          y: canvas.height * (0.2 + Math.random() * 0.5),
+          speed: 1.5 + Math.random() * 1.5,
+          angle,
+          dir: fromLeft ? 1 : -1,
+          size: 8 + Math.random() * 4,
+          flicker: 0,
+        };
+        lastRocketTime = time;
+      }
+
+      if (rocket) {
+        rocket.x += Math.cos(rocket.angle) * rocket.speed * rocket.dir;
+        rocket.y += Math.sin(rocket.angle) * rocket.speed;
+        rocket.flicker++;
+        const rx = rocket.x;
+        const ry = rocket.y;
+        const sz = rocket.size;
+        const facing = rocket.dir;
+
+        ctx.save();
+        ctx.translate(rx, ry);
+        ctx.scale(facing, 1);
+        ctx.rotate(rocket.angle * facing);
+
+        // Exhaust flame
+        const flameLen = sz * (1.5 + Math.sin(rocket.flicker * 0.5) * 0.5);
+        const flameGrad = ctx.createLinearGradient(-sz * 0.3, 0, -sz * 0.3 - flameLen, 0);
+        flameGrad.addColorStop(0, "rgba(255, 200, 50, 0.6)");
+        flameGrad.addColorStop(0.4, "rgba(255, 100, 20, 0.4)");
+        flameGrad.addColorStop(1, "rgba(255, 50, 10, 0)");
+        ctx.beginPath();
+        ctx.moveTo(-sz * 0.3, -sz * 0.2);
+        ctx.lineTo(-sz * 0.3 - flameLen, 0);
+        ctx.lineTo(-sz * 0.3, sz * 0.2);
+        ctx.closePath();
+        ctx.fillStyle = flameGrad;
+        ctx.fill();
+
+        // Body
+        ctx.beginPath();
+        ctx.moveTo(sz, 0);
+        ctx.quadraticCurveTo(sz * 0.7, -sz * 0.35, -sz * 0.3, -sz * 0.3);
+        ctx.lineTo(-sz * 0.3, sz * 0.3);
+        ctx.quadraticCurveTo(sz * 0.7, sz * 0.35, sz, 0);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(220, 220, 230, 0.7)";
+        ctx.fill();
+
+        // Nose cone
+        ctx.beginPath();
+        ctx.moveTo(sz, 0);
+        ctx.quadraticCurveTo(sz * 0.85, -sz * 0.15, sz * 0.6, -sz * 0.25);
+        ctx.quadraticCurveTo(sz * 0.85, -sz * 0.05, sz, 0);
+        ctx.fillStyle = "rgba(255, 80, 60, 0.6)";
+        ctx.fill();
+
+        // Window
+        ctx.beginPath();
+        ctx.arc(sz * 0.35, 0, sz * 0.1, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(150, 200, 255, 0.7)";
+        ctx.fill();
+
+        // Fins
+        ctx.beginPath();
+        ctx.moveTo(-sz * 0.2, -sz * 0.3);
+        ctx.lineTo(-sz * 0.45, -sz * 0.55);
+        ctx.lineTo(-sz * 0.35, -sz * 0.3);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(255, 80, 60, 0.5)";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(-sz * 0.2, sz * 0.3);
+        ctx.lineTo(-sz * 0.45, sz * 0.55);
+        ctx.lineTo(-sz * 0.35, sz * 0.3);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(255, 80, 60, 0.5)";
+        ctx.fill();
+
+        ctx.restore();
+
+        // Remove once off-screen
+        if (rx < -60 || rx > canvas.width + 60 || ry < -60 || ry > canvas.height + 60) {
+          rocket = null;
+        }
       }
 
       if (time - lastShootTime > 2500 + Math.random() * 3000 && shootingStars.length < 2) {
