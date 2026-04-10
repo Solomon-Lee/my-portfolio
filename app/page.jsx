@@ -45,8 +45,8 @@ const TYPE_SPEED = 65;
 const LIFE_PHOTOS = [
   { src: "/life/C514993E-744B-4A34-AB3E-7E8F077402AA_1_105_c.jpeg"},
   { src: "/life/90E01CF2-8DC3-4B4A-A5B4-A74069B9D35F.jpeg" },
-  { src: "/life/F73D66E0-6DCE-4027-A777-5B17506280E0_1_105_c.jpeg", caption: "Streets of Bratislava" },
-  { src: "/life/placeholder4.jpg" },
+  { src: "/life/F73D66E0-6DCE-4027-A777-5B17506280E0_1_105_c.jpeg", caption: "The Streets of Bratislava." },
+  { src: "/life/E7670BB4-40BC-4B84-AB4F-AC6341EADE92.jpeg", caption: "Finished a Porsche Cayman Track Day at the Red Bull Ring!" },
   { src: "/life/placeholder5.jpg" },
   { src: "/life/placeholder6.jpg" },
 ];
