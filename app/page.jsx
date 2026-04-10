@@ -931,12 +931,63 @@ function Starfield({ isDark }) {
       ctx.restore();
     }
 
+    function drawNeptune(t) {
+      const cx = canvas.width * 0.15;
+      const cy = canvas.height * 0.72;
+      const planetR = Math.min(canvas.width, canvas.height) * 0.07;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      // Outer glow
+      const glow = ctx.createRadialGradient(0, 0, planetR * 0.8, 0, 0, planetR * 2.2);
+      glow.addColorStop(0, "rgba(60, 100, 220, 0.07)");
+      glow.addColorStop(1, "rgba(60, 100, 220, 0)");
+      ctx.beginPath();
+      ctx.arc(0, 0, planetR * 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // Planet body
+      const bodyGrad = ctx.createRadialGradient(
+        -planetR * 0.3, -planetR * 0.25, planetR * 0.05,
+        0, 0, planetR
+      );
+      bodyGrad.addColorStop(0, "rgba(100, 140, 255, 0.4)");
+      bodyGrad.addColorStop(0.4, "rgba(60, 100, 220, 0.32)");
+      bodyGrad.addColorStop(0.75, "rgba(30, 60, 180, 0.25)");
+      bodyGrad.addColorStop(1, "rgba(15, 30, 120, 0.18)");
+      ctx.beginPath();
+      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.fillStyle = bodyGrad;
+      ctx.fill();
+
+      // Atmospheric banding
+      const bandAlpha = 0.05 + Math.sin(t * 0.15) * 0.02;
+      for (let i = -2; i <= 2; i++) {
+        ctx.beginPath();
+        ctx.ellipse(0, i * planetR * 0.25, planetR * 0.9, planetR * 0.05, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(120, 170, 255, ${bandAlpha})`;
+        ctx.fill();
+      }
+
+      // Great Dark Spot hint
+      const spotAlpha = 0.08 + Math.sin(t * 0.3) * 0.02;
+      ctx.beginPath();
+      ctx.ellipse(planetR * 0.25, planetR * 0.1, planetR * 0.2, planetR * 0.12, 0.3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(20, 40, 100, ${spotAlpha})`;
+      ctx.fill();
+
+      ctx.restore();
+    }
+
     function draw(time) {
       const t = time / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw Saturn behind stars
+      // Draw planets behind stars
       drawSaturn(t);
+      drawNeptune(t);
 
       for (const s of stars) {
         const twinkle = Math.sin(t * s.speed + s.phase) * 0.3 + 0.7;
