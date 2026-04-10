@@ -1090,10 +1090,16 @@ export default function Portfolio() {
               alignItems: "center",
               gap: 14,
               cursor: "pointer",
-              transition: "border-color 0.15s",
+              transition: "border-color 0.15s, box-shadow 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = c.accent)}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = c.border)}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = c.accent;
+              e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = c.border;
+              e.currentTarget.style.boxShadow = "none";
+            }}
           >
             <Image
               src="/cornell.png"
@@ -1167,8 +1173,15 @@ export default function Portfolio() {
                     ...cardStyle,
                     borderLeft: `3px solid ${c.accent}`,
                     cursor: "pointer",
+                    transition: "box-shadow 0.2s",
                   }}
                   onClick={() => setModal({ item: job, type: "experience" })}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
                 >
                   <div
                     style={{
@@ -1251,8 +1264,18 @@ export default function Portfolio() {
             {PROJECTS.map((p) => (
               <div
                 key={p.id}
-                style={{ ...cardStyle, cursor: "pointer" }}
+                style={{
+                  ...cardStyle,
+                  cursor: "pointer",
+                  transition: "box-shadow 0.2s",
+                }}
                 onClick={() => setModal({ item: p, type: "project" })}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                }}
               >
                 <div
                   style={{ display: "grid", gridTemplateColumns: "130px 1fr" }}
@@ -1396,6 +1419,13 @@ export default function Portfolio() {
                   fontWeight: 500,
                   fontSize: 12,
                   textDecoration: "none",
+                  transition: "box-shadow 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
                 }}
               >
                 {l}
