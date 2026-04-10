@@ -51,6 +51,7 @@ const LIFE_PHOTOS = [
   { src: "/life/98FDE46B-A6C5-46B8-8CE6-7279E183B8B6_1_105_c.jpeg", caption: "Average Greek Peak Conditions in Spring :(" },
   { src: "/life/2BEA5C7C-48EF-4CFB-893E-7C73E79931A8_1_105_c.jpeg", caption: "Valentine's Day 2026!" },
   { src: "/life/1D2108C3-270B-47A6-9D25-3B3FA9F82D77_1_105_c.jpeg" , caption: "Happy Anniversary Nat!"},
+  { src: "/life/5806356D-AC0D-4784-93EF-E08348686511_1_105_c.jpeg", caption: "Wish I could bring this to the US :(" },
 ];
 
 const CORNELL = {
