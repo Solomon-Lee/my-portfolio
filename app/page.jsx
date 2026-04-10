@@ -48,7 +48,8 @@ const LIFE_PHOTOS = [
   { src: "/life/F73D66E0-6DCE-4027-A777-5B17506280E0_1_105_c.jpeg", caption: "The Streets of Bratislava." },
   { src: "/life/E7670BB4-40BC-4B84-AB4F-AC6341EADE92.jpeg", caption: "Finished a Porsche Cayman Track Day at the Red Bull Ring!" },
   { src: "/life/3DDE2CF1-0A59-4EE6-92BA-345AF91D8B9B_4_5005_c.jpeg", caption: "In Boston Before Spring Break 2026!" },
-  { src: "/life/98FDE46B-A6C5-46B8-8CE6-7279E183B8B6_1_105_c.jpeg", caption: "Average Greek Peak Conditions in Spring" },
+  { src: "/life/98FDE46B-A6C5-46B8-8CE6-7279E183B8B6_1_105_c.jpeg", caption: "Average Greek Peak Conditions in Spring :(" },
+  { src: "/life/2BEA5C7C-48EF-4CFB-893E-7C73E79931A8_1_105_c.jpeg", caption: "Valentine's Day 2026!" },
 ];
 
 const CORNELL = {
