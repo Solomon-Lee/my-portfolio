@@ -42,6 +42,15 @@ const TABS = ["home", "about", "experience", "projects", "contact"];
 const FULL_TEXT = "hello world, it's Solomon!";
 const TYPE_SPEED = 65;
 
+const LIFE_PHOTOS = [
+  { src: "/life/placeholder1.jpg", caption: "Add your photos to public/life/" },
+  { src: "/life/placeholder2.jpg", caption: "Replace these placeholders" },
+  { src: "/life/placeholder3.jpg", caption: "With your own memories" },
+  { src: "/life/placeholder4.jpg" },
+  { src: "/life/placeholder5.jpg" },
+  { src: "/life/placeholder6.jpg" },
+];
+
 const CORNELL = {
   gpa: "3.7",
   courses: [
@@ -801,6 +810,7 @@ export default function Portfolio() {
   const [modal, setModal] = useState(null);
   const [showCornell, setShowCornell] = useState(false);
   const [blink, setBlink] = useState(true);
+  const [showLife, setShowLife] = useState(false);
   const refs = useRef({});
   const clicking = useRef(false);
   const { displayed, done } = useTypewriter(FULL_TEXT, TYPE_SPEED);
@@ -847,6 +857,7 @@ export default function Portfolio() {
   }, []);
 
   const go = (tab) => {
+    setShowLife(false);
     setActive(tab);
     clicking.current = true;
     refs.current[tab]?.scrollIntoView({ behavior: "smooth" });
@@ -944,9 +955,31 @@ export default function Portfolio() {
           </button>
         ))}
         <button
-          onClick={() => setIsDark((d) => !d)}
+          onClick={() => setShowLife((v) => !v)}
           style={{
             marginLeft: "auto",
+            background: showLife ? c.accent : c.card,
+            border: `1px solid ${showLife ? c.accent : c.border}`,
+            borderRadius: 8,
+            padding: "4px 10px",
+            height: 28,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 12,
+            fontWeight: 600,
+            color: showLife ? "#fff" : c.muted,
+            flexShrink: 0,
+            transition: "all 0.15s",
+          }}
+        >
+          life
+        </button>
+        <button
+          onClick={() => setIsDark((d) => !d)}
+          style={{
+            marginLeft: 6,
             background: c.card,
             border: `1px solid ${c.border}`,
             borderRadius: 8,
@@ -963,6 +996,81 @@ export default function Portfolio() {
           {isDark ? "☀" : "☽"}
         </button>
       </nav>
+
+      {showLife ? (
+        <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
+          <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 6 }}>
+            personal life
+          </h2>
+          <p style={{ color: c.muted, fontSize: 12, marginBottom: 24 }}>
+            A few moments outside of work
+          </p>
+          <div
+            style={{
+              columns: "3 240px",
+              columnGap: 12,
+            }}
+          >
+            {LIFE_PHOTOS.map((photo, i) => (
+              <div
+                key={i}
+                style={{
+                  ...cardStyle,
+                  marginBottom: 12,
+                  breakInside: "avoid",
+                  cursor: "default",
+                  transition: "box-shadow 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                <div
+                  style={{
+                    background: isDark ? "#111" : "#E0E0E0",
+                    minHeight: 160 + (i % 3) * 60,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: c.muted,
+                    fontSize: 11,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.caption || `Photo ${i + 1}`}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                  <span style={{ position: "relative", zIndex: 1 }}>
+                    {photo.caption || `Photo ${i + 1}`}
+                  </span>
+                </div>
+                {photo.caption && (
+                  <div
+                    style={{
+                      padding: "8px 12px",
+                      fontSize: 12,
+                      color: c.muted,
+                    }}
+                  >
+                    {photo.caption}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <>
 
       <section
         ref={(el) => (refs.current.home = el)}
@@ -1442,6 +1550,9 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+
+        </>
+      )}
     </div>
   );
 }
