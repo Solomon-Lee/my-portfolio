@@ -874,7 +874,14 @@ function Starfield({ isDark }) {
       ctx.rotate(tilt);
 
       // Outer glow
-      const glow = ctx.createRadialGradient(0, 0, planetR * 0.8, 0, 0, planetR * 2.5);
+      const glow = ctx.createRadialGradient(
+        0,
+        0,
+        planetR * 0.8,
+        0,
+        0,
+        planetR * 2.5,
+      );
       glow.addColorStop(0, "rgba(210, 180, 120, 0.06)");
       glow.addColorStop(1, "rgba(210, 180, 120, 0)");
       ctx.beginPath();
@@ -897,8 +904,12 @@ function Starfield({ isDark }) {
 
       // Planet body
       const bodyGrad = ctx.createRadialGradient(
-        -planetR * 0.3, -planetR * 0.2, planetR * 0.1,
-        0, 0, planetR
+        -planetR * 0.3,
+        -planetR * 0.2,
+        planetR * 0.1,
+        0,
+        0,
+        planetR,
       );
       bodyGrad.addColorStop(0, "rgba(225, 200, 150, 0.35)");
       bodyGrad.addColorStop(0.5, "rgba(190, 160, 110, 0.28)");
@@ -912,7 +923,15 @@ function Starfield({ isDark }) {
       const bandAlpha = 0.06 + Math.sin(t * 0.2) * 0.02;
       for (let i = -3; i <= 3; i++) {
         ctx.beginPath();
-        ctx.ellipse(0, i * planetR * 0.2, planetR * 0.95, planetR * 0.06, 0, 0, Math.PI * 2);
+        ctx.ellipse(
+          0,
+          i * planetR * 0.2,
+          planetR * 0.95,
+          planetR * 0.06,
+          0,
+          0,
+          Math.PI * 2,
+        );
         ctx.fillStyle = `rgba(255, 240, 200, ${bandAlpha})`;
         ctx.fill();
       }
@@ -942,7 +961,14 @@ function Starfield({ isDark }) {
       ctx.translate(cx, cy);
 
       // Outer glow
-      const glow = ctx.createRadialGradient(0, 0, planetR * 0.8, 0, 0, planetR * 2.2);
+      const glow = ctx.createRadialGradient(
+        0,
+        0,
+        planetR * 0.8,
+        0,
+        0,
+        planetR * 2.2,
+      );
       glow.addColorStop(0, "rgba(60, 100, 220, 0.07)");
       glow.addColorStop(1, "rgba(60, 100, 220, 0)");
       ctx.beginPath();
@@ -952,8 +978,12 @@ function Starfield({ isDark }) {
 
       // Planet body
       const bodyGrad = ctx.createRadialGradient(
-        -planetR * 0.3, -planetR * 0.25, planetR * 0.05,
-        0, 0, planetR
+        -planetR * 0.3,
+        -planetR * 0.25,
+        planetR * 0.05,
+        0,
+        0,
+        planetR,
       );
       bodyGrad.addColorStop(0, "rgba(100, 140, 255, 0.4)");
       bodyGrad.addColorStop(0.4, "rgba(60, 100, 220, 0.32)");
@@ -968,7 +998,15 @@ function Starfield({ isDark }) {
       const bandAlpha = 0.05 + Math.sin(t * 0.15) * 0.02;
       for (let i = -2; i <= 2; i++) {
         ctx.beginPath();
-        ctx.ellipse(0, i * planetR * 0.25, planetR * 0.9, planetR * 0.05, 0, 0, Math.PI * 2);
+        ctx.ellipse(
+          0,
+          i * planetR * 0.25,
+          planetR * 0.9,
+          planetR * 0.05,
+          0,
+          0,
+          Math.PI * 2,
+        );
         ctx.fillStyle = `rgba(120, 170, 255, ${bandAlpha})`;
         ctx.fill();
       }
@@ -976,7 +1014,15 @@ function Starfield({ isDark }) {
       // Great Dark Spot hint
       const spotAlpha = 0.08 + Math.sin(t * 0.3) * 0.02;
       ctx.beginPath();
-      ctx.ellipse(planetR * 0.25, planetR * 0.1, planetR * 0.2, planetR * 0.12, 0.3, 0, Math.PI * 2);
+      ctx.ellipse(
+        planetR * 0.25,
+        planetR * 0.1,
+        planetR * 0.2,
+        planetR * 0.12,
+        0.3,
+        0,
+        Math.PI * 2,
+      );
       ctx.fillStyle = `rgba(20, 40, 100, ${spotAlpha})`;
       ctx.fill();
 
@@ -1032,7 +1078,12 @@ function Starfield({ isDark }) {
 
         // Exhaust flame
         const flameLen = sz * (1.5 + Math.sin(rocket.flicker * 0.5) * 0.5);
-        const flameGrad = ctx.createLinearGradient(-sz * 0.3, 0, -sz * 0.3 - flameLen, 0);
+        const flameGrad = ctx.createLinearGradient(
+          -sz * 0.3,
+          0,
+          -sz * 0.3 - flameLen,
+          0,
+        );
         flameGrad.addColorStop(0, "rgba(255, 200, 50, 0.6)");
         flameGrad.addColorStop(0.4, "rgba(255, 100, 20, 0.4)");
         flameGrad.addColorStop(1, "rgba(255, 50, 10, 0)");
@@ -1087,12 +1138,20 @@ function Starfield({ isDark }) {
         ctx.restore();
 
         // Remove once off-screen
-        if (rx < -60 || rx > canvas.width + 60 || ry < -60 || ry > canvas.height + 60) {
+        if (
+          rx < -60 ||
+          rx > canvas.width + 60 ||
+          ry < -60 ||
+          ry > canvas.height + 60
+        ) {
           rocket = null;
         }
       }
 
-      if (time - lastShootTime > 2500 + Math.random() * 3000 && shootingStars.length < 2) {
+      if (
+        time - lastShootTime > 2500 + Math.random() * 3000 &&
+        shootingStars.length < 2
+      ) {
         spawnShootingStar(time);
       }
 
@@ -1144,7 +1203,10 @@ function Starfield({ isDark }) {
         pointerEvents: "none",
       }}
     >
-      <canvas ref={canvasRef} style={{ display: "block", width: "100%", height: "100%" }} />
+      <canvas
+        ref={canvasRef}
+        style={{ display: "block", width: "100%", height: "100%" }}
+      />
     </div>
   );
 }
@@ -1420,10 +1482,22 @@ export default function Portfolio() {
         <>
           <section
             ref={(el) => (refs.current.home = el)}
-            style={sec({ padding: "140px 0 120px", position: "relative", minHeight: "60vh" })}
+            style={sec({
+              padding: "140px 0 120px",
+              position: "relative",
+              minHeight: "60vh",
+            })}
           >
             <Starfield isDark={isDark} />
-            <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
+            <div
+              style={{
+                maxWidth: 860,
+                margin: "0 auto",
+                padding: "0 24px",
+                position: "relative",
+                zIndex: 1,
+              }}
+            >
               <p
                 style={{
                   fontSize: 11,
