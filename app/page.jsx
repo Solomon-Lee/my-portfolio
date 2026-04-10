@@ -818,6 +818,26 @@ function Starfield({ isDark }) {
     let lastShootTime = 0;
     let rocket = null;
     let lastRocketTime = 0;
+    let mouseX = -1;
+    let mouseY = -1;
+    let mouseInSection = false;
+
+    function onMouseMove(e) {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+      mouseInSection = true;
+    }
+    function onMouseLeave() {
+      mouseInSection = false;
+    }
+    // Listen on the section (parent) so clicks on content aren't blocked
+    const section = containerRef.current?.parentElement;
+    if (section) {
+      section.addEventListener("mousemove", onMouseMove);
+      section.addEventListener("mouseleave", onMouseLeave);
+    }
 
     function resize() {
       const container = containerRef.current;
@@ -1046,43 +1066,73 @@ function Starfield({ isDark }) {
         ctx.fill();
       }
 
-      // Rocket ship
-      if (!rocket && time - lastRocketTime > 15000 + Math.random() * 20000) {
-        const fromLeft = Math.random() > 0.5;
-        const angle = (fromLeft ? 1 : -1) * (0.1 + Math.random() * 0.3);
+      // Rocket ship — spawns randomly, chases cursor
+      if (
+        !rocket &&
+        mouseInSection &&
+        time - lastRocketTime > 12000 + Math.random() * 15000
+      ) {
+        const edge = Math.floor(Math.random() * 4);
+        let sx, sy;
+        if (edge === 0) { sx = -30; sy = Math.random() * canvas.height; }
+        else if (edge === 1) { sx = canvas.width + 30; sy = Math.random() * canvas.height; }
+        else if (edge === 2) { sx = Math.random() * canvas.width; sy = -30; }
+        else { sx = Math.random() * canvas.width; sy = canvas.height + 30; }
         rocket = {
-          x: fromLeft ? -40 : canvas.width + 40,
-          y: canvas.height * (0.2 + Math.random() * 0.5),
-          speed: 1.5 + Math.random() * 1.5,
-          angle,
-          dir: fromLeft ? 1 : -1,
-          size: 8 + Math.random() * 4,
+          x: sx,
+          y: sy,
+          vx: 0,
+          vy: 0,
+          angle: 0,
+          size: 10,
           flicker: 0,
+          life: 0,
         };
         lastRocketTime = time;
       }
 
       if (rocket) {
-        rocket.x += Math.cos(rocket.angle) * rocket.speed * rocket.dir;
-        rocket.y += Math.sin(rocket.angle) * rocket.speed;
         rocket.flicker++;
+        rocket.life++;
+        const targetX = mouseInSection ? mouseX : rocket.x + Math.cos(rocket.angle) * 100;
+        const targetY = mouseInSection ? mouseY : rocket.y + Math.sin(rocket.angle) * 100;
+        const dx = targetX - rocket.x;
+        const dy = targetY - rocket.y;
+        const targetAngle = Math.atan2(dy, dx);
+
+        // Smoothly steer toward cursor
+        let angleDiff = targetAngle - rocket.angle;
+        while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+        while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+        rocket.angle += angleDiff * 0.06;
+
+        const accel = 0.12;
+        rocket.vx += Math.cos(rocket.angle) * accel;
+        rocket.vy += Math.sin(rocket.angle) * accel;
+
+        // Limit speed
+        const spd = Math.sqrt(rocket.vx * rocket.vx + rocket.vy * rocket.vy);
+        const maxSpd = 3.5;
+        if (spd > maxSpd) {
+          rocket.vx = (rocket.vx / spd) * maxSpd;
+          rocket.vy = (rocket.vy / spd) * maxSpd;
+        }
+
+        rocket.x += rocket.vx;
+        rocket.y += rocket.vy;
+
         const rx = rocket.x;
         const ry = rocket.y;
         const sz = rocket.size;
-        const facing = rocket.dir;
 
         ctx.save();
         ctx.translate(rx, ry);
-        ctx.scale(facing, 1);
-        ctx.rotate(rocket.angle * facing);
+        ctx.rotate(rocket.angle);
 
         // Exhaust flame
         const flameLen = sz * (1.5 + Math.sin(rocket.flicker * 0.5) * 0.5);
         const flameGrad = ctx.createLinearGradient(
-          -sz * 0.3,
-          0,
-          -sz * 0.3 - flameLen,
-          0,
+          -sz * 0.3, 0, -sz * 0.3 - flameLen, 0,
         );
         flameGrad.addColorStop(0, "rgba(255, 200, 50, 0.6)");
         flameGrad.addColorStop(0.4, "rgba(255, 100, 20, 0.4)");
@@ -1137,12 +1187,13 @@ function Starfield({ isDark }) {
 
         ctx.restore();
 
-        // Remove once off-screen
+        // Despawn after ~8 seconds if mouse leaves, or if way off-screen
+        const margin = 200;
         if (
-          rx < -60 ||
-          rx > canvas.width + 60 ||
-          ry < -60 ||
-          ry > canvas.height + 60
+          !mouseInSection && rocket.life > 120 && (
+            rx < -margin || rx > canvas.width + margin ||
+            ry < -margin || ry > canvas.height + margin
+          )
         ) {
           rocket = null;
         }
@@ -1185,6 +1236,10 @@ function Starfield({ isDark }) {
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
+      if (section) {
+        section.removeEventListener("mousemove", onMouseMove);
+        section.removeEventListener("mouseleave", onMouseLeave);
+      }
     };
   }, [isDark]);
 
