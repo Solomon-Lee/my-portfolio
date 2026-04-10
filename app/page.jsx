@@ -43,7 +43,7 @@ const FULL_TEXT = "hello world, it's Solomon!";
 const TYPE_SPEED = 65;
 
 const LIFE_PHOTOS = [
-  { src: "public/life/C514993E-744B-4A34-AB3E-7E8F077402AA_1_105_c.jpeg", caption: "Add your photos to public/life/" },
+  { src: "/life/C514993E-744B-4A34-AB3E-7E8F077402AA_1_105_c.jpeg", caption: "Add your photos to public/life/" },
   { src: "/life/placeholder2.jpg", caption: "Replace these placeholders" },
   { src: "/life/placeholder3.jpg", caption: "With your own memories" },
   { src: "/life/placeholder4.jpg" },
