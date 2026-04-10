@@ -823,7 +823,7 @@ function Starfield({ isDark }) {
     let shootingStars = [];
     let lastShootTime = 0;
     let rocket = null;
-    let lastRocketTime = 0;
+    let rocketDismissed = false;
     let mouseX = -1;
     let mouseY = -1;
     let mouseInSection = false;
@@ -837,6 +837,7 @@ function Starfield({ isDark }) {
     }
     function onMouseLeave() {
       mouseInSection = false;
+      rocketDismissed = false;
     }
     // Listen on the section (parent) so clicks on content aren't blocked
     const section = containerRef.current?.parentElement;
@@ -1072,12 +1073,8 @@ function Starfield({ isDark }) {
         ctx.fill();
       }
 
-      // Rocket ship — spawns randomly, chases cursor
-      if (
-        !rocket &&
-        mouseInSection &&
-        time - lastRocketTime > 12000 + Math.random() * 15000
-      ) {
+      // Rocket ship — spawns on mouse enter, chases cursor
+      if (!rocket && mouseInSection && !rocketDismissed) {
         const edge = Math.floor(Math.random() * 4);
         let sx, sy;
         if (edge === 0) { sx = -30; sy = Math.random() * canvas.height; }
@@ -1094,7 +1091,6 @@ function Starfield({ isDark }) {
           flicker: 0,
           life: 0,
         };
-        lastRocketTime = time;
       }
 
       if (rocket) {
@@ -1193,15 +1189,16 @@ function Starfield({ isDark }) {
 
         ctx.restore();
 
-        // Despawn after ~8 seconds if mouse leaves, or if way off-screen
+        // Despawn once off-screen after mouse leaves
         const margin = 200;
         if (
-          !mouseInSection && rocket.life > 120 && (
+          !mouseInSection && rocket.life > 60 && (
             rx < -margin || rx > canvas.width + margin ||
             ry < -margin || ry > canvas.height + margin
           )
         ) {
           rocket = null;
+          rocketDismissed = true;
         }
       }
 
@@ -1520,9 +1517,6 @@ export default function Portfolio() {
                       e.currentTarget.style.display = "none";
                     }}
                   />
-                  <span style={{ position: "relative", zIndex: 1 }}>
-                    {photo.caption || `Photo ${i + 1}`}
-                  </span>
                 </div>
                 {photo.caption && (
                   <div
