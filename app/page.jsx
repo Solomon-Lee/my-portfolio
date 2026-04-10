@@ -1202,7 +1202,7 @@ export default function Portfolio() {
         <>
           <section
             ref={(el) => (refs.current.home = el)}
-            style={sec({ padding: "60px 0 48px", position: "relative" })}
+            style={sec({ padding: "140px 0 120px", position: "relative", minHeight: "60vh" })}
           >
             <Starfield isDark={isDark} />
             <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
