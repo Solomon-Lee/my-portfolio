@@ -836,7 +836,7 @@ function Modal({ item, type, onClose, c }) {
   );
 }
 
-function FlipCard({ photo, index, cardStyle, c, isDark }) {
+function FlipCard({ photo, index, cardStyle, c, isDark, onSelect }) {
   const [loaded, setLoaded] = useState(false);
   const hash = (photo.caption || "").split("").reduce((a, ch) => ((a << 5) - a + ch.charCodeAt(0)) | 0, 0);
   const minH = 160 + (Math.abs(hash) % 5) * 30;
@@ -854,10 +854,11 @@ function FlipCard({ photo, index, cardStyle, c, isDark }) {
         <div
           style={{
             ...cardStyle,
-            cursor: "default",
+            cursor: "pointer",
             backfaceVisibility: "hidden",
             transition: "border-color 0.15s, box-shadow 0.2s",
           }}
+          onClick={() => onSelect && onSelect(photo)}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = c.accent;
             e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
@@ -1414,6 +1415,7 @@ export default function Portfolio() {
   const [showCornell, setShowCornell] = useState(false);
   const [blink, setBlink] = useState(true);
   const [showLife, setShowLife] = useState(false);
+  const [lightboxPhoto, setLightboxPhoto] = useState(null);
   const refs = useRef({});
   const clicking = useRef(false);
   const { displayed, done } = useTypewriter(FULL_TEXT, TYPE_SPEED);
@@ -1441,6 +1443,13 @@ export default function Portfolio() {
     const id = setInterval(() => setBlink((b) => !b), 530);
     return () => clearInterval(id);
   }, [done]);
+
+  useEffect(() => {
+    if (!lightboxPhoto) return;
+    const onKey = (e) => { if (e.key === "Escape") setLightboxPhoto(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxPhoto]);
 
   useEffect(() => {
     const obs = {};
@@ -1640,12 +1649,43 @@ export default function Portfolio() {
               return cols.map((col, ci) => (
                 <div key={ci} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
                   {col.map(({ photo, i }) => (
-                    <FlipCard key={i} photo={photo} index={i} cardStyle={cardStyle} c={c} isDark={isDark} />
+                    <FlipCard key={i} photo={photo} index={i} cardStyle={cardStyle} c={c} isDark={isDark} onSelect={setLightboxPhoto} />
                   ))}
                 </div>
               ));
             })()}
           </div>
+          {lightboxPhoto && (
+            <div
+              onClick={() => setLightboxPhoto(null)}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: "rgba(0,0,0,0.85)",
+                zIndex: 200,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "zoom-out",
+              }}
+            >
+              <img
+                src={lightboxPhoto.src}
+                alt={lightboxPhoto.caption || ""}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  maxWidth: "90vw",
+                  maxHeight: "90vh",
+                  objectFit: "contain",
+                  borderRadius: 8,
+                  cursor: "default",
+                }}
+              />
+            </div>
+          )}
         </div>
       ) : (
         <>
