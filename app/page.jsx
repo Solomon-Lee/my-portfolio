@@ -80,6 +80,7 @@ const LIFE_PHOTOS = [
   { src: "/life/7C4D671B-2FCA-44CD-8AFD-087012EE0519_1_105_c.jpeg", caption: "Cybercity Vibes!", location: "Shanghai, China", date: "January 2026" },
   { src: "/life/16C00347-D356-448B-92FD-CB8C902255AB_1_105_c.jpeg", caption: "Minutes before my Back is reinjured", location: "Ithaca, New York", date: "February 2026" },
   { src: "/life/0410BECD-F4A4-4C85-B40B-6299E924CE62_1_102_o.jpeg", caption: "Silent Hill Vibes", location: "Ithaca, New York", date: "February 2026" },
+  { src: "/life/2CB05054-E0D4-4C03-9BA1-16A8B9DB08F4_1_105_c.jpeg", caption: "Sunset Views", location: "Ithaca, New York", date: "February 2026" },
 ];
 
 const CORNELL = {
