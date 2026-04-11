@@ -1335,7 +1335,7 @@ export default function Portfolio() {
       obs[tab] = o;
     });
     return () => Object.values(obs).forEach((o) => o.disconnect());
-  }, []);
+  }, [showLife]);
 
   const go = (tab) => {
     setShowLife(false);
