@@ -1628,9 +1628,14 @@ export default function Portfolio() {
                 return new Date(b.date) - new Date(a.date);
               });
               const cols = [[], [], []];
+              const heights = [0, 0, 0];
               sorted.forEach((photo, i) => {
-                const ci = i % 3;
-                cols[ci].push({ photo, i: cols[ci].length });
+                const shortest = heights.indexOf(Math.min(...heights));
+                const localIdx = cols[shortest].length;
+                const h = (photo.caption || "").split("").reduce((a, ch) => ((a << 5) - a + ch.charCodeAt(0)) | 0, 0);
+                const cardH = 160 + (Math.abs(h) % 5) * 30 + 50;
+                cols[shortest].push({ photo, i: localIdx });
+                heights[shortest] += cardH;
               });
               return cols.map((col, ci) => (
                 <div key={ci} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
