@@ -1338,8 +1338,10 @@ export default function Portfolio() {
   }, [showLife]);
 
   const go = (tab) => {
+    const wasLife = showLife;
     setShowLife(false);
     setActive(tab);
+    if (wasLife) window.scrollTo(0, 0);
     clicking.current = true;
     refs.current[tab]?.scrollIntoView({ behavior: "smooth" });
     setTimeout(() => {
@@ -1436,7 +1438,10 @@ export default function Portfolio() {
           </button>
         ))}
         <button
-          onClick={() => setShowLife((v) => !v)}
+          onClick={() => {
+            setShowLife((v) => !v);
+            window.scrollTo(0, 0);
+          }}
           style={{
             marginLeft: "auto",
             background: showLife ? c.accent : c.card,
