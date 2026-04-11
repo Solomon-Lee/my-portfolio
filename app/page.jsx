@@ -44,7 +44,7 @@ const TYPE_SPEED = 65;
 
 const LIFE_PHOTOS = [
   { src: "/life/C514993E-744B-4A34-AB3E-7E8F077402AA_1_105_c.jpeg", caption: "Munich Beer Hall!"},
-  { src: "/life/90E01CF2-8DC3-4B4A-A5B4-A74069B9D35F.jpeg", caption: "Drinking a Red Bull at the Peak of Stubai!" },
+  { src: "/life/90E01CF2-8DC3-4B4A-A5B4-A74069B9D35F.jpeg", caption: "Cracking a Red Bull at the Peak of Stubai!" },
   { src: "/life/F73D66E0-6DCE-4027-A777-5B17506280E0_1_105_c.jpeg", caption: "The Streets of Bratislava." },
   { src: "/life/E7670BB4-40BC-4B84-AB4F-AC6341EADE92.jpeg", caption: "Finished a Porsche Cayman Track Day at the Red Bull Ring!" },
   { src: "/life/2BEA5C7C-48EF-4CFB-893E-7C73E79931A8_1_105_c.jpeg", caption: "Valentine's Day 2026!" },
@@ -53,7 +53,7 @@ const LIFE_PHOTOS = [
   { src: "/life/5806356D-AC0D-4784-93EF-E08348686511_1_105_c.jpeg", caption: "Wish I could bring this to the US :(" },
   { src: "/life/68BDCE2A-B219-462C-9455-03A230CC32EB_1_105_c.jpeg", caption: "Dressing up in the Forbidden City!"},
   { src: "/life/54BF910D-6140-4487-89F6-63849F4144FD_1_105_c.jpeg", caption: "Summer Palace Vibes!"},
-  { src: "/life/406A303F-456A-42C9-8A83-C005C4807EDC_1_105_c.jpeg", caption: "Skiing in Japan with the Sis!"},
+  { src: "/life/406A303F-456A-42C9-8A83-C005C4807EDC_1_105_c.jpeg", caption: "Hitting Niseko Slopes with the Sis!"},
   { src: "/life/B5CA8A6E-E9EA-44ED-8FFF-F3DD5ABBAA2B_1_105_c.jpeg", caption: "Xiao Mi!!!!"},
   { src: "/life/F534A612-74B4-4350-A6FC-AB76FC44F356_1_105_c.jpeg", caption: "Date Night in NYC!"},
   { src: "/life/BB98841E-BF24-4691-873B-735313DACC74_1_105_c.jpeg", caption: "Halloween Night 2025" },
@@ -63,7 +63,7 @@ const LIFE_PHOTOS = [
   { src: "/life/04110F93-1F9C-4525-9E18-1363A068DDA9_1_105_c.jpeg", caption: "Favorite Boba!"},
   { src: "/life/84DB8FD0-A218-4527-B9D6-616279159226_1_105_c.jpeg", caption: "Childhood favorite meal at Guangzhou"},
   { src: "/life/DBAFEDFB-EA92-49B4-A3BF-5083787CDCE9_1_105_c.jpeg", caption: "I Love Food!!"},
-  { src: "/life/FDAC0CF4-42A1-4F7E-8B69-1E0EDE87894B_1_105_c.jpeg", caption: "Snowboarding in Sapporo!"},
+  { src: "/life/FDAC0CF4-42A1-4F7E-8B69-1E0EDE87894B_1_105_c.jpeg", caption: "Sapporo Slopes!"},
   { src: "/life/46E8708F-50BB-4898-A67B-66037866622D_1_105_c.jpeg", caption: "Hot day out in Boston August 2025!" },
   { src: "/life/5562B6F3-BAEE-446D-9930-47916D118B62_1_105_c.jpeg", caption: "Yeah, I'm a big back :)"},
   { src: "/life/77E7F8BF-7FC7-40D9-BFE7-CBB3F35790E8_1_105_c.jpeg", caption: "Chinatown Summer 2025!"},
