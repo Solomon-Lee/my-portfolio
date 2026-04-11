@@ -838,7 +838,8 @@ function Modal({ item, type, onClose, c }) {
 
 function FlipCard({ photo, index, cardStyle, c, isDark }) {
   const [loaded, setLoaded] = useState(false);
-  const minH = 160 + (index % 3) * 60;
+  const hash = (photo.caption || "").split("").reduce((a, ch) => ((a << 5) - a + ch.charCodeAt(0)) | 0, 0);
+  const minH = 160 + (Math.abs(hash) % 5) * 30;
 
   return (
     <div style={{ perspective: 800 }}>
