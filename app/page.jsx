@@ -157,7 +157,7 @@ const JOBS = [
     company: "Roblox",
     role: "Software Engineer Intern — Foundation AI (ML Platform)",
     date: "May – Aug 2025",
-    tags: ["Go", "Kubernetes", "GCP", "Prometheus", "Grafana"],
+    tags: ["Go", "Kubernetes", "Prometheus", "Grafana", "AWS (EC2, S3, EFS)", "ArgoCD", "Kubeflow"],
     desc: [
       {
         header: "Overview",
