@@ -836,6 +836,148 @@ function Modal({ item, type, onClose, c }) {
   );
 }
 
+function CardBack({ cardStyle, isDark, seed }) {
+  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+    const ctx = canvas.getContext("2d");
+    const w = container.offsetWidth;
+    const h = container.offsetHeight;
+    canvas.width = w;
+    canvas.height = h;
+    let animId;
+    const rng = (s) => { s = Math.sin(s) * 43758.5453; return s - Math.floor(s); };
+    const abs = Math.abs(seed);
+
+    // Stars
+    const stars = [];
+    for (let i = 0; i < 40; i++) {
+      stars.push({
+        x: rng(abs + i * 7) * w,
+        y: rng(abs + i * 13) * h,
+        r: 0.3 + rng(abs + i * 3) * 1,
+        alpha: 0.3 + rng(abs + i * 11) * 0.6,
+        phase: rng(abs + i * 17) * Math.PI * 2,
+      });
+    }
+
+    // Planets
+    const planets = [
+      { dist: 0.12, r: 2, color: "rgba(180,180,180,0.7)", speed: 3.5 },
+      { dist: 0.18, r: 2.5, color: "rgba(220,180,100,0.7)", speed: 2.5 },
+      { dist: 0.25, r: 3, color: "rgba(80,140,255,0.7)", speed: 1.8 },
+      { dist: 0.33, r: 2, color: "rgba(200,100,80,0.6)", speed: 1.2 },
+      { dist: 0.42, r: 4, color: "rgba(210,190,140,0.5)", speed: 0.7, rings: true },
+    ];
+
+    function draw(time) {
+      const t = time / 1000;
+      ctx.clearRect(0, 0, w, h);
+
+      // Background
+      const bg = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7);
+      bg.addColorStop(0, isDark ? "#0d0d1a" : "#e8e8f0");
+      bg.addColorStop(1, isDark ? "#050510" : "#d0d0dd");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, h);
+
+      // Stars
+      for (const s of stars) {
+        const twinkle = Math.sin(t * 1.5 + s.phase) * 0.3 + 0.7;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = isDark
+          ? `rgba(255,255,255,${s.alpha * twinkle})`
+          : `rgba(0,0,0,${s.alpha * twinkle * 0.3})`;
+        ctx.fill();
+      }
+
+      const cx = w / 2;
+      const cy = h / 2;
+      const scale = Math.min(w, h);
+
+      // Orbit lines
+      for (const p of planets) {
+        const orbitR = p.dist * scale;
+        ctx.beginPath();
+        ctx.arc(cx, cy, orbitR, 0, Math.PI * 2);
+        ctx.strokeStyle = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+
+      // Sun
+      const sunR = scale * 0.05;
+      const sunGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, sunR * 3);
+      sunGlow.addColorStop(0, "rgba(255,200,50,0.3)");
+      sunGlow.addColorStop(1, "rgba(255,200,50,0)");
+      ctx.beginPath();
+      ctx.arc(cx, cy, sunR * 3, 0, Math.PI * 2);
+      ctx.fillStyle = sunGlow;
+      ctx.fill();
+
+      const sunGrad = ctx.createRadialGradient(cx - sunR * 0.2, cy - sunR * 0.2, 0, cx, cy, sunR);
+      sunGrad.addColorStop(0, "rgba(255,240,150,0.9)");
+      sunGrad.addColorStop(0.7, "rgba(255,180,50,0.8)");
+      sunGrad.addColorStop(1, "rgba(255,120,20,0.6)");
+      ctx.beginPath();
+      ctx.arc(cx, cy, sunR, 0, Math.PI * 2);
+      ctx.fillStyle = sunGrad;
+      ctx.fill();
+
+      // Planets
+      const offset = rng(abs) * Math.PI * 2;
+      for (const p of planets) {
+        const orbitR = p.dist * scale;
+        const angle = t * p.speed * 0.3 + offset + p.dist * 20;
+        const px = cx + Math.cos(angle) * orbitR;
+        const py = cy + Math.sin(angle) * orbitR;
+
+        if (p.rings) {
+          ctx.beginPath();
+          ctx.ellipse(px, py, p.r * 2.2, p.r * 0.6, angle * 0.3, 0, Math.PI * 2);
+          ctx.strokeStyle = isDark ? "rgba(210,190,140,0.3)" : "rgba(150,130,80,0.3)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        ctx.beginPath();
+        ctx.arc(px, py, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      }
+
+      animId = requestAnimationFrame(draw);
+    }
+
+    animId = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(animId);
+  }, [isDark, seed]);
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        ...cardStyle,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backfaceVisibility: "hidden",
+        transform: "rotateY(180deg)",
+        overflow: "hidden",
+      }}
+    >
+      <canvas ref={canvasRef} style={{ display: "block", width: "100%", height: "100%" }} />
+    </div>
+  );
+}
+
 function FlipCard({ photo, index, cardStyle, c, isDark, onSelect }) {
   const [loaded, setLoaded] = useState(false);
   const hash = (photo.caption || "").split("").reduce((a, ch) => ((a << 5) - a + ch.charCodeAt(0)) | 0, 0);
@@ -909,41 +1051,8 @@ function FlipCard({ photo, index, cardStyle, c, isDark, onSelect }) {
           )}
         </div>
 
-        {/* Back — blank card */}
-        <div
-          style={{
-            ...cardStyle,
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            background: isDark
-              ? "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)"
-              : "linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 50%, #b8b8b8 100%)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "40%",
-              height: "40%",
-              border: `2px solid ${isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}`,
-              borderRadius: 8,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 20,
-              color: isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)",
-            }}
-          >
-            SL
-          </div>
-        </div>
+        {/* Back — solar system card */}
+        <CardBack cardStyle={cardStyle} isDark={isDark} seed={hash} />
       </div>
     </div>
   );
