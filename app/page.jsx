@@ -258,8 +258,41 @@ const JOBS = [
     company: "Roblox",
     role: "Software Engineer Intern — Economy (Avatar Core Services)",
     date: "May – Aug 2024",
-    tags: ["Python", "Spark", "PySpark", "SQS", "Hive"],
-    desc: "Developed an end-to-end rollback and data metric gathering tool handling operations that modified user data and deserialized user metadata to gather metrics. Helped resolve large-scale on-call data corruption issues impacting millions of users. Increased engineering efficiency by 700% using Python workers and threads to enhance message throughput. Utilized Spark, Hive, PySpark Notebooks, and SQS to build tables, optimize message pipelines, and develop low-latency processors.",
+    tags: ["Python", "PySpark", "C#", ".NET", "SQS", "SQL", "Hive", "Grafana", "AWS S3"],
+    desc: [
+      {
+        header: "Context",
+        body: "Roblox's avatar system serves hundreds of millions of users, and when things go wrong — data corruption, unauthorized item grants, exploit-driven marketplace abuse — the impact is measured in millions of affected accounts. Prior to my internship, resolving these incidents required building ad hoc scripts from scratch each time: manually querying for affected users, loading them into a queue via SSH on a specific machine, and running one-off console apps with no standardized logging, metrics, or configurability. This process was slow, error-prone, and required deep tribal knowledge to execute — a serious problem when incidents often need resolution at 3am."
+      },
+      {
+        header: "What I Built",
+        body: "I designed and built the Avatar Remediation Processor — the first general-purpose offline processor built for the Marketplace organization. It provides an end-to-end pipeline for querying affected users at scale, loading them into a processing queue, and executing customizable remediation operations against each user's data. The system replaced a patchwork of ad hoc scripts with a single, extensible service that any engineer on the team could operate — and critically, one that new operations could be added to with minimal effort, since each operation is a self-contained class requiring only the business logic specific to that remediation."
+      },
+      {
+        header: "Data Query & Export Pipeline",
+        body: "The entire flow begins when a developer runs a preconfigured PySpark notebook. The notebook contains parameterized queries for common user populations — daily active users, monthly active users, users who recently changed their avatar, users who wore or purchased a specific item. When executed, the notebook queries Hive data tables, gathers the matching user IDs (often millions of records), and automatically loads them into an SQS queue — no manual SSH intervention required. I added metrics and logging to verify completeness, since detecting truncated uploads or failed loads was a known pain point from previous incidents."
+      },
+      {
+        header: "Scalable Processor",
+        body: "The core processor is a backend microservice that reads from the SQS queue and executes pluggable operations against each user. The processor determines which operation to run based on metadata attached to each queued message, preventing accidental execution of the wrong remediation. Key configurability features include a kill switch via remote config to instantly stop all processing, a configurable rate limiter to control throughput per instance (preventing downstream service overload), and the ability to scale horizontally by adding processor instances. The service comes pre-equipped with clients for all core avatar backend services — asset registry, ownership, bundles, avatars, outfits, thumbnails — so new operations can be written quickly without boilerplate setup. Beyond remediation, the processor also unlocked a capability the team never had before: the ability to inspect corrupted avatar metadata and thumbnails at scale. Previously, there was no way to systematically view or audit this data across millions of users. By running read-only operations through the processor, engineers could scan the entire user base to identify and characterize corruption patterns — turning what had been invisible problems into actionable data."
+      },
+      {
+        header: "Observability",
+        body: "Every stage of the pipeline is instrumented. I built Grafana dashboards tracking queue depth, processing throughput, success/failure rates, and error breakdowns. This gives operators real-time visibility into remediation progress and lets them catch issues before they compound."
+      },
+      {
+        header: "Testing & Validation",
+        body: "I ran the processor through progressively larger workloads: small batches for correctness, full DAU (daily active users) on a single instance to establish baseline throughput, and full MAU (monthly active users) with scaled instances and increased parallelism. The target was processing the entire MAU population within 24 hours, which we validated with measured min/max latency benchmarks documented in a user guide."
+      },
+      {
+        header: "Impact",
+        body: "The processor was the first general-purpose offline processor in Marketplace, and it was used to help resolve active data corruption incidents impacting millions of users. Its extensible design meant that adding a new remediation operation was as simple as writing a single class with the relevant business logic — no infrastructure changes needed. I wrote a PRD outlining how the tool could be generalized further into a marketplace-wide offline processing platform, usable by any team that needs to scan or remediate a subset of Roblox's user base. I presented this vision to Marketplace engineering leadership and collected feedback that shaped the tool's long-term roadmap."
+      }
+    ],
+    diagram: {
+      label: "Remediation Processor Architecture",
+      src: "/diagrams/roblox-remediation.svg",
+    },
   },
 ];
 
