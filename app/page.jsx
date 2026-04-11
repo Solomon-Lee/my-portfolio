@@ -1627,7 +1627,10 @@ export default function Portfolio() {
                 return new Date(b.date) - new Date(a.date);
               });
               const cols = [[], [], []];
-              sorted.forEach((photo, i) => cols[i % 3].push({ photo, i }));
+              sorted.forEach((photo, i) => {
+                const ci = i % 3;
+                cols[ci].push({ photo, i: cols[ci].length });
+              });
               return cols.map((col, ci) => (
                 <div key={ci} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
                   {col.map(({ photo, i }) => (
