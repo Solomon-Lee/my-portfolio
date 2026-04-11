@@ -147,9 +147,10 @@ const JOBS = [
         body: "I integrated the engine into the internal UI as an \"AI Mode\" — a chatbot-style interface where developers receive formatted package cards alongside conversational summaries.",
       },
     ],
-  },
-  {
-    id: 2,
+    diagram: {
+      label: "System Architecture",
+      svg: `<svg width="100%" viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><rect x="30" y="30" width="100" height="40" rx="6" fill="FILL_CARD" stroke="STROKE"/><text x="80" y="50" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Frontend</text><rect x="180" y="30" width="110" height="40" rx="6" fill="FILL_ACCENT" stroke="STROKE_ACCENT"/><text x="235" y="50" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">AI service</text><rect x="340" y="30" width="90" height="40" rx="6" fill="FILL_PURPLE" stroke="STROKE_PURPLE"/><text x="385" y="50" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Gemini</text><rect x="470" y="30" width="90" height="40" rx="6" fill="FILL_BLUE" stroke="STROKE_BLUE"/><text x="515" y="50" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Vertex AI</text><rect x="590" y="30" width="80" height="40" rx="6" fill="FILL_CORAL" stroke="STROKE_CORAL"/><text x="630" y="50" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Registry</text><line x1="80" y1="70" x2="80" y2="590" stroke="MUTED" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.4"/><line x1="235" y1="70" x2="235" y2="590" stroke="MUTED" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.4"/><line x1="385" y1="70" x2="385" y2="590" stroke="MUTED" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.4"/><line x1="515" y1="70" x2="515" y2="590" stroke="MUTED" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.4"/><line x1="630" y1="70" x2="630" y2="590" stroke="MUTED" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.4"/><line x1="82" y1="110" x2="233" y2="110" stroke="TEXT" stroke-width="1" marker-end="url(#arr)"/><text x="157" y="102" text-anchor="middle" font-size="11" fill="MUTED">NL query via REST</text><line x1="237" y1="150" x2="383" y2="150" stroke="TEXT" stroke-width="1" marker-end="url(#arr)"/><text x="310" y="142" text-anchor="middle" font-size="11" fill="MUTED">Query + registered tools</text><line x1="383" y1="190" x2="237" y2="190" stroke="TEXT" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/><text x="310" y="182" text-anchor="middle" font-size="11" fill="MUTED">Tool selection</text><line x1="237" y1="240" x2="513" y2="240" stroke="STROKE_BLUE" stroke-width="1" marker-end="url(#arr)"/><text x="375" y="232" text-anchor="middle" font-size="11" fill="MUTED">Semantic search query</text><line x1="513" y1="280" x2="237" y2="280" stroke="STROKE_BLUE" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/><text x="375" y="272" text-anchor="middle" font-size="11" fill="MUTED">Candidates + similarity scores</text><line x1="237" y1="330" x2="383" y2="330" stroke="TEXT" stroke-width="1" marker-end="url(#arr)"/><text x="310" y="322" text-anchor="middle" font-size="11" fill="MUTED">Ranked results + tools</text><line x1="383" y1="370" x2="237" y2="370" stroke="TEXT" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/><text x="310" y="362" text-anchor="middle" font-size="11" fill="MUTED">Metadata tool calls</text><line x1="237" y1="420" x2="628" y2="420" stroke="STROKE_CORAL" stroke-width="1" marker-end="url(#arr)"/><text x="432" y="412" text-anchor="middle" font-size="11" fill="MUTED">Fetch package metadata</text><line x1="628" y1="460" x2="237" y2="460" stroke="STROKE_CORAL" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/><text x="432" y="452" text-anchor="middle" font-size="11" fill="MUTED">Package metadata</text><line x1="237" y1="510" x2="383" y2="510" stroke="TEXT" stroke-width="1" marker-end="url(#arr)"/><text x="310" y="502" text-anchor="middle" font-size="11" fill="MUTED">Generate NL response</text><line x1="383" y1="540" x2="237" y2="540" stroke="TEXT" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/><text x="310" y="558" text-anchor="middle" font-size="11" fill="MUTED">Conversational summary</text><line x1="233" y1="580" x2="82" y2="580" stroke="TEXT" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr)"/><text x="157" y="572" text-anchor="middle" font-size="11" fill="MUTED">JSON: summary + cards</text></svg>`,
+    },
     company: "Roblox",
     role: "Software Engineer Intern — Foundation AI (ML Platform)",
     date: "May – Aug 2025",
@@ -860,6 +861,46 @@ function Modal({ item, type, onClose, c }) {
             >
               {item.desc}
             </p>
+          )}
+          {item.diagram && (
+            <div style={{ marginBottom: 24 }}>
+              <h3
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: c.text,
+                  marginBottom: 12,
+                  textTransform: "uppercase",
+                  letterSpacing: 0.5,
+                }}
+              >
+                {item.diagram.label}
+              </h3>
+              <div
+                style={{
+                  background: c.card,
+                  border: `1px solid ${c.border}`,
+                  borderRadius: 10,
+                  padding: "16px 12px",
+                  overflow: "hidden",
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: item.diagram.svg
+                    .replaceAll("FILL_CARD", c.card)
+                    .replaceAll("FILL_ACCENT", c.accentBadgeBg)
+                    .replaceAll("FILL_PURPLE", c.accentBadgeBg)
+                    .replaceAll("FILL_BLUE", c.accentBadgeBg)
+                    .replaceAll("FILL_CORAL", c.accentBadgeBg)
+                    .replaceAll("STROKE_ACCENT", c.accent)
+                    .replaceAll("STROKE_PURPLE", "#7F77DD")
+                    .replaceAll("STROKE_BLUE", "#378ADD")
+                    .replaceAll("STROKE_CORAL", "#D85A30")
+                    .replaceAll("STROKE", c.border)
+                    .replaceAll("MUTED", c.muted)
+                    .replaceAll("TEXT", c.text),
+                }}
+              />
+            </div>
           )}
           {isProject && (
             <>
@@ -2205,6 +2246,7 @@ export default function Portfolio() {
                               fontWeight: 600,
                             }}
                           >
+                            ↗
                           </span>
                         </div>
                       </div>
@@ -2379,9 +2421,9 @@ export default function Portfolio() {
                 }}
               >
                 {[
-                  ["GitHub", "https://github.com/Solomon-Lee"],
-                  ["LinkedIn", "https://linkedin.com/in/solomonslee"],
-                  ["Resume PDF", "/resume.pdf"],
+                  ["GitHub ↗", "https://github.com/Solomon-Lee"],
+                  ["LinkedIn ↗", "https://linkedin.com/in/solomonslee"],
+                  ["Resume PDF ↗", "/resume.pdf"],
                 ].map(([l, href]) => (
                   <a
                     key={l}
