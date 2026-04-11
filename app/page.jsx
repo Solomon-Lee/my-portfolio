@@ -1492,7 +1492,12 @@ export default function Portfolio() {
               columnGap: 12,
             }}
           >
-            {LIFE_PHOTOS.map((photo, i) => (
+            {[...LIFE_PHOTOS].sort((a, b) => {
+              if (!a.date && !b.date) return 0;
+              if (!a.date) return 1;
+              if (!b.date) return -1;
+              return new Date(b.date) - new Date(a.date);
+            }).map((photo, i) => (
               <div
                 key={i}
                 style={{
