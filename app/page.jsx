@@ -121,7 +121,32 @@ const JOBS = [
     role: "Software Engineer Intern — Google Core (Airlock)",
     date: "Aug – Nov 2025",
     tags: ["Java", "Spring Boot", "Spring AI", "GCP", "Vertex AI Search", "Dataflow", "MCP", "Spanner", "GKE"],
-    desc: "At Google, every software dependency used in production must come from an internal, centralized artifact registry — the single source of truth for all approved open-source and internal packages. AI coding assistants like Gemini CLI would recommend popular public packages that weren't approved for internal use, forcing developers into a manual search-and-replace workflow that undermined AI productivity gains.\n\nI designed and built an AI-powered package recommendation engine that lets developers use natural language to search for internally-approved packages. Instead of browsing a UI and guessing at package names, a developer could ask \"I need a library for JSON serialization in Java\" and get back a ranked list of compliant, build-ready results.\n\nThe core of the system follows a retrieve-and-rank architecture. In the retrieval stage, the service makes a semantic search call to a Vertex AI Search data store populated exclusively with internal package metadata, returning the top-k candidate packages. In the ranking stage, candidates are re-ranked using a weighted scoring function that blends multiple normalized signals: popularity (40%) using log-scaled community engagement metrics, semantic relevance (30%) from the initial similarity score, license compliance (20%) as a categorical score based on internal licensing status, and recency (10%) to gently favor actively maintained packages.\n\nThe service also functions as an MCP (Model Context Protocol) server, exposing three tools — GetPackageRecommendations, GetLatestVersion, and GetPackageMetadata — for integration with AI agents like Gemini CLI. Using Spring AI, these are registered as local Java functions that Gemini can invoke via its native tool-use capabilities.\n\nTo keep the search index fresh, I built a hybrid data ingestion pipeline. A daily Google Cloud Dataflow batch job performs a full refresh: extracting metadata, computing global normalization statistics, normalizing every record, staging output as JSONL in Cloud Storage, and triggering a bulk re-index. For real-time updates, a Spring AOP interceptor fires asynchronously after database transactions, normalizing and pushing individual records to the live index.\n\nI also integrated the engine into the internal UI as an \"AI Mode\" — a chatbot-style interface where developers receive formatted package cards alongside conversational summaries.",
+    desc: [
+      {
+        header: "The Problem",
+        body: "At Google, every software dependency used in production must come from an internal, centralized artifact registry — the single source of truth for all approved packages. AI coding assistants like Gemini CLI would recommend popular public packages that weren't approved for internal use, forcing developers into a manual search-and-replace workflow that undermined AI productivity gains.",
+      },
+      {
+        header: "What I Built",
+        body: "I designed and built an AI-powered package recommendation engine that lets developers use natural language to search for internally-approved packages. Instead of browsing a UI and guessing at package names, a developer could ask \"I need a library for JSON serialization in Java\" and get back a ranked list of compliant, build-ready results.",
+      },
+      {
+        header: "Retrieve-and-Rank Architecture",
+        body: "The core system follows a retrieve-and-rank architecture. In the retrieval stage, the service makes a semantic search call to a Vertex AI Search data store populated exclusively with internal package metadata, returning the top-k candidates. In the ranking stage, candidates are re-ranked using a weighted scoring function blending normalized signals: popularity (40%) via log-scaled engagement metrics, semantic relevance (30%), license compliance (20%) as a categorical score, and recency (10%) to gently favor actively maintained packages.",
+      },
+      {
+        header: "MCP Server & Tool-Use Integration",
+        body: "The service functions as an MCP (Model Context Protocol) server, exposing three tools — GetPackageRecommendations, GetLatestVersion, and GetPackageMetadata — for integration with AI agents like Gemini CLI. Using Spring AI, these are registered as local Java functions that Gemini can invoke via its native tool-use capabilities.",
+      },
+      {
+        header: "Data Pipeline",
+        body: "To keep the search index fresh, I built a hybrid data ingestion pipeline. A daily Google Cloud Dataflow batch job performs a full refresh: extracting metadata, computing global normalization statistics, normalizing every record, staging output as JSONL in Cloud Storage, and triggering a bulk re-index. For real-time updates, a Spring AOP interceptor fires asynchronously after database transactions, normalizing and pushing individual records to the live index.",
+      },
+      {
+        header: "Frontend Integration",
+        body: "I integrated the engine into the internal UI as an \"AI Mode\" — a chatbot-style interface where developers receive formatted package cards alongside conversational summaries.",
+      },
+    ],
   },
   {
     id: 2,
@@ -129,7 +154,36 @@ const JOBS = [
     role: "Software Engineer Intern — Foundation AI (ML Platform)",
     date: "May – Aug 2025",
     tags: ["Go", "Kubernetes", "GCP", "Prometheus", "Grafana"],
-    desc: "I worked on two projects that tackled ML Platform cloud cost from complementary angles: a GPU descheduler that automatically reclaims idle resources, and a cost dashboard that gives teams real-time spending visibility.\n\nProject 1: AI Platform Descheduler — Across the ML Platform's Kubernetes clusters, roughly 10% of allocated GPUs were sitting completely idle at any given time, reserved by completed or stalled jobs that hadn't been cleaned up. I designed and built a custom descheduler — a long-running Go application deployed natively inside the clusters. It continuously monitors GPU and CPU utilization via Prometheus, identifies idle workloads (completed Kubeflow pipelines, stalled RayJobs, stuck pending pods), and automatically terminates them by deleting the parent Kubernetes resource. All behavior is controlled through a ConfigMap — idle thresholds, query windows, target namespaces, and safety limits. I rolled it out in phases: shadow mode (logging only), dev deletions, tuning, then production. The system exposes Prometheus metrics visualized on a dedicated Grafana dashboard tracking GPUs reclaimed, idle hours recovered, and estimated dollars saved. Projected annual savings: ~$180K, with further gains expected from future bin-packing optimization on A100/H100 nodes.\n\nProject 2: Cost Dashboard V3 — Despite spending tens of millions annually on cloud infrastructure, the ML Platform lacked accurate real-time cost visibility. The existing dashboard used public AWS pricing instead of internally-negotiated rates, couldn't differentiate on-demand vs. reserved costs, and had inaccurate team attribution. I built a custom Go application deployed across all clusters that calculates real-time resource costs and exposes them as Prometheus metrics, visualized through Grafana. The core design uses cumulative cost counters instead of rate-based tracking, making the system immune to Prometheus data downsampling — you only need a data point near the start and end of a period to compute total cost accurately. Costs are aggregated at the application level (not pod level) to avoid Grafana OOM errors, with scrape intervals adjusted from 15s to 30min for long-term scalability. The cost model accounts for GPU node sharing (proportional to GPU requests) and standard node sharing (50/50 CPU/memory split). Key features include real-time quarterly budget progress bars, internal pricing alignment, utilization-linked cost views, and daily Parquet backups to S3.",
+    desc: [
+      {
+        header: "Overview",
+        body: "I worked on two projects that tackled ML Platform cloud cost from complementary angles: a GPU descheduler that automatically reclaims idle resources, and a cost dashboard that gives teams real-time spending visibility.",
+      },
+      {
+        header: "Project 1: AI Platform Descheduler",
+        body: "Across the ML Platform's Kubernetes clusters, roughly 10% of allocated GPUs were sitting completely idle at any given time, reserved by completed or stalled jobs that hadn't been cleaned up. I designed and built a custom descheduler — a long-running Go application deployed natively inside the clusters.",
+      },
+      {
+        header: "How It Works",
+        body: "The descheduler continuously monitors GPU and CPU utilization via Prometheus, identifies idle workloads (completed Kubeflow pipelines, stalled RayJobs, stuck pending pods), and automatically terminates them by deleting the parent Kubernetes resource. All behavior is controlled through a ConfigMap — idle thresholds, query windows, target namespaces, and safety limits.",
+      },
+      {
+        header: "Rollout & Impact",
+        body: "I rolled it out in phases: shadow mode (logging only), dev deletions, tuning, then production. The system exposes Prometheus metrics visualized on a dedicated Grafana dashboard tracking GPUs reclaimed, idle hours recovered, and estimated dollars saved. Projected annual savings: ~$180K, with further gains expected from future bin-packing optimization on A100/H100 nodes.",
+      },
+      {
+        header: "Project 2: Cost Dashboard V3",
+        body: "Despite spending tens of millions annually on cloud infrastructure, the ML Platform lacked accurate real-time cost visibility. The existing dashboard used public AWS pricing instead of internally-negotiated rates, couldn't differentiate on-demand vs. reserved costs, and had inaccurate team attribution.",
+      },
+      {
+        header: "Technical Design",
+        body: "I built a custom Go application deployed across all clusters that calculates real-time resource costs and exposes them as Prometheus metrics, visualized through Grafana. The core design uses cumulative cost counters instead of rate-based tracking, making the system immune to Prometheus data downsampling — you only need a data point near the start and end of a period to compute total cost accurately. Costs are aggregated at the application level (not pod level) to avoid Grafana OOM errors, with scrape intervals adjusted from 15s to 30min for long-term scalability.",
+      },
+      {
+        header: "Cost Model & Features",
+        body: "The cost model accounts for GPU node sharing (proportional to GPU requests) and standard node sharing (50/50 CPU/memory split). Key features include real-time quarterly budget progress bars, internal pricing alignment, utilization-linked cost views, and daily Parquet backups to S3.",
+      },
+    ],
   },
   {
     id: 3,
@@ -766,22 +820,47 @@ function Modal({ item, type, onClose, c }) {
           </p>
         </div>
         <div style={{ padding: "0 24px 24px", overflowY: "auto", flex: 1 }}>
-          <p
-            style={{
-              color: c.muted,
-              fontSize: 14,
-              lineHeight: 1.85,
-              marginBottom: 24,
-            }}
-          >
-            {item.desc.split("\n\n").length > 1
-              ? item.desc.split("\n\n").map((para, i) => (
-                  <span key={i} style={{ display: "block", marginBottom: i < item.desc.split("\n\n").length - 1 ? 14 : 0 }}>
-                    {para}
-                  </span>
-                ))
-              : item.desc}
-          </p>
+          {Array.isArray(item.desc) ? (
+            <div>
+              {item.desc.map((section, i) => (
+                <div key={i} style={{ marginBottom: i < item.desc.length - 1 ? 20 : 24 }}>
+                  <h3
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: c.text,
+                      marginBottom: 6,
+                      textTransform: "uppercase",
+                      letterSpacing: 0.5,
+                    }}
+                  >
+                    {section.header}
+                  </h3>
+                  <p
+                    style={{
+                      color: c.muted,
+                      fontSize: 14,
+                      lineHeight: 1.85,
+                      margin: 0,
+                    }}
+                  >
+                    {section.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p
+              style={{
+                color: c.muted,
+                fontSize: 14,
+                lineHeight: 1.85,
+                marginBottom: 24,
+              }}
+            >
+              {item.desc}
+            </p>
+          )}
           {isProject && (
             <>
               <div
