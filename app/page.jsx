@@ -68,6 +68,7 @@ const LIFE_PHOTOS = [
   { src: "/life/5562B6F3-BAEE-446D-9930-47916D118B62_1_105_c.jpeg", caption: "Yeah, I'm a big back :)"},
   { src: "/life/77E7F8BF-7FC7-40D9-BFE7-CBB3F35790E8_1_105_c.jpeg", caption: "Chinatown Summer 2025!"},
   { src: "/life/54CA81D4-CE55-4BD6-929A-EB3C7C91C8B6_1_105_c.jpeg", caption: "Posing!" },
+  { src: "/life/61DA6CE7-DCA9-40F7-A117-BC49B8D11939_1_105_c.jpeg", caption: "IYKYK" },
 ];
 
 const CORNELL = {
