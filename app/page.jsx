@@ -65,7 +65,9 @@ const LIFE_PHOTOS = [
   { src: "/life/DBAFEDFB-EA92-49B4-A3BF-5083787CDCE9_1_105_c.jpeg", caption: "I Love Food!!"},
   { src: "/life/FDAC0CF4-42A1-4F7E-8B69-1E0EDE87894B_1_105_c.jpeg", caption: "Snowboarding in Sapporo!"},
   { src: "/life/46E8708F-50BB-4898-A67B-66037866622D_1_105_c.jpeg", caption: "Hot day out in Boston August 2025!" },
-  { src: "/life/5562B6F3-BAEE-446D-9930-47916D118B62_1_105_c.jpeg", caption: "Yeah, I'm a big back :)"}
+  { src: "/life/5562B6F3-BAEE-446D-9930-47916D118B62_1_105_c.jpeg", caption: "Yeah, I'm a big back :)"},
+  { src: "/life/77E7F8BF-7FC7-40D9-BFE7-CBB3F35790E8_1_105_c.jpeg", caption: "Chinatown Summer 2025!"},
+  { src: "/life/54CA81D4-CE55-4BD6-929A-EB3C7C91C8B6_1_105_c.jpeg", caption: "Posing!" },
 ];
 
 const CORNELL = {
