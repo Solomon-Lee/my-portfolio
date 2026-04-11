@@ -57,6 +57,10 @@ const LIFE_PHOTOS = [
   { src: "/life/B5CA8A6E-E9EA-44ED-8FFF-F3DD5ABBAA2B_1_105_c.jpeg", caption: "Xiao Mi!!!!"},
   { src: "/life/F534A612-74B4-4350-A6FC-AB76FC44F356_1_105_c.jpeg", caption: "Date Night in NYC!"},
   { src: "/life/BB98841E-BF24-4691-873B-735313DACC74_1_105_c.jpeg", caption: "Halloween Night 2025" },
+  { src: "/life/3AC76553-BC1D-43BB-8A3D-B0EA170F5F89_1_105_c.jpeg", caption: "Chilling :)" },
+  { src: "/life/F9A500D7-B822-4438-8D40-CD92CF2C9A03_4_5005_c.jpeg", caption: "20 Inches of Snow in Ithaca!"},
+  { src: "/life/1E2B2890-CF99-49AD-BA83-7CF8D214A70B_1_105_c.jpeg", caption: "So Smug!"},
+  { src: "/life/04110F93-1F9C-4525-9E18-1363A068DDA9_1_105_c.jpeg", caption: "Favorite Boba!"},
 ];
 
 const CORNELL = {
