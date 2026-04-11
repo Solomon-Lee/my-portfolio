@@ -63,7 +63,9 @@ const LIFE_PHOTOS = [
   { src: "/life/04110F93-1F9C-4525-9E18-1363A068DDA9_1_105_c.jpeg", caption: "Favorite Boba!"},
   { src: "/life/84DB8FD0-A218-4527-B9D6-616279159226_1_105_c.jpeg", caption: "Childhood favorite meal at Guangzhou"},
   { src: "/life/DBAFEDFB-EA92-49B4-A3BF-5083787CDCE9_1_105_c.jpeg", caption: "I Love Food!!"},
-  { src: "/life/FDAC0CF4-42A1-4F7E-8B69-1E0EDE87894B_1_105_c.jpeg", caption: "Snowboarding in Sapporo!"}
+  { src: "/life/FDAC0CF4-42A1-4F7E-8B69-1E0EDE87894B_1_105_c.jpeg", caption: "Snowboarding in Sapporo!"},
+  { src: "/life/46E8708F-50BB-4898-A67B-66037866622D_1_105_c.jpeg", caption: "Hot day out in Boston August 2025!" },
+  { src: "/life/5562B6F3-BAEE-446D-9930-47916D118B62_1_105_c.jpeg", caption: "Yeah, I'm a big back :)"}
 ];
 
 const CORNELL = {
