@@ -165,11 +165,11 @@ const JOBS = [
       },
       {
         header: "Project 1: AI Platform Descheduler",
-        body: "Across the ML Platform's Kubernetes clusters, roughly 10% of allocated GPUs were sitting completely idle at any given time, reserved by completed or stalled jobs that hadn't been cleaned up. I designed and built a custom descheduler — a long-running Go application deployed natively inside the clusters.",
+        body: "Across the ML Platform's Kubernetes clusters, roughly 10% of allocated GPUs were sitting completely idle at any given time, reserved by completed or stalled jobs that hadn't been cleaned up. I designed and built a custom descheduler, a long-running Go application deployed natively inside the clusters.",
       },
       {
         header: "How It Works",
-        body: "The descheduler continuously monitors GPU and CPU utilization via Prometheus, identifies idle workloads (completed Kubeflow pipelines, stalled RayJobs, stuck pending pods), and automatically terminates them by deleting the parent Kubernetes resource. All behavior is controlled through a ConfigMap — idle thresholds, query windows, target namespaces, and safety limits.",
+        body: "The descheduler continuously monitors GPU and CPU utilization via Prometheus, identifies idle workloads (completed Kubeflow pipelines, stalled RayJobs, stuck pending pods), and automatically terminates them by deleting the parent Kubernetes resource. All behavior is controlled through a ConfigMap (idle thresholds, query windows, target namespaces, and safety limits).",
       },
       {
         header: "Rollout & Impact",
@@ -181,7 +181,7 @@ const JOBS = [
       },
       {
         header: "Technical Design",
-        body: "I built a custom Go application deployed across all clusters that calculates real-time resource costs and exposes them as Prometheus metrics, visualized through Grafana. The core design uses cumulative cost counters instead of rate-based tracking, making the system immune to Prometheus data downsampling — you only need a data point near the start and end of a period to compute total cost accurately. Costs are aggregated at the application level (not pod level) to avoid Grafana OOM errors, with scrape intervals adjusted from 15s to 30min for long-term scalability.",
+        body: "I built a custom Go application deployed across all clusters that calculates real-time resource costs and exposes them as Prometheus metrics, visualized through Grafana. The core design uses cumulative cost counters instead of rate-based tracking, making the system immune to Prometheus data downsampling. You only need a data point near the start and end of a period to compute total cost accurately. Costs are aggregated at the application level (not pod level) to avoid Grafana OOM errors, with scrape intervals adjusted from 15s to 30min for long-term scalability.",
       },
       {
         header: "Cost Model & Features",
