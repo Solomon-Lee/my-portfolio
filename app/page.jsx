@@ -124,7 +124,7 @@ const JOBS = [
     desc: [
       {
         header: "The Problem",
-        body: "At Google, every software dependency used in production must come from an internal, centralized artifact registry — the single source of truth for all approved packages. AI coding assistants like Gemini CLI would recommend popular public packages that weren't approved for internal use, forcing developers into a manual search-and-replace workflow that undermined AI productivity gains.",
+        body: "At Google, every software dependency used in production must come from an internal, centralized artifact registry which is the single source of truth for all approved packages. AI coding assistants like Gemini CLI would recommend popular public packages that weren't approved for internal use, forcing developers into a manual search-and-replace workflow that undermined AI productivity gains.",
       },
       {
         header: "What I Built",
@@ -136,7 +136,7 @@ const JOBS = [
       },
       {
         header: "MCP Server & Tool-Use Integration",
-        body: "The service functions as an MCP (Model Context Protocol) server, exposing three tools — GetPackageRecommendations, GetLatestVersion, and GetPackageMetadata — for integration with AI agents like Gemini CLI. Using Spring AI, these are registered as local Java functions that Gemini can invoke via its native tool-use capabilities.",
+        body: "The service functions as an MCP (Model Context Protocol) server, exposing three tools (GetPackageRecommendations, GetLatestVersion, and GetPackageMetadata) for integration with AI agents like Gemini CLI. Using Spring AI, these are registered as local Java functions that Gemini can invoke via its native tool-use capabilities.",
       },
       {
         header: "Data Pipeline",
@@ -144,7 +144,7 @@ const JOBS = [
       },
       {
         header: "Frontend Integration",
-        body: "I integrated the engine into the internal UI as an \"AI Mode\" — a chatbot-style interface where developers receive formatted package cards alongside conversational summaries.",
+        body: "I integrated the engine into the internal UI as an \"AI Mode\" to have a chatbot-style interface where developers receive formatted package cards alongside conversational summaries.",
       },
     ],
     diagram: {
