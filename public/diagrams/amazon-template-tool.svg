@@ -52,7 +52,8 @@
   <rect x="130" y="265" width="310" height="40" rx="6" fill="none" stroke="MUTED" stroke-width="1" stroke-dasharray="6 4"/>
   <text x="285" y="289" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="MUTED">Prod  →  Gamma  →  Beta  →  Dev</text>
 
-  <!-- S3/DDB → Environments -->
-  <line x1="285" y1="232" x2="285" y2="263" stroke="MUTED" stroke-width="1" marker-end="url(#a3)"/>
-  <text x="300" y="252" font-size="10" fill="MUTED">Deploy</text>
+  <!-- S3 + DDB → Environments -->
+  <line x1="185" y1="230" x2="185" y2="263" stroke="MUTED" stroke-width="1" marker-end="url(#a3)"/>
+  <line x1="385" y1="230" x2="385" y2="263" stroke="MUTED" stroke-width="1" marker-end="url(#a3)"/>
+  <text x="285" y="252" text-anchor="middle" font-size="10" fill="MUTED">Deploy across stages</text>
 </svg>
