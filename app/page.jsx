@@ -2276,7 +2276,6 @@ export default function Portfolio() {
                               fontWeight: 600,
                             }}
                           >
-                            ↗
                           </span>
                         </div>
                       </div>
