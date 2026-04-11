@@ -1488,8 +1488,9 @@ export default function Portfolio() {
           </p>
           <div
             style={{
-              columns: "3 240px",
-              columnGap: 12,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+              gap: 12,
             }}
           >
             {[...LIFE_PHOTOS].sort((a, b) => {
@@ -1502,8 +1503,6 @@ export default function Portfolio() {
                 key={i}
                 style={{
                   ...cardStyle,
-                  marginBottom: 12,
-                  breakInside: "avoid",
                   cursor: "default",
                   transition: "border-color 0.15s, box-shadow 0.2s",
                 }}
