@@ -1790,7 +1790,13 @@ export default function Portfolio() {
               }}
             >
               {!lightboxReady ? (
-                <div style={{ color: "#fff", fontSize: 14 }}>Loading...</div>
+                <div style={{
+                  width: 36, height: 36,
+                  border: "3px solid rgba(255,255,255,0.15)",
+                  borderTop: "3px solid #fff",
+                  borderRadius: "50%",
+                  animation: "spin 0.8s linear infinite",
+                }} />
               ) : (
                 <img
                   src={lightboxPhoto.src}
