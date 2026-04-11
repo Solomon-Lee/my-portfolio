@@ -188,6 +188,16 @@ const JOBS = [
         body: "The cost model accounts for GPU node sharing (proportional to GPU requests) and standard node sharing (50/50 CPU/memory split). Key features include real-time quarterly budget progress bars, internal pricing alignment, utilization-linked cost views, and daily Parquet backups to S3.",
       },
     ],
+    diagram: [
+      {
+        label: "Descheduler Architecture",
+        svg: `<svg width="100%" viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><rect x="30" y="20" width="620" height="200" rx="12" fill="none" stroke="MUTED" stroke-width="1" stroke-dasharray="6 4"/><text x="50" y="44" font-size="12" font-weight="600" fill="MUTED">Kubernetes cluster</text><rect x="60" y="80" width="120" height="50" rx="6" fill="FILL_CORAL" stroke="STROKE_CORAL" stroke-width="0.5"/><text x="120" y="105" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Prometheus</text><rect x="270" y="70" width="140" height="70" rx="6" fill="FILL_ACCENT" stroke="STROKE_ACCENT" stroke-width="0.5"/><text x="340" y="98" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Descheduler</text><text x="340" y="118" text-anchor="middle" font-size="11" fill="MUTED">(Go)</text><rect x="500" y="65" width="130" height="80" rx="6" fill="FILL_BLUE" stroke="STROKE_BLUE" stroke-width="0.5"/><text x="565" y="92" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Idle workloads</text><text x="565" y="112" text-anchor="middle" font-size="11" fill="MUTED">Kubeflow / Ray</text><text x="565" y="130" text-anchor="middle" font-size="11" fill="MUTED">Pending pods</text><line x1="180" y1="98" x2="268" y2="98" stroke="TEXT" stroke-width="1" marker-end="url(#arr1)"/><line x1="268" y1="112" x2="180" y2="112" stroke="TEXT" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arr1)"/><text x="224" y="90" text-anchor="middle" font-size="10" fill="MUTED">Query metrics</text><text x="224" y="126" text-anchor="middle" font-size="10" fill="MUTED">GPU/CPU util</text><line x1="410" y1="105" x2="498" y2="105" stroke="STROKE_CORAL" stroke-width="1" marker-end="url(#arr1)"/><text x="454" y="97" text-anchor="middle" font-size="10" fill="MUTED">Terminate</text><rect x="270" y="260" width="140" height="50" rx="6" fill="FILL_PURPLE" stroke="STROKE_PURPLE" stroke-width="0.5"/><text x="340" y="285" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Grafana</text><line x1="340" y1="140" x2="340" y2="258" stroke="TEXT" stroke-width="1" marker-end="url(#arr1)"/><text x="355" y="200" font-size="10" fill="MUTED">Export metrics</text><text x="355" y="214" font-size="10" fill="MUTED">(GPUs freed,</text><text x="355" y="228" font-size="10" fill="MUTED">$ saved)</text></svg>`,
+      },
+      {
+        label: "Cost Dashboard Architecture",
+        svg: `<svg width="100%" viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><rect x="230" y="20" width="220" height="60" rx="6" fill="FILL_BLUE" stroke="STROKE_BLUE" stroke-width="0.5"/><text x="340" y="44" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Kubernetes clusters</text><text x="340" y="62" text-anchor="middle" font-size="11" fill="MUTED">Resource allocation data</text><line x1="340" y1="80" x2="340" y2="118" stroke="TEXT" stroke-width="1" marker-end="url(#arr2)"/><rect x="250" y="120" width="180" height="70" rx="6" fill="FILL_ACCENT" stroke="STROKE_ACCENT" stroke-width="0.5"/><text x="340" y="148" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Cost calculator</text><text x="340" y="168" text-anchor="middle" font-size="11" fill="MUTED">(Go) Cumulative counters</text><rect x="60" y="240" width="130" height="50" rx="6" fill="FILL_GRAY" stroke="STROKE_GRAY" stroke-width="0.5"/><text x="125" y="265" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">S3</text><text x="160" y="224" font-size="10" fill="MUTED">Parquet backup</text><line x1="280" y1="190" x2="192" y2="240" stroke="TEXT" stroke-width="1" marker-end="url(#arr2)"/><rect x="275" y="240" width="130" height="50" rx="6" fill="FILL_CORAL" stroke="STROKE_CORAL" stroke-width="0.5"/><text x="340" y="265" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Prometheus</text><line x1="340" y1="190" x2="340" y2="238" stroke="TEXT" stroke-width="1" marker-end="url(#arr2)"/><text x="370" y="222" font-size="10" fill="MUTED">Metrics endpoint</text><rect x="490" y="240" width="130" height="50" rx="6" fill="FILL_PURPLE" stroke="STROKE_PURPLE" stroke-width="0.5"/><text x="555" y="265" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Grafana</text><line x1="405" y1="265" x2="488" y2="265" stroke="TEXT" stroke-width="1" marker-end="url(#arr2)"/><text x="447" y="257" text-anchor="middle" font-size="10" fill="MUTED">Visualize</text><text x="555" y="310" text-anchor="middle" font-size="11" fill="MUTED">Budget tracking</text><text x="555" y="326" text-anchor="middle" font-size="11" fill="MUTED">Utilization views</text><text x="555" y="342" text-anchor="middle" font-size="11" fill="MUTED">Cost per team</text></svg>`,
+      },
+    ],
   },
   {
     id: 3,
@@ -865,8 +875,8 @@ function Modal({ item, type, onClose, c }) {
               {item.desc}
             </p>
           )}
-          {item.diagram && (
-            <div style={{ marginBottom: 24 }}>
+          {item.diagram && (Array.isArray(item.diagram) ? item.diagram : [item.diagram]).map((diag, di) => (
+            <div key={di} style={{ marginBottom: 24 }}>
               <h3
                 style={{
                   fontSize: 13,
@@ -877,7 +887,7 @@ function Modal({ item, type, onClose, c }) {
                   letterSpacing: 0.5,
                 }}
               >
-                {item.diagram.label}
+                {diag.label}
               </h3>
               <div
                 style={{
@@ -888,7 +898,7 @@ function Modal({ item, type, onClose, c }) {
                   overflow: "hidden",
                 }}
                 dangerouslySetInnerHTML={{
-                  __html: item.diagram.svg
+                  __html: diag.svg
                     .replaceAll("FILL_GRAY", c.chipDark)
                     .replaceAll("FILL_CARD", c.card)
                     .replaceAll("FILL_ACCENT", c.accentBadgeBg)
@@ -906,7 +916,7 @@ function Modal({ item, type, onClose, c }) {
                 }}
               />
             </div>
-          )}
+          ))}
           {isProject && (
             <>
               <div
