@@ -2379,9 +2379,9 @@ export default function Portfolio() {
                 }}
               >
                 {[
-                  ["GitHub ↗", "https://github.com/Solomon-Lee"],
-                  ["LinkedIn ↗", "https://linkedin.com/in/solomonslee"],
-                  ["Resume PDF ↗", "/resume.pdf"],
+                  ["GitHub", "https://github.com/Solomon-Lee"],
+                  ["LinkedIn", "https://linkedin.com/in/solomonslee"],
+                  ["Resume PDF", "/resume.pdf"],
                 ].map(([l, href]) => (
                   <a
                     key={l}
