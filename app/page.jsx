@@ -1493,17 +1493,23 @@ export default function Portfolio() {
           </p>
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+              display: "flex",
               gap: 12,
+              alignItems: "flex-start",
             }}
           >
-            {[...LIFE_PHOTOS].sort((a, b) => {
-              if (!a.date && !b.date) return 0;
-              if (!a.date) return 1;
-              if (!b.date) return -1;
-              return new Date(b.date) - new Date(a.date);
-            }).map((photo, i) => (
+            {(() => {
+              const sorted = [...LIFE_PHOTOS].sort((a, b) => {
+                if (!a.date && !b.date) return 0;
+                if (!a.date) return 1;
+                if (!b.date) return -1;
+                return new Date(b.date) - new Date(a.date);
+              });
+              const cols = [[], [], []];
+              sorted.forEach((photo, i) => cols[i % 3].push({ photo, i }));
+              return cols.map((col, ci) => (
+                <div key={ci} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
+                  {col.map(({ photo, i }) => (
               <div
                 key={i}
                 style={{
@@ -1585,7 +1591,10 @@ export default function Portfolio() {
                   </div>
                 )}
               </div>
-            ))}
+                  ))}
+                </div>
+              ));
+            })()}
           </div>
         </div>
       ) : (
