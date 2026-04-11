@@ -204,8 +204,49 @@ const JOBS = [
     company: "Amazon Robotics",
     role: "Software Engineer Co-op — Amazon Robotics (Hardware Services)",
     date: "Aug – Dec 2024",
-    tags: ["Python", "AWS", "S3", "Git", "SSH"],
-    desc: "Developed the RISE Job Template Uploader Tool, a Python application with a user-friendly UI enabling simplified management and synchronization of job templates across environments (Prod → Gamma → Beta → Dev). Created version control for RISE job templates by integrating Git with AWS S3, enhancing collaboration, tracking, and template consistency while reducing the learning curve for new users. Developed a Python script to automate extraction of log files from drive units using SSH/SCP protocols and uploaded them to AWS S3, enhancing log retrieval efficiency by 60%.",
+    tags: ["Python", "AWS (S3, DynamoDB, IoT, Lambda, CDK, CloudWatch, CloudFormation)", "SSH/SCP", "Git"],
+    desc: [
+      {
+        header: "Context",
+        body: "Amazon Robotics manages thousands of autonomous drive units across fulfillment centers. These drives need constant monitoring, log retrieval, and configuration management to stay operational. The Hardware Services team builds the internal tooling that field technicians and engineers rely on to keep these systems running. I worked on four projects spanning monitoring, diagnostics, log automation, and deployment tooling.",
+      },
+      {
+        header: "Project 1: Drive Monitoring Expansion",
+        body: "The team had an existing monitoring system that tracked error codes on drive units and automatically shipped logs to S3 for investigation. However, it was originally designed to support only corporate fulfillment sites. As the fleet expanded to MOC (mechanized outbound center) sites, the same monitoring capabilities were needed there. I extended the system to support MOC sites, enabling the operations team to detect and diagnose issues across both site types from a single pipeline.",
+      },
+      {
+        header: "Project 2: IoT Drive Health Audit",
+        body: "Certain drive units would enter a bad state where their device agent stopped processing jobs entirely. This was especially dangerous because if a drive couldn't process jobs, critical operations like shutdowns or credential rotations couldn't be executed. If credentials were rotated on a drive in this state, the drive would require manual intervention to fix — a time-consuming process at scale."
+      },
+      {
+        header: "What I Built",
+        body: "I built a Python diagnostic tool that reads execution summaries (JSON), extracts drive GUIDs, queries DynamoDB for device metadata, and checks the last 5 IoT jobs for each drive to determine whether they completed successfully. The tool generates a report categorizing drives into three buckets: drives with no jobs in the past 24 hours, drives with jobs that failed to complete within 10 minutes, and drives with successful jobs. Field technicians could then proactively reboot drives in a bad state before downstream problems occurred."
+      },
+      {
+        header: "Considerations",
+        body: "To avoid throttling AWS services, the tool introduces a 1-second sleep between API calls and efficiently processes batches of up to 100 JSON objects per run."
+      },
+      {
+        header: "Project 3: Automated Log Retrieval",
+        body: "When engineers needed to diagnose issues on specific drives, they had to manually SSH into individual units, locate the relevant log files, and transfer them out. This was slow and error-prone, especially when investigating issues across multiple drives."
+      },
+      {
+        header: "What I Built",
+        body: "I built an automated log retrieval script that SSHes into target drives, extracts logs, temporarily stores them in a local directory organized by GUID, uploads them to an S3 bucket, and generates pre-signed URLs (both metadata and download links) for easy sharing. After upload, the script automatically cleans up local storage to preserve disk space. This turned a manual multi-step process into a single command, and the pre-signed URLs made it easy for any team member to access the logs without needing direct drive access."
+      },
+      {
+        header: "Project 4: Job Template Management Tool",
+        body: "The team's job templates and scripts — used to execute operations on drive units via a controlled permissions-based environment — were not synchronized across deployment stages (Prod → Gamma → Beta → Dev). The original solution used AWS Pipelines, CDK, and Lambda, but the pipeline was difficult to connect to Git, hard for new users to understand, and didn't allow on-demand template modifications."
+      },
+      {
+        header: "What I Built",
+        body: "I replaced the pipeline approach with a Python application featuring a user-friendly UI. The tool synchronizes templates and scripts from S3 and DynamoDB, maintaining consistency across all environments. I built it with a modular architecture — separating all core functionality (template creation, modification, upload, sync) from the UI layer — so the team could later swap in a web-based interface without rewriting any business logic. Key components include a template upload orchestrator for creating and pushing templates, a Git-based preprocessing pipeline for managing file versioning and zipping, and a DynamoDB restore utility for recovering table integrity after errors. The tool also introduced version control for job templates by integrating Git with S3, enabling collaboration and change tracking that didn't exist before."
+      },
+      {
+        header: "Impact",
+        body: "The tool significantly reduced the learning curve for new team members, automated previously manual synchronization tasks, and gave engineers the ability to independently manage templates without deep knowledge of the underlying infrastructure."
+      }
+    ],
   },
   {
     id: 4,
