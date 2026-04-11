@@ -70,6 +70,7 @@ const LIFE_PHOTOS = [
   { src: "/life/54CA81D4-CE55-4BD6-929A-EB3C7C91C8B6_1_105_c.jpeg", caption: "Posing!" },
   { src: "/life/61DA6CE7-DCA9-40F7-A117-BC49B8D11939_1_105_c.jpeg", caption: "IYKYK" },
   { src: "/life/72CCB459-6217-4666-8536-4FAC08D8470C_1_105_c.jpeg", caption: "Boston Spring 2025!" },
+  { src: "/life/FF98255A-AE84-4CDF-8E79-4267B1967950_1_105_c.jpeg", caption: "Catching fishies in TeamLab Tokyo January 2025" },
 ];
 
 const CORNELL = {
