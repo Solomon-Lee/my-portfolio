@@ -1416,6 +1416,14 @@ export default function Portfolio() {
   const [blink, setBlink] = useState(true);
   const [showLife, setShowLife] = useState(false);
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
+  const [lightboxReady, setLightboxReady] = useState(false);
+  const openLightbox = (photo) => {
+    setLightboxPhoto(photo);
+    setLightboxReady(false);
+    const img = new window.Image();
+    img.onload = () => setLightboxReady(true);
+    img.src = photo.src;
+  };
   const refs = useRef({});
   const clicking = useRef(false);
   const { displayed, done } = useTypewriter(FULL_TEXT, TYPE_SPEED);
@@ -1649,7 +1657,7 @@ export default function Portfolio() {
               return cols.map((col, ci) => (
                 <div key={ci} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
                   {col.map(({ photo, i }) => (
-                    <FlipCard key={i} photo={photo} index={i} cardStyle={cardStyle} c={c} isDark={isDark} onSelect={setLightboxPhoto} />
+                    <FlipCard key={i} photo={photo} index={i} cardStyle={cardStyle} c={c} isDark={isDark} onSelect={openLightbox} />
                   ))}
                 </div>
               ));
@@ -1672,18 +1680,23 @@ export default function Portfolio() {
                 cursor: "zoom-out",
               }}
             >
-              <img
-                src={lightboxPhoto.src}
-                alt={lightboxPhoto.caption || ""}
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                  maxWidth: "90vw",
-                  maxHeight: "90vh",
-                  objectFit: "contain",
-                  borderRadius: 8,
-                  cursor: "default",
-                }}
-              />
+              {!lightboxReady ? (
+                <div style={{ color: "#fff", fontSize: 14 }}>Loading...</div>
+              ) : (
+                <img
+                  src={lightboxPhoto.src}
+                  alt={lightboxPhoto.caption || ""}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    maxWidth: "90vw",
+                    maxHeight: "90vh",
+                    objectFit: "contain",
+                    borderRadius: 8,
+                    cursor: "default",
+                    animation: "fadeIn 0.3s ease",
+                  }}
+                />
+              )}
             </div>
           )}
         </div>
