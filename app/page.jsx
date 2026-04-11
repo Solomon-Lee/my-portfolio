@@ -826,6 +826,117 @@ function Modal({ item, type, onClose, c }) {
   );
 }
 
+function FlipCard({ photo, index, cardStyle, c, isDark }) {
+  const [loaded, setLoaded] = useState(false);
+  const minH = 160 + (index % 3) * 60;
+
+  return (
+    <div style={{ perspective: 800 }}>
+      <div
+        style={{
+          transition: "transform 0.6s ease",
+          transformStyle: "preserve-3d",
+          transform: loaded ? "rotateY(0deg)" : "rotateY(180deg)",
+        }}
+      >
+        {/* Front — the actual photo card */}
+        <div
+          style={{
+            ...cardStyle,
+            cursor: "default",
+            backfaceVisibility: "hidden",
+            transition: "border-color 0.15s, box-shadow 0.2s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = c.accent;
+            e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = c.border;
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
+          <div
+            style={{
+              background: isDark ? "#111" : "#E0E0E0",
+              minHeight: minH,
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={photo.src}
+              alt={photo.caption || ""}
+              fill
+              style={{ objectFit: "cover" }}
+              onLoad={() => setTimeout(() => setLoaded(true), index * 80)}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+                setLoaded(true);
+              }}
+            />
+          </div>
+          {(photo.caption || photo.location || photo.date) && (
+            <div style={{ padding: "8px 12px", fontSize: 12, color: c.muted }}>
+              {photo.caption && <div>{photo.caption}</div>}
+              {(photo.location || photo.date) && (
+                <div style={{ display: "flex", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
+                  {photo.location && (
+                    <span style={{ background: c.chipDark, borderRadius: 12, padding: "2px 8px", fontSize: 10, color: c.muted }}>
+                      {photo.location}
+                    </span>
+                  )}
+                  {photo.date && (
+                    <span style={{ background: c.chipDark, borderRadius: 12, padding: "2px 8px", fontSize: 10, color: c.muted }}>
+                      {photo.date}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Back — blank card */}
+        <div
+          style={{
+            ...cardStyle,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+            background: isDark
+              ? "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)"
+              : "linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 50%, #b8b8b8 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              width: "40%",
+              height: "40%",
+              border: `2px solid ${isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}`,
+              borderRadius: 8,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 20,
+              color: isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)",
+            }}
+          >
+            SL
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Starfield({ isDark }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
@@ -1510,87 +1621,7 @@ export default function Portfolio() {
               return cols.map((col, ci) => (
                 <div key={ci} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
                   {col.map(({ photo, i }) => (
-              <div
-                key={i}
-                style={{
-                  ...cardStyle,
-                  cursor: "default",
-                  transition: "border-color 0.15s, box-shadow 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = c.accent;
-                  e.currentTarget.style.boxShadow = `0 0 15px ${c.accent}44, 0 0 30px ${c.accent}22`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = c.border;
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                <div
-                  style={{
-                    background: isDark ? "#111" : "#E0E0E0",
-                    minHeight: 160 + (i % 3) * 60,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: c.muted,
-                    fontSize: 11,
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Image
-                    src={photo.src}
-                    alt={photo.caption}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
-                </div>
-                {(photo.caption || photo.location || photo.date) && (
-                  <div
-                    style={{
-                      padding: "8px 12px",
-                      fontSize: 12,
-                      color: c.muted,
-                    }}
-                  >
-                    {photo.caption && <div>{photo.caption}</div>}
-                    {(photo.location || photo.date) && (
-                      <div style={{ display: "flex", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
-                        {photo.location && (
-                          <span
-                            style={{
-                              background: c.chipDark,
-                              borderRadius: 12,
-                              padding: "2px 8px",
-                              fontSize: 10,
-                              color: c.muted,
-                            }}
-                          >
-                            {photo.location}
-                          </span>
-                        )}
-                        {photo.date && (
-                          <span
-                            style={{
-                              background: c.chipDark,
-                              borderRadius: 12,
-                              padding: "2px 8px",
-                              fontSize: 10,
-                              color: c.muted,
-                            }}
-                          >
-                            {photo.date}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
+                    <FlipCard key={i} photo={photo} index={i} cardStyle={cardStyle} c={c} isDark={isDark} />
                   ))}
                 </div>
               ));
