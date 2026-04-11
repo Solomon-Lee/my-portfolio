@@ -1,0 +1,55 @@
+<svg width="100%" viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Drive Units -->
+  <rect x="40" y="40" width="120" height="60" rx="6" fill="FILL_GRAY" stroke="STROKE_GRAY" stroke-width="0.5"/>
+  <text x="100" y="63" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Drive units</text>
+  <text x="100" y="83" text-anchor="middle" font-size="11" fill="MUTED">Log files</text>
+
+  <!-- Python Script -->
+  <rect x="230" y="30" width="150" height="80" rx="6" fill="FILL_ACCENT" stroke="STROKE_ACCENT" stroke-width="0.5"/>
+  <text x="305" y="55" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Log puller</text>
+  <text x="305" y="75" text-anchor="middle" font-size="11" fill="MUTED">(Python)</text>
+  <text x="305" y="95" text-anchor="middle" font-size="11" fill="MUTED">SSH/SCP extraction</text>
+
+  <!-- Drive → Script -->
+  <line x1="160" y1="60" x2="228" y2="60" stroke="TEXT" stroke-width="1" marker-end="url(#a2)"/>
+  <text x="194" y="52" text-anchor="middle" font-size="10" fill="MUTED">SSH</text>
+
+  <!-- Script → Drive (cleanup) -->
+  <line x1="228" y1="80" x2="160" y2="80" stroke="TEXT" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#a2)"/>
+  <text x="194" y="96" text-anchor="middle" font-size="10" fill="MUTED">Logs</text>
+
+  <!-- Local /var storage -->
+  <rect x="230" y="150" width="150" height="50" rx="6" fill="FILL_GRAY" stroke="STROKE_GRAY" stroke-width="0.5"/>
+  <text x="305" y="170" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">/var temp storage</text>
+  <text x="305" y="188" text-anchor="middle" font-size="11" fill="MUTED">Organized by GUID</text>
+
+  <!-- Script → /var -->
+  <line x1="305" y1="110" x2="305" y2="148" stroke="TEXT" stroke-width="1" marker-end="url(#a2)"/>
+
+  <!-- S3 -->
+  <rect x="470" y="40" width="130" height="50" rx="6" fill="FILL_BLUE" stroke="STROKE_BLUE" stroke-width="0.5"/>
+  <text x="535" y="65" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">S3 bucket</text>
+
+  <!-- /var → S3 -->
+  <line x1="380" y1="165" x2="535" y2="92" stroke="STROKE_BLUE" stroke-width="1" marker-end="url(#a2)"/>
+  <text x="470" y="138" text-anchor="middle" font-size="10" fill="MUTED">Upload</text>
+
+  <!-- Pre-signed URLs -->
+  <rect x="470" y="130" width="160" height="60" rx="6" fill="FILL_PURPLE" stroke="STROKE_PURPLE" stroke-width="0.5"/>
+  <text x="550" y="153" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Pre-signed URLs</text>
+  <text x="550" y="173" text-anchor="middle" font-size="11" fill="MUTED">Metadata + download</text>
+
+  <!-- S3 → URLs -->
+  <line x1="535" y1="90" x2="535" y2="128" stroke="STROKE_PURPLE" stroke-width="1" marker-end="url(#a2)"/>
+  <text x="560" y="114" font-size="10" fill="MUTED">Generate</text>
+
+  <!-- Cleanup note -->
+  <text x="305" y="225" text-anchor="middle" font-size="11" fill="MUTED">Auto-cleanup after upload</text>
+  <line x1="305" y1="200" x2="305" y2="218" stroke="MUTED" stroke-width="0.5" stroke-dasharray="3 3"/>
+</svg>

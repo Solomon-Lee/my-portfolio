@@ -1,0 +1,54 @@
+<svg width="100%" viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- JSON Input -->
+  <rect x="40" y="40" width="120" height="50" rx="6" fill="FILL_GRAY" stroke="STROKE_GRAY" stroke-width="0.5"/>
+  <text x="100" y="60" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">JSON files</text>
+  <text x="100" y="78" text-anchor="middle" font-size="11" fill="MUTED">Execution summaries</text>
+
+  <!-- Python Audit Tool -->
+  <rect x="220" y="30" width="150" height="70" rx="6" fill="FILL_ACCENT" stroke="STROKE_ACCENT" stroke-width="0.5"/>
+  <text x="295" y="55" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Audit tool</text>
+  <text x="295" y="75" text-anchor="middle" font-size="11" fill="MUTED">(Python)</text>
+
+  <!-- JSON → Tool -->
+  <line x1="160" y1="65" x2="218" y2="65" stroke="TEXT" stroke-width="1" marker-end="url(#a1)"/>
+  <text x="189" y="57" text-anchor="middle" font-size="10" fill="MUTED">Parse</text>
+
+  <!-- DynamoDB -->
+  <rect x="440" y="30" width="130" height="50" rx="6" fill="FILL_BLUE" stroke="STROKE_BLUE" stroke-width="0.5"/>
+  <text x="505" y="55" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">DynamoDB</text>
+
+  <!-- Tool → DynamoDB -->
+  <line x1="370" y1="55" x2="438" y2="55" stroke="STROKE_BLUE" stroke-width="1" marker-end="url(#a1)"/>
+  <text x="404" y="47" text-anchor="middle" font-size="10" fill="MUTED">Query GUIDs</text>
+
+  <!-- DynamoDB → Tool -->
+  <line x1="438" y1="72" x2="370" y2="72" stroke="STROKE_BLUE" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#a1)"/>
+  <text x="404" y="88" text-anchor="middle" font-size="10" fill="MUTED">Device metadata</text>
+
+  <!-- AWS IoT -->
+  <rect x="440" y="120" width="130" height="50" rx="6" fill="FILL_CORAL" stroke="STROKE_CORAL" stroke-width="0.5"/>
+  <text x="505" y="145" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">AWS IoT</text>
+
+  <!-- Tool → IoT -->
+  <line x1="345" y1="100" x2="438" y2="135" stroke="STROKE_CORAL" stroke-width="1" marker-end="url(#a1)"/>
+
+  <!-- IoT → Tool -->
+  <line x1="438" y1="155" x2="345" y2="155" stroke="STROKE_CORAL" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#a1)"/>
+  <text x="392" y="168" text-anchor="middle" font-size="10" fill="MUTED">Last 5 jobs</text>
+
+  <!-- Report Output -->
+  <rect x="180" y="210" width="230" height="70" rx="6" fill="FILL_PURPLE" stroke="STROKE_PURPLE" stroke-width="0.5"/>
+  <text x="295" y="233" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Health report</text>
+  <text x="295" y="253" text-anchor="middle" font-size="11" fill="MUTED">No jobs / Failed / Succeeded</text>
+  <text x="295" y="269" text-anchor="middle" font-size="11" fill="MUTED">→ Reboot flagged drives</text>
+
+  <!-- Tool → Report -->
+  <line x1="295" y1="100" x2="295" y2="208" stroke="TEXT" stroke-width="1" marker-end="url(#a1)"/>
+  <text x="310" y="160" font-size="10" fill="MUTED">Categorize</text>
+</svg>

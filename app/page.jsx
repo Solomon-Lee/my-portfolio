@@ -247,6 +247,11 @@ const JOBS = [
         body: "The tool significantly reduced the learning curve for new team members, automated previously manual synchronization tasks, and gave engineers the ability to independently manage templates without deep knowledge of the underlying infrastructure."
       }
     ],
+    diagram: [
+      { label: "Drive Health Audit", src: "/diagrams/amazon-drive-audit.svg" },
+      { label: "Log Retrieval Pipeline", src: "/diagrams/amazon-log-retrieval.svg" },
+      { label: "Template Tool Architecture", src: "/diagrams/amazon-template-tool.svg" },
+    ],
   },
   {
     id: 4,
