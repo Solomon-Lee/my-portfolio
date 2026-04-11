@@ -43,10 +43,10 @@ const FULL_TEXT = "hello world, it's Solomon!";
 const TYPE_SPEED = 65;
 
 const LIFE_PHOTOS = [
-  { src: "/life/C514993E-744B-4A34-AB3E-7E8F077402AA_1_105_c.jpeg", caption: "Munich Beer Hall!", location: "", date: "" },
-  { src: "/life/90E01CF2-8DC3-4B4A-A5B4-A74069B9D35F.jpeg", caption: "Cracking a Red Bull at the Peak of Stubai!", location: "", date: "" },
-  { src: "/life/F73D66E0-6DCE-4027-A777-5B17506280E0_1_105_c.jpeg", caption: "The Streets of Bratislava.", location: "", date: "" },
-  { src: "/life/E7670BB4-40BC-4B84-AB4F-AC6341EADE92.jpeg", caption: "Finished a Porsche Cayman Track Day at the Red Bull Ring!", location: "", date: "" },
+  { src: "/life/C514993E-744B-4A34-AB3E-7E8F077402AA_1_105_c.jpeg", caption: "Beer Hall!", location: "Munich, Germany", date: "April 2026" },
+  { src: "/life/90E01CF2-8DC3-4B4A-A5B4-A74069B9D35F.jpeg", caption: "Cracking a Red Bull at the Peak of Stubai!", location: "Stubai, Austria", date: "April 2026" },
+  { src: "/life/F73D66E0-6DCE-4027-A777-5B17506280E0_1_105_c.jpeg", caption: "The Streets of Bratislava.", location: "Bratislava, Slovakia", date: "April 2026" },
+  { src: "/life/E7670BB4-40BC-4B84-AB4F-AC6341EADE92.jpeg", caption: "Finished a Porsche Cayman Track Day at the Red Bull Ring!", location: "Spielberg, Austria", date: "April 2026" },
   { src: "/life/2BEA5C7C-48EF-4CFB-893E-7C73E79931A8_1_105_c.jpeg", caption: "Valentine's Day 2026!", location: "", date: "" },
   { src: "/life/98FDE46B-A6C5-46B8-8CE6-7279E183B8B6_1_105_c.jpeg", caption: "Average Greek Peak Conditions in Spring :(", location: "", date: "" },
   { src: "/life/1D2108C3-270B-47A6-9D25-3B3FA9F82D77_1_105_c.jpeg", caption: "Happy Anniversary Nat!", location: "", date: "" },
