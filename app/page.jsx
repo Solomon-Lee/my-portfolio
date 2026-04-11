@@ -77,6 +77,7 @@ const LIFE_PHOTOS = [
   { src: "/life/85D78345-2BBF-4428-854A-463696921FEF_1_105_c.jpeg", caption: "Quick trip to Italy!", location: "Vipiteno, Italy", date: "April 2026" },
   { src: "/life/D9EF80BF-356F-464B-B42D-5FB147D72F15_1_105_c.jpeg", caption: "The views of Schonbrunn Palace", location: "Vienna, Austria", date: "April 2026" },
   { src: "/life/2A6D3263-736A-4200-99BD-BCBD955BF065_1_105_c.jpeg", caption: "We'll remember you Stand25...", location: "Budapest, Hungary", date: "March 2026" },
+  { src: "/life/7C4D671B-2FCA-44CD-8AFD-087012EE0519_1_105_c.jpeg", caption: "Cybercity Vibes!", location: "Shanghai, China", date: "January 2026" },
 ];
 
 const CORNELL = {
