@@ -2538,8 +2538,8 @@ function Starfield({ isDark }) {
         ctx.translate(ux, uy);
         ctx.rotate(tilt);
 
-        // Tractor beam (faint triangle below UFO)
-        const beamAlpha = 0.06 + Math.sin(ufo.wobble * 2) * 0.03;
+        // Tractor beam (bright triangle below UFO)
+        const beamAlpha = 0.25 + Math.sin(ufo.wobble * 2) * 0.1;
         ctx.beginPath();
         ctx.moveTo(-sz * 0.3, sz * 0.15);
         ctx.lineTo(sz * 0.3, sz * 0.15);
@@ -2547,7 +2547,8 @@ function Starfield({ isDark }) {
         ctx.lineTo(-sz * 0.8, sz * 2.5);
         ctx.closePath();
         const beamGrad = ctx.createLinearGradient(0, sz * 0.15, 0, sz * 2.5);
-        beamGrad.addColorStop(0, `rgba(120, 255, 180, ${beamAlpha * 2})`);
+        beamGrad.addColorStop(0, `rgba(80, 255, 140, ${beamAlpha * 2})`);
+        beamGrad.addColorStop(0.5, `rgba(100, 255, 160, ${beamAlpha})`);
         beamGrad.addColorStop(1, `rgba(120, 255, 180, 0)`);
         ctx.fillStyle = beamGrad;
         ctx.fill();
@@ -2577,16 +2578,17 @@ function Starfield({ isDark }) {
           const la = (i / numLights) * Math.PI * 2 + ufo.wobble * 1.5;
           const lx = Math.cos(la) * sz * 0.75;
           const ly = Math.sin(la) * sz * 0.2;
-          const lightAlpha = 0.5 + Math.sin(ufo.wobble * 3 + i) * 0.3;
+          const lightAlpha = 0.7 + Math.sin(ufo.wobble * 3 + i) * 0.3;
           ctx.beginPath();
-          ctx.arc(lx, ly, sz * 0.06, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(120, 255, 180, ${lightAlpha})`;
+          ctx.arc(lx, ly, sz * 0.08, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(80, 255, 140, ${lightAlpha})`;
           ctx.fill();
         }
 
         // Bottom center light
-        const centerGlow = ctx.createRadialGradient(0, sz * 0.15, 0, 0, sz * 0.15, sz * 0.2);
-        centerGlow.addColorStop(0, `rgba(120, 255, 180, ${0.4 + Math.sin(ufo.wobble * 2) * 0.2})`);
+        const centerGlow = ctx.createRadialGradient(0, sz * 0.15, 0, 0, sz * 0.15, sz * 0.35);
+        centerGlow.addColorStop(0, `rgba(80, 255, 140, ${0.7 + Math.sin(ufo.wobble * 2) * 0.2})`);
+        centerGlow.addColorStop(0.6, `rgba(100, 255, 160, ${0.3 + Math.sin(ufo.wobble * 2) * 0.1})`);
         centerGlow.addColorStop(1, "rgba(120, 255, 180, 0)");
         ctx.beginPath();
         ctx.arc(0, sz * 0.15, sz * 0.2, 0, Math.PI * 2);
