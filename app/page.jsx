@@ -1928,7 +1928,7 @@ function Starfield({ isDark }) {
     function initGalaxy() {
       galaxyStars = [];
       const cx = canvas.width * 0.5;
-      const cy = canvas.height * 0.55;
+      const cy = canvas.height * 0.70;
       const arms = 4;
       const maxR = Math.min(canvas.width, canvas.height) * 0.38;
       const twists = 2.8;
@@ -2015,7 +2015,7 @@ function Starfield({ isDark }) {
 
     function drawSaturn(t) {
       const cx = canvas.width * 0.82;
-      const cy = canvas.height * 0.55;
+      const cy = canvas.height * 0.70;
       const planetR = Math.min(canvas.width, canvas.height) * 0.1;
       const tilt = -0.35;
 
