@@ -2486,8 +2486,8 @@ export default function Portfolio() {
       src={p.thumbnail}
       alt={p.name}
       fill
-      style={{ objectFit: "cover" }}
-    />
+      style={{ objectFit: "contain", padding: 12 }}
+      />
   ) : (
     "▶ demo"
   )}
