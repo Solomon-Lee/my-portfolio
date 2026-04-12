@@ -301,7 +301,7 @@ const PROJECTS = [
     id: 0,
     name: "FP4 Quantization Format Research",
     company: "Cornell — Computer Systems Lab",
-    thumbnail: "/projects/fp4-quantized-e1m2.png",
+    thumbnail: "/projects/fp4-logo.svg",
     desc: [
       {
         header: "The Problem",
