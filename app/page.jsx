@@ -2429,17 +2429,29 @@ export default function Portfolio() {
                       }}
                     >
                       <div
-                        style={{
-                          background: isDark ? "#111" : "#E0E0E0",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: c.muted,
-                          fontSize: 11,
-                          minHeight: 115,
-                        }}
-                      >
-                      </div>
+  style={{
+    background: isDark ? "#111" : "#E0E0E0",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: c.muted,
+    fontSize: 11,
+    minHeight: 115,
+    overflow: "hidden",
+    position: "relative",
+  }}
+>
+  {p.thumbnail ? (
+    <Image
+      src={p.thumbnail}
+      alt={p.name}
+      fill
+      style={{ objectFit: "cover" }}
+    />
+  ) : (
+    "▶ demo"
+  )}
+</div>
                       <div style={{ padding: "16px 20px" }}>
                         <div style={{ marginBottom: 8 }}>
                           <span
