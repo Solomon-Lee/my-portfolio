@@ -309,6 +309,7 @@ const JOBS = [
     role: "Software Engineer, Engine",
     date: "Aug 2026 – Present",
     tags: ["TBD"],
+    thumbnail: "/experience/databricks.svg",
     desc: "Incoming Software Engineer at Databricks in Palo Alto, CA.",
   },
   {
@@ -316,6 +317,7 @@ const JOBS = [
     company: "Google",
     role: "Software Engineer Intern, Google Core (Airlock)",
     date: "Aug – Nov 2025",
+    thumbnail: "/experience/google.svg",
     tags: [
       "Java",
       "Spring Boot",
@@ -363,6 +365,7 @@ const JOBS = [
     company: "Roblox",
     role: "Software Engineer Intern, Foundation AI (ML Platform)",
     date: "May – Aug 2025",
+    thumbnail: "/experience/roblox.svg",
     tags: [
       "Go",
       "Kubernetes",
@@ -417,6 +420,7 @@ const JOBS = [
     company: "Amazon Robotics",
     role: "Software Engineer Co-op, Amazon Robotics (Hardware Services)",
     date: "Aug – Dec 2024",
+    thumbnail: "/experience/amazon.svg",
     tags: [
       "Python",
       "AWS (S3, DynamoDB, IoT, Lambda, CDK, CloudWatch, CloudFormation)",
@@ -481,6 +485,7 @@ const JOBS = [
     id: 4,
     company: "Roblox",
     role: "Software Engineer Intern, Economy (Avatar Core Services)",
+    thumbnail: "/experience/roblox.svg",
     date: "May – Aug 2024",
     tags: [
       "Python",
@@ -3464,7 +3469,31 @@ export default function Portfolio() {
                           gap: 8,
                         }}
                       >
-                        <div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                          {job.thumbnail && (
+                            <div
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: 8,
+                                overflow: "hidden",
+                                flexShrink: 0,
+                                background: c.card,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Image
+                                src={job.thumbnail}
+                                alt={job.company}
+                                width={32}
+                                height={32}
+                                style={{ objectFit: "contain" }}
+                              />
+                            </div>
+                          )}
+                          <div>
                           <div
                             style={{
                               fontWeight: 700,
@@ -3486,6 +3515,7 @@ export default function Portfolio() {
                           </div>
                           <div style={{ color: c.muted, fontSize: 11 }}>
                             {job.date}
+                          </div>
                           </div>
                         </div>
                         <div
