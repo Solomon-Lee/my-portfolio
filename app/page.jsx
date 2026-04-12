@@ -564,6 +564,29 @@ const PROJECTS = [
         body: "Even with correct domains, personas were too even-handed, giving the model escape hatches to agree with opposing claims. I rewrote the meta-prompt to generate personas that are explicitly directional: 'SO OPINIONATED that a language model adopting it would consistently lean {stance},' with built-in skepticism toward the opposing reasoning tradition."
       },
       {
+        header: "Key Findings"
+      },
+      {
+        header: "Con persona flips discrimination direction",
+        body: "In the gun control debate (n=523 claims), the con persona reversed the model's baseline lean from +24.2pp (favoring pro claims) to −28.3pp (favoring con claims). The pro persona amplified the baseline from +24.2pp to +50.4pp. Pro coherence averaged 75.7%; con coherence averaged 63.9% — both well above the 50% chance line.",
+        image: "/projects/556642978-0308064b-dbba-476f-87cd-061ebc9fd586.png"
+      },
+      {
+        header: "Clean three-way separation across all debates",
+        body: "Averaged across five additional debates (gender-neutral bathrooms, zoo abolition, European monarchies, parenting licenses, Confederate memorials): pro persona discrimination starts at ~+80pp at hop 1 and declines to ~+28pp at hop 5. Con persona starts at ~−70pp and attenuates to ~−18pp. Baseline hovers near zero with tight confidence bands at every hop. The symmetry of pro/con effects and tight baseline bands across debates confirm this is a robust phenomenon, not an artifact of a single topic.",
+        image: "/projects/556689185-9cbeb859-9c9b-49b3-b339-a4f92ae7cdd8.png"
+      },
+      {
+        header: "Effects generalize beyond what the persona saw",
+        body: "The discrimination effect remains clearly non-zero at hop 5, well beyond the 1-2 hop claims the persona generator was exposed to. The personas generalize to deep claims they never saw during construction.",
+        image: "/projects/556689653-9de8b25c-c943-42a7-9218-2d8b3740bed1.png"
+      },
+      {
+        header: "Flip rate gradient is selective, not random",
+        body: "Flip rate (how often pro and con personas disagree on the same claim) starts at 70-100% at hop 1 and declines to 30-45% by hop 5, consistent across all debates. The personas aren't blindly disagreeing on everything — they're differentially sensitive to claims that are more vs. less connected to the core thesis. Baseline agreement is asymmetric: the pro persona agrees with baseline 82.3% of the time (amplifying the model's existing lean) while the con persona agrees only 61.0% (fighting against the model's prior).",
+        image: "/projects/556689738-75107c42-4a28-4a69-8fbe-a6a71fe3bc2c.png"
+      },
+      {
         header: "Override Experiments",
         body: "To test whether reasoning-framework personas do real intellectual work beyond directional bias, I designed a multi-turn fan-to-framework override:",
       },
