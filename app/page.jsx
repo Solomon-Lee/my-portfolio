@@ -1875,6 +1875,7 @@ function Starfield({ isDark }) {
     const ctx = canvas.getContext("2d");
     let animId;
     let stars = [];
+    let galaxyStars = [];
     let shootingStars = [];
     let lastShootTime = 0;
     let rocket = null;
@@ -1923,6 +1924,48 @@ function Starfield({ isDark }) {
       }
     }
 
+    function initGalaxy() {
+      galaxyStars = [];
+      const cx = canvas.width * 0.5;
+      const cy = canvas.height * 0.45;
+      const arms = 4;
+      const maxR = Math.min(canvas.width, canvas.height) * 0.38;
+      const twists = 2.8;
+
+      // Spiral arm stars
+      for (let i = 0; i < 1800; i++) {
+        const arm = i % arms;
+        const armOffset = (arm / arms) * Math.PI * 2;
+        const progress = Math.random();
+        const r = progress * maxR;
+        const angle = armOffset + progress * twists * Math.PI * 2;
+        // Spread increases with distance from center
+        const spread = r * 0.18;
+        const offX = (Math.random() - 0.5) * spread;
+        const offY = (Math.random() - 0.5) * spread;
+        const x = cx + Math.cos(angle) * r + offX;
+        const y = cy + Math.sin(angle) * r * 0.45 + offY * 0.45; // flatten for tilt
+        const distNorm = r / maxR;
+        // Core is brighter, warm; outer arms are dimmer, bluer
+        const hue = 200 + distNorm * 30 + Math.random() * 20;
+        const brightness = (1 - distNorm * 0.6) * (0.4 + Math.random() * 0.6);
+        const size = (1 - distNorm * 0.5) * (0.4 + Math.random() * 1.0);
+        galaxyStars.push({ x, y, r: size, alpha: brightness, hue, phase: Math.random() * Math.PI * 2 });
+      }
+
+      // Core bulge stars (dense bright center)
+      for (let i = 0; i < 500; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * Math.random() * maxR * 0.2; // clustered near center
+        const x = cx + Math.cos(angle) * dist;
+        const y = cy + Math.sin(angle) * dist * 0.45;
+        const hue = 190 + Math.random() * 30;
+        const brightness = 0.5 + Math.random() * 0.5;
+        const size = 0.3 + Math.random() * 1.2;
+        galaxyStars.push({ x, y, r: size, alpha: brightness, hue, phase: Math.random() * Math.PI * 2 });
+      }
+    }
+
     function spawnShootingStar(now) {
       shootingStars.push({
         x: Math.random() * canvas.width * 0.8,
@@ -1938,10 +1981,12 @@ function Starfield({ isDark }) {
 
     resize();
     initStars();
+    initGalaxy();
 
     const ro = new ResizeObserver(() => {
       resize();
       initStars();
+      initGalaxy();
     });
     if (containerRef.current) ro.observe(containerRef.current);
 
@@ -2115,51 +2160,31 @@ function Starfield({ isDark }) {
       const t = time / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Milky Way band
-      const mwAngle = -0.35;
-      const mwWidth = canvas.height * 0.28;
-      ctx.save();
-      ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
-      ctx.rotate(mwAngle);
+      // Spiral galaxy
+      const gcx = canvas.width * 0.5;
+      const gcy = canvas.height * 0.45;
+      const coreR = Math.min(canvas.width, canvas.height) * 0.06;
 
-      // Core glow
-      const mwGrad = ctx.createLinearGradient(0, -mwWidth, 0, mwWidth);
-      mwGrad.addColorStop(0, "rgba(180, 200, 255, 0)");
-      mwGrad.addColorStop(0.2, "rgba(180, 200, 255, 0.04)");
-      mwGrad.addColorStop(0.35, "rgba(200, 210, 255, 0.1)");
-      mwGrad.addColorStop(0.5, "rgba(220, 220, 255, 0.16)");
-      mwGrad.addColorStop(0.65, "rgba(200, 210, 255, 0.1)");
-      mwGrad.addColorStop(0.8, "rgba(180, 200, 255, 0.04)");
-      mwGrad.addColorStop(1, "rgba(180, 200, 255, 0)");
-      ctx.fillStyle = mwGrad;
-      ctx.fillRect(-canvas.width, -mwWidth, canvas.width * 2, mwWidth * 2);
+      // Core glow (radial gradient)
+      const coreGlow = ctx.createRadialGradient(gcx, gcy, 0, gcx, gcy, coreR * 4);
+      coreGlow.addColorStop(0, "rgba(200, 210, 255, 0.18)");
+      coreGlow.addColorStop(0.3, "rgba(190, 200, 255, 0.08)");
+      coreGlow.addColorStop(0.7, "rgba(180, 195, 255, 0.02)");
+      coreGlow.addColorStop(1, "rgba(180, 195, 255, 0)");
+      ctx.fillStyle = coreGlow;
+      ctx.beginPath();
+      ctx.arc(gcx, gcy, coreR * 4, 0, Math.PI * 2);
+      ctx.fill();
 
-      // Dense star clusters along the band
-      for (let i = 0; i < 400; i++) {
-        const sx = (Math.random() - 0.5) * canvas.width * 1.6;
-        const sy = (Math.random() - 0.5) * mwWidth * 1.2;
-        const distFromCenter = Math.abs(sy) / mwWidth;
-        const brightness = (1 - distFromCenter) * 0.7;
-        const sr = 0.3 + Math.random() * 0.9;
+      // Draw precomputed galaxy stars with subtle twinkle
+      for (const gs of galaxyStars) {
+        const twinkle = Math.sin(t * 0.5 + gs.phase) * 0.15 + 0.85;
+        const a = gs.alpha * twinkle;
         ctx.beginPath();
-        ctx.arc(sx, sy, sr, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(220, 225, 255, ${brightness * (0.4 + Math.random() * 0.6)})`;
+        ctx.arc(gs.x, gs.y, gs.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${gs.hue}, 50%, 85%, ${a})`;
         ctx.fill();
       }
-
-      // Subtle dust lanes (darker patches within the band)
-      for (let i = 0; i < 12; i++) {
-        const dx = (Math.random() - 0.5) * canvas.width * 1.2;
-        const dy = (Math.random() - 0.5) * mwWidth * 0.4;
-        const dw = 30 + Math.random() * 60;
-        const dh = 8 + Math.random() * 15;
-        ctx.beginPath();
-        ctx.ellipse(dx, dy, dw, dh, Math.random() * Math.PI, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 0, 10, ${0.06 + Math.random() * 0.04})`;
-        ctx.fill();
-      }
-
-      ctx.restore();
 
       // Draw planets behind stars
       drawSaturn(t);
