@@ -300,7 +300,7 @@ const JOBS = [
   {
     id: 0,
     company: "Databricks",
-    role: "Software Engineer — Engine",
+    role: "Software Engineer, Engine",
     date: "Aug 2026 – Present",
     tags: ["TBD"],
     desc: "Incoming Software Engineer at Databricks in Palo Alto, CA.",
@@ -308,7 +308,7 @@ const JOBS = [
   {
     id: 1,
     company: "Google",
-    role: "Software Engineer Intern — Google Core (Airlock)",
+    role: "Software Engineer Intern, Google Core (Airlock)",
     date: "Aug – Nov 2025",
     tags: [
       "Java",
@@ -324,27 +324,27 @@ const JOBS = [
     desc: [
       {
         header: "The Problem",
-        body: "At Google, every software dependency used in production must come from an internal, centralized artifact registry which is the single source of truth for all approved packages. AI coding assistants like Gemini CLI would recommend popular public packages that weren't approved for internal use, forcing developers into a manual search-and-replace workflow that undermined AI productivity gains.",
+        body: "At Google, every software dependency used in production must come from an internal, centralized artifact registry which is the single source of truth for all approved packages. AI coding assistants like Gemini CLI would recommend popular public packages that weren't approved for internal use, forcing developers into a manual search and replace workflow that undermined AI productivity gains.",
       },
       {
         header: "What I Built",
-        body: 'I designed and built an AI-powered package recommendation engine that lets developers use natural language to search for internally-approved packages. Instead of browsing a UI and guessing at package names, a developer could ask "I need a library for JSON serialization in Java" and get back a ranked list of compliant, build-ready results.',
+        body: 'I designed and built an AI powered package recommendation engine that lets developers use natural language to search for internally approved packages. Instead of browsing a UI and guessing at package names, a developer could ask "I need a library for JSON serialization in Java" and get back a ranked list of compliant, build ready results.',
       },
       {
-        header: "Retrieve-and-Rank Architecture",
-        body: "The core system follows a retrieve-and-rank architecture. In the retrieval stage, the service makes a semantic search call to a Vertex AI Search data store populated exclusively with internal package metadata, returning the top-k candidates. In the ranking stage, candidates are re-ranked using a weighted scoring function blending normalized signals: popularity (40%) via log-scaled engagement metrics, semantic relevance (30%), license compliance (20%) as a categorical score, and recency (10%) to gently favor actively maintained packages.",
+        header: "Retrieve and Rank Architecture",
+        body: "The core system follows a retrieve and rank architecture. In the retrieval stage, the service makes a semantic search call to a Vertex AI Search data store populated exclusively with internal package metadata, returning the top k candidates. In the ranking stage, candidates are reranked using a weighted scoring function blending normalized signals: popularity (40%) via log scaled engagement metrics, semantic relevance (30%), license compliance (20%) as a categorical score, and recency (10%) to gently favor actively maintained packages.",
       },
       {
-        header: "MCP Server & Tool-Use Integration",
-        body: "The service functions as an MCP (Model Context Protocol) server, exposing three tools (GetPackageRecommendations, GetLatestVersion, and GetPackageMetadata) for integration with AI agents like Gemini CLI. Using Spring AI, these are registered as local Java functions that Gemini can invoke via its native tool-use capabilities.",
+        header: "MCP Server & Tool Use Integration",
+        body: "The service functions as an MCP (Model Context Protocol) server, exposing three tools (GetPackageRecommendations, GetLatestVersion, and GetPackageMetadata) for integration with AI agents like Gemini CLI. Using Spring AI, these are registered as local Java functions that Gemini can invoke via its native tool use capabilities.",
       },
       {
         header: "Data Pipeline",
-        body: "To keep the search index fresh, I built a hybrid data ingestion pipeline. A daily Google Cloud Dataflow batch job performs a full refresh: extracting metadata, computing global normalization statistics, normalizing every record, staging output as JSONL in Cloud Storage, and triggering a bulk re-index. For real-time updates, a Spring AOP interceptor fires asynchronously after database transactions, normalizing and pushing individual records to the live index.",
+        body: "To keep the search index fresh, I built a hybrid data ingestion pipeline. A daily Google Cloud Dataflow batch job performs a full refresh: extracting metadata, computing global normalization statistics, normalizing every record, staging output as JSONL in Cloud Storage, and triggering a bulk reindex. For real time updates, a Spring AOP interceptor fires asynchronously after database transactions, normalizing and pushing individual records to the live index.",
       },
       {
         header: "Frontend Integration",
-        body: 'I integrated the engine into the internal UI as an "AI Mode" to have a chatbot-style interface where developers receive formatted package cards alongside conversational summaries.',
+        body: 'I integrated the engine into the internal UI as an "AI Mode" to have a chatbot style interface where developers receive formatted package cards alongside conversational summaries.',
       },
     ],
     diagram: {
@@ -355,7 +355,7 @@ const JOBS = [
   {
     id: 2,
     company: "Roblox",
-    role: "Software Engineer Intern — Foundation AI (ML Platform)",
+    role: "Software Engineer Intern, Foundation AI (ML Platform)",
     date: "May – Aug 2025",
     tags: [
       "Go",
@@ -368,11 +368,11 @@ const JOBS = [
     desc: [
       {
         header: "Overview",
-        body: "I worked on two projects that tackled ML Platform cloud cost from complementary angles: a GPU descheduler that automatically reclaims idle resources, and a cost dashboard that gives teams real-time spending visibility.",
+        body: "I worked on two projects that tackled ML Platform cloud cost from complementary angles: a GPU descheduler that automatically reclaims idle resources, and a cost dashboard that gives teams real time spending visibility.",
       },
       {
         header: "Project 1: AI Platform Descheduler",
-        body: "Across the ML Platform's Kubernetes clusters, roughly 10% of allocated GPUs were sitting completely idle at any given time, reserved by completed or stalled jobs that hadn't been cleaned up. I designed and built a custom descheduler, a long-running Go application deployed natively inside the clusters.",
+        body: "Across the ML Platform's Kubernetes clusters, roughly 10% of allocated GPUs were sitting completely idle at any given time, reserved by completed or stalled jobs that hadn't been cleaned up. I designed and built a custom descheduler, a long running Go application deployed natively inside the clusters.",
       },
       {
         header: "How It Works",
@@ -380,19 +380,19 @@ const JOBS = [
       },
       {
         header: "Rollout & Impact",
-        body: "I rolled it out in phases: shadow mode (logging only), dev deletions, tuning, then production. The system exposes Prometheus metrics visualized on a dedicated Grafana dashboard tracking GPUs reclaimed, idle hours recovered, and estimated dollars saved. Projected annual savings: ~$180K, with further gains expected from future bin-packing optimization on A100/H100 nodes.",
+        body: "I rolled it out in phases: shadow mode (logging only), dev deletions, tuning, then production. The system exposes Prometheus metrics visualized on a dedicated Grafana dashboard tracking GPUs reclaimed, idle hours recovered, and estimated dollars saved. Projected annual savings: ~$180K, with further gains expected from future bin packing optimization on A100/H100 nodes.",
       },
       {
         header: "Project 2: Cost Dashboard V3",
-        body: "Despite spending tens of millions annually on cloud infrastructure, the ML Platform lacked accurate real-time cost visibility. The existing dashboard used public AWS pricing instead of internally-negotiated rates, couldn't differentiate on-demand vs. reserved costs, and had inaccurate team attribution.",
+        body: "Despite spending tens of millions annually on cloud infrastructure, the ML Platform lacked accurate real time cost visibility. The existing dashboard used public AWS pricing instead of internally negotiated rates, couldn't differentiate on demand vs. reserved costs, and had inaccurate team attribution.",
       },
       {
         header: "Technical Design",
-        body: "I built a custom Go application deployed across all clusters that calculates real-time resource costs and exposes them as Prometheus metrics, visualized through Grafana. The core design uses cumulative cost counters instead of rate-based tracking, making the system immune to Prometheus data downsampling. You only need a data point near the start and end of a period to compute total cost accurately. Costs are aggregated at the application level (not pod level) to avoid Grafana OOM errors, with scrape intervals adjusted from 15s to 30min for long-term scalability.",
+        body: "I built a custom Go application deployed across all clusters that calculates real time resource costs and exposes them as Prometheus metrics, visualized through Grafana. The core design uses cumulative cost counters instead of rate based tracking, making the system immune to Prometheus data downsampling. You only need a data point near the start and end of a period to compute total cost accurately. Costs are aggregated at the application level (not pod level) to avoid Grafana OOM errors, with scrape intervals adjusted from 15s to 30min for long term scalability.",
       },
       {
         header: "Cost Model & Features",
-        body: "The cost model accounts for GPU node sharing (proportional to GPU requests) and standard node sharing (50/50 CPU/memory split). Key features include real-time quarterly budget progress bars, internal pricing alignment, utilization-linked cost views, and daily Parquet backups to S3.",
+        body: "The cost model accounts for GPU node sharing (proportional to GPU requests) and standard node sharing (50/50 CPU/memory split). Key features include real time quarterly budget progress bars, internal pricing alignment, utilization linked cost views, and daily Parquet backups to S3.",
       },
     ],
     diagram: [
@@ -409,7 +409,7 @@ const JOBS = [
   {
     id: 3,
     company: "Amazon Robotics",
-    role: "Software Engineer Co-op — Amazon Robotics (Hardware Services)",
+    role: "Software Engineer Co-op, Amazon Robotics (Hardware Services)",
     date: "Aug – Dec 2024",
     tags: [
       "Python",
@@ -428,7 +428,7 @@ const JOBS = [
       },
       {
         header: "Project 2: IoT Drive Health Audit",
-        body: "Certain drive units would enter a bad state where their device agent stopped processing jobs entirely. This was especially dangerous because if a drive couldn't process jobs, critical operations like shutdowns or credential rotations couldn't be executed. If credentials were rotated on a drive in this state, the drive would require manual intervention to fix — a time-consuming process at scale.",
+        body: "Certain drive units would enter a bad state where their device agent stopped processing jobs entirely. This was especially dangerous because if a drive couldn't process jobs, critical operations like shutdowns or credential rotations couldn't be executed. If credentials were rotated on a drive in this state, the drive would require manual intervention to fix, which was a time consuming process at scale.",
       },
       {
         header: "What I Built",
@@ -436,23 +436,23 @@ const JOBS = [
       },
       {
         header: "Considerations",
-        body: "To avoid throttling AWS services, the tool introduces a 1-second sleep between API calls and efficiently processes batches of up to 100 JSON objects per run.",
+        body: "To avoid throttling AWS services, the tool introduces a 1 second sleep between API calls and efficiently processes batches of up to 100 JSON objects per run.",
       },
       {
         header: "Project 3: Automated Log Retrieval",
-        body: "When engineers needed to diagnose issues on specific drives, they had to manually SSH into individual units, locate the relevant log files, and transfer them out. This was slow and error-prone, especially when investigating issues across multiple drives.",
+        body: "When engineers needed to diagnose issues on specific drives, they had to manually SSH into individual units, locate the relevant log files, and transfer them out. This was slow and error prone, especially when investigating issues across multiple drives.",
       },
       {
         header: "What I Built",
-        body: "I built an automated log retrieval script that SSHes into target drives, extracts logs, temporarily stores them in a local directory organized by GUID, uploads them to an S3 bucket, and generates pre-signed URLs (both metadata and download links) for easy sharing. After upload, the script automatically cleans up local storage to preserve disk space. This turned a manual multi-step process into a single command, and the pre-signed URLs made it easy for any team member to access the logs without needing direct drive access.",
+        body: "I built an automated log retrieval script that SSHes into target drives, extracts logs, temporarily stores them in a local directory organized by GUID, uploads them to an S3 bucket, and generates presigned URLs (both metadata and download links) for easy sharing. After upload, the script automatically cleans up local storage to preserve disk space. This turned a manual multistep process into a single command, and the presigned URLs made it easy for any team member to access the logs without needing direct drive access.",
       },
       {
         header: "Project 4: Job Template Management Tool",
-        body: "The team's job templates and scripts — used to execute operations on drive units via a controlled permissions-based environment — were not synchronized across deployment stages (Prod → Gamma → Beta → Dev). The original solution used AWS Pipelines, CDK, and Lambda, but the pipeline was difficult to connect to Git, hard for new users to understand, and didn't allow on-demand template modifications.",
+        body: "The team's job templates and scripts, used to execute operations on drive units via a controlled permissions based environment, were not synchronized across deployment stages (Prod → Gamma → Beta → Dev). The original solution used AWS Pipelines, CDK, and Lambda, but the pipeline was difficult to connect to Git, hard for new users to understand, and didn't allow on demand template modifications.",
       },
       {
         header: "What I Built",
-        body: "I replaced the pipeline approach with a Python application featuring a user-friendly UI. The tool synchronizes templates and scripts from S3 and DynamoDB, maintaining consistency across all environments. I built it with a modular architecture — separating all core functionality (template creation, modification, upload, sync) from the UI layer — so the team could later swap in a web-based interface without rewriting any business logic. Key components include a template upload orchestrator for creating and pushing templates, a Git-based preprocessing pipeline for managing file versioning and zipping, and a DynamoDB restore utility for recovering table integrity after errors. The tool also introduced version control for job templates by integrating Git with S3, enabling collaboration and change tracking that didn't exist before.",
+        body: "I replaced the pipeline approach with a Python application featuring a user friendly UI. The tool synchronizes templates and scripts from S3 and DynamoDB, maintaining consistency across all environments. I built it with a modular architecture, separating all core functionality (template creation, modification, upload, sync) from the UI layer, so the team could later swap in a web based interface without rewriting any business logic. Key components include a template upload orchestrator for creating and pushing templates, a Git based preprocessing pipeline for managing file versioning and zipping, and a DynamoDB restore utility for recovering table integrity after errors. The tool also introduced version control for job templates by integrating Git with S3, enabling collaboration and change tracking that didn't exist before.",
       },
       {
         header: "Impact",
@@ -474,7 +474,7 @@ const JOBS = [
   {
     id: 4,
     company: "Roblox",
-    role: "Software Engineer Intern — Economy (Avatar Core Services)",
+    role: "Software Engineer Intern, Economy (Avatar Core Services)",
     date: "May – Aug 2024",
     tags: [
       "Python",
@@ -490,23 +490,23 @@ const JOBS = [
     desc: [
       {
         header: "Context",
-        body: "Roblox's avatar system serves hundreds of millions of users, and when things go wrong — data corruption, unauthorized item grants, exploit-driven marketplace abuse — the impact is measured in millions of affected accounts. Prior to my internship, resolving these incidents required building ad hoc scripts from scratch each time: manually querying for affected users, loading them into a queue via SSH on a specific machine, and running one-off console apps with no standardized logging, metrics, or configurability. This process was slow, error-prone, and required deep tribal knowledge to execute — a serious problem when incidents often need resolution at 3am.",
+        body: "Roblox's avatar system serves hundreds of millions of users, and when things go wrong (data corruption, unauthorized item grants, exploit driven marketplace abuse) the impact is measured in millions of affected accounts. Prior to my internship, resolving these incidents required building ad hoc scripts from scratch each time: manually querying for affected users, loading them into a queue via SSH on a specific machine, and running one off console apps with no standardized logging, metrics, or configurability. This process was slow, error prone, and required deep tribal knowledge to execute, which was a serious problem when incidents often need resolution at 3am.",
       },
       {
         header: "What I Built",
-        body: "I designed and built the Avatar Remediation Processor — the first general-purpose offline processor built for the Marketplace organization. It provides an end-to-end pipeline for querying affected users at scale, loading them into a processing queue, and executing customizable remediation operations against each user's data. The system replaced a patchwork of ad hoc scripts with a single, extensible service that any engineer on the team could operate — and critically, one that new operations could be added to with minimal effort, since each operation is a self-contained class requiring only the business logic specific to that remediation.",
+        body: "I designed and built the Avatar Remediation Processor, the first general purpose offline processor built for the Marketplace organization. It provides an end to end pipeline for querying affected users at scale, loading them into a processing queue, and executing customizable remediation operations against each user's data. The system replaced a patchwork of ad hoc scripts with a single, extensible service that any engineer on the team could operate. Critically, new operations could be added with minimal effort, since each operation is a self contained class requiring only the business logic specific to that remediation.",
       },
       {
         header: "Data Query & Export Pipeline",
-        body: "The entire flow begins when a developer runs a preconfigured PySpark notebook. The notebook contains parameterized queries for common user populations — daily active users, monthly active users, users who recently changed their avatar, users who wore or purchased a specific item. When executed, the notebook queries Hive data tables, gathers the matching user IDs (often millions of records), and automatically loads them into an SQS queue — no manual SSH intervention required. I added metrics and logging to verify completeness, since detecting truncated uploads or failed loads was a known pain point from previous incidents.",
+        body: "The entire flow begins when a developer runs a preconfigured PySpark notebook. The notebook contains parameterized queries for common user populations: daily active users, monthly active users, users who recently changed their avatar, users who wore or purchased a specific item. When executed, the notebook queries Hive data tables, gathers the matching user IDs (often millions of records), and automatically loads them into an SQS queue with no manual SSH intervention required. I added metrics and logging to verify completeness, since detecting truncated uploads or failed loads was a known pain point from previous incidents.",
       },
       {
         header: "Scalable Processor",
-        body: "The core processor is a backend microservice that reads from the SQS queue and executes pluggable operations against each user. The processor determines which operation to run based on metadata attached to each queued message, preventing accidental execution of the wrong remediation. Key configurability features include a kill switch via remote config to instantly stop all processing, a configurable rate limiter to control throughput per instance (preventing downstream service overload), and the ability to scale horizontally by adding processor instances. The service comes pre-equipped with clients for all core avatar backend services — asset registry, ownership, bundles, avatars, outfits, thumbnails — so new operations can be written quickly without boilerplate setup. Beyond remediation, the processor also unlocked a capability the team never had before: the ability to inspect corrupted avatar metadata and thumbnails at scale. Previously, there was no way to systematically view or audit this data across millions of users. By running read-only operations through the processor, engineers could scan the entire user base to identify and characterize corruption patterns — turning what had been invisible problems into actionable data.",
+        body: "The core processor is a backend microservice that reads from the SQS queue and executes pluggable operations against each user. The processor determines which operation to run based on metadata attached to each queued message, preventing accidental execution of the wrong remediation. Key configurability features include a kill switch via remote config to instantly stop all processing, a configurable rate limiter to control throughput per instance (preventing downstream service overload), and the ability to scale horizontally by adding processor instances. The service comes preequipped with clients for all core avatar backend services (asset registry, ownership, bundles, avatars, outfits, thumbnails) so new operations can be written quickly without boilerplate setup. Beyond remediation, the processor also unlocked a capability the team never had before: the ability to inspect corrupted avatar metadata and thumbnails at scale. Previously, there was no way to systematically view or audit this data across millions of users. By running read only operations through the processor, engineers could scan the entire user base to identify and characterize corruption patterns, turning what had been invisible problems into actionable data.",
       },
       {
         header: "Observability",
-        body: "Every stage of the pipeline is instrumented. I built Grafana dashboards tracking queue depth, processing throughput, success/failure rates, and error breakdowns. This gives operators real-time visibility into remediation progress and lets them catch issues before they compound.",
+        body: "Every stage of the pipeline is instrumented. I built Grafana dashboards tracking queue depth, processing throughput, success/failure rates, and error breakdowns. This gives operators real time visibility into remediation progress and lets them catch issues before they compound.",
       },
       {
         header: "Testing & Validation",
@@ -514,7 +514,7 @@ const JOBS = [
       },
       {
         header: "Impact",
-        body: "The processor was the first general-purpose offline processor in Marketplace, and it was used to help resolve active data corruption incidents impacting millions of users. Its extensible design meant that adding a new remediation operation was as simple as writing a single class with the relevant business logic — no infrastructure changes needed. I wrote a PRD outlining how the tool could be generalized further into a marketplace-wide offline processing platform, usable by any team that needs to scan or remediate a subset of Roblox's user base. I presented this vision to Marketplace engineering leadership and collected feedback that shaped the tool's long-term roadmap.",
+        body: "The processor was the first general purpose offline processor in Marketplace, and it was used to help resolve active data corruption incidents impacting millions of users. Its extensible design meant that adding a new remediation operation was as simple as writing a single class with the relevant business logic, no infrastructure changes needed. I wrote a PRD outlining how the tool could be generalized further into a marketplace wide offline processing platform, usable by any team that needs to scan or remediate a subset of Roblox's user base. I presented this vision to Marketplace engineering leadership and collected feedback that shaped the tool's long term roadmap.",
       },
     ],
     diagram: {
@@ -534,7 +534,7 @@ const PROJECTS = [
     desc: [
       {
         header: "The Problem",
-        body: "LLMs increasingly operate under system-prompt personas — customer service agents, tutors, domain experts — that shape how they reason and evaluate claims. Prior work has shown that personas shift model behavior directionally. But nobody has tested whether this shift reflects genuine adoption of a reasoning framework or merely a directional bias toward one side of an argument. This distinction matters. A model that internalizes a structured belief system is much harder to audit and more unpredictable than one that simply biases outputs toward a side. If personas create structured reasoning, they could be used to steer model behavior in ways that are difficult to detect — a serious concern for enterprises deploying agentic AI systems.",
+        body: "LLMs increasingly operate under system prompt personas (customer service agents, tutors, domain experts) that shape how they reason and evaluate claims. Prior work has shown that personas shift model behavior directionally. But nobody has tested whether this shift reflects genuine adoption of a reasoning framework or merely a directional bias toward one side of an argument. This distinction matters. A model that internalizes a structured belief system is much harder to audit and more unpredictable than one that simply biases outputs toward a side. If personas create structured reasoning, they could be used to steer model behavior in ways that are difficult to detect, which is a serious concern for enterprises deploying agentic AI systems.",
       },
       {
         header: "Central Research Question",
@@ -542,7 +542,7 @@ const PROJECTS = [
       },
       {
         header: "Experimental Setup",
-        body: "I use hierarchical debate trees from Kialo — structured argument graphs where a root thesis branches into pro and con claims, each with its own children, extending 5+ levels deep. Each claim is evaluated under three conditions: a pro-persona (system prompt contains a pro-thesis persona), a con-persona (con-thesis persona), and a baseline (no persona). User turns are always neutral ('Is the following claim true or false?') — never 'Do you agree?' — isolating persona influence from sycophantic agreement with user opinions.",
+        body: "I use hierarchical debate trees from Kialo, which are structured argument graphs where a root thesis branches into pro and con claims, each with its own children, extending 5+ levels deep. Each claim is evaluated under three conditions: a pro persona (system prompt contains a pro thesis persona), a con persona (con thesis persona), and a baseline (no persona). User turns are always neutral ('Is the following claim true or false?'), never 'Do you agree?', isolating persona influence from sycophantic agreement with user opinions.",
       },
       {
         header: "Persona Generator",
@@ -550,46 +550,46 @@ const PROJECTS = [
       },
       {
         header: "Iteration 1: Weak Personas",
-        body: "Third-person, abstract framing ('A public health epidemiologist evaluates policy questions through the lens of harm reduction...'). Result: zero effect. All conditions produced identical true rates. The model ignored the persona entirely."
+        body: "Third person, abstract framing ('A public health epidemiologist evaluates policy questions through the lens of harm reduction...'). Result: zero effect. All conditions produced identical true rates. The model ignored the persona entirely."
       },
       {
         header: "Iteration 2: Strong personas",
-        body: "Shifted to second-person with professional identity, emotional stakes, and years of experience. But the generator produced the same profession for both sides, making the con persona generically skeptical rather than specifically directional."
+        body: "Shifted to second person with professional identity, emotional stakes, and years of experience. But the generator produced the same profession for both sides, making the con persona generically skeptical rather than specifically directional."
       },
       {
         header: "Iteration 3: Domain isolation",
-        body: "Each persona only sees its own side's claims and receives its own domain label. I built a static domain mapping (researcher-curated JSON assigning intellectual traditions to each side — e.g., gun control: pro → Epidemiology/Public Health, con → Constitutional Law) after finding that LLM-inferred domains confused topics mentioned with reasoning frameworks."
+        body: "Each persona only sees its own side's claims and receives its own domain label. I built a static domain mapping (researcher curated JSON assigning intellectual traditions to each side, e.g., gun control: pro → Epidemiology/Public Health, con → Constitutional Law) after finding that LLM inferred domains confused topics mentioned with reasoning frameworks."
       },
       {
         header: "Iteration 4: Opinionated personas",
-        body: "Even with correct domains, personas were too even-handed, giving the model escape hatches to agree with opposing claims. I rewrote the meta-prompt to generate personas that are explicitly directional: 'SO OPINIONATED that a language model adopting it would consistently lean {stance},' with built-in skepticism toward the opposing reasoning tradition."
+        body: "Even with correct domains, personas were too evenhanded, giving the model escape hatches to agree with opposing claims. I rewrote the meta prompt to generate personas that are explicitly directional: 'SO OPINIONATED that a language model adopting it would consistently lean {stance},' with built in skepticism toward the opposing reasoning tradition."
       },
       {
         header: "Key Findings"
       },
       {
         header: "Con persona flips discrimination direction",
-        body: "In the gun control debate (n=523 claims), the con persona reversed the model's baseline lean from +24.2pp (favoring pro claims) to −28.3pp (favoring con claims). The pro persona amplified the baseline from +24.2pp to +50.4pp. Pro coherence averaged 75.7%; con coherence averaged 63.9% — both well above the 50% chance line.",
+        body: "In the gun control debate (n=523 claims), the con persona reversed the model's baseline lean from +24.2pp (favoring pro claims) to −28.3pp (favoring con claims). The pro persona amplified the baseline from +24.2pp to +50.4pp. Pro coherence averaged 75.7%; con coherence averaged 63.9%, both well above the 50% chance line.",
         image: "/projects/556642978-0308064b-dbba-476f-87cd-061ebc9fd586.png"
       },
       {
-        header: "Clean three-way separation across all debates",
-        body: "Averaged across five additional debates (gender-neutral bathrooms, zoo abolition, European monarchies, parenting licenses, Confederate memorials): pro persona discrimination starts at ~+80pp at hop 1 and declines to ~+28pp at hop 5. Con persona starts at ~−70pp and attenuates to ~−18pp. Baseline hovers near zero with tight confidence bands at every hop. The symmetry of pro/con effects and tight baseline bands across debates confirm this is a robust phenomenon, not an artifact of a single topic.",
+        header: "Clean three way separation across all debates",
+        body: "Averaged across five additional debates (gender neutral bathrooms, zoo abolition, European monarchies, parenting licenses, Confederate memorials): pro persona discrimination starts at ~+80pp at hop 1 and declines to ~+28pp at hop 5. Con persona starts at ~−70pp and attenuates to ~−18pp. Baseline hovers near zero with tight confidence bands at every hop. The symmetry of pro/con effects and tight baseline bands across debates confirm this is a robust phenomenon, not an artifact of a single topic.",
         image: "/projects/556689185-9cbeb859-9c9b-49b3-b339-a4f92ae7cdd8.png"
       },
       {
         header: "Effects generalize beyond what the persona saw",
-        body: "The discrimination effect remains clearly non-zero at hop 5, well beyond the 1-2 hop claims the persona generator was exposed to. The personas generalize to deep claims they never saw during construction.",
+        body: "The discrimination effect remains clearly nonzero at hop 5, well beyond the 1 to 2 hop claims the persona generator was exposed to. The personas generalize to deep claims they never saw during construction.",
         image: "/projects/556689653-9de8b25c-c943-42a7-9218-2d8b3740bed1.png"
       },
       {
         header: "Flip rate gradient is selective, not random",
-        body: "Flip rate (how often pro and con personas disagree on the same claim) starts at 70-100% at hop 1 and declines to 30-45% by hop 5, consistent across all debates. The personas aren't blindly disagreeing on everything — they're differentially sensitive to claims that are more vs. less connected to the core thesis. Baseline agreement is asymmetric: the pro persona agrees with baseline 82.3% of the time (amplifying the model's existing lean) while the con persona agrees only 61.0% (fighting against the model's prior).",
+        body: "Flip rate (how often pro and con personas disagree on the same claim) starts at 70-100% at hop 1 and declines to 30-45% by hop 5, consistent across all debates. The personas aren't blindly disagreeing on everything. They're differentially sensitive to claims that are more vs. less connected to the core thesis. Baseline agreement is asymmetric: the pro persona agrees with baseline 82.3% of the time (amplifying the model's existing lean) while the con persona agrees only 61.0% (fighting against the model's prior).",
         image: "/projects/556689738-75107c42-4a28-4a69-8fbe-a6a71fe3bc2c.png"
       },
       {
         header: "Override Experiments",
-        body: "To test whether reasoning-framework personas do real intellectual work beyond directional bias, I designed a multi-turn fan-to-framework override:",
+        body: "To test whether reasoning framework personas do real intellectual work beyond directional bias, I designed a multi turn fan to framework override:",
       },
       {
         header: "Fan",
@@ -597,7 +597,7 @@ const PROJECTS = [
       },
       {
         header: "Override",
-        body: "Fan evaluates first, then gets: 'You now adopt the following perspective: [full opposing persona with thesis and claims embedded].' Tests whether a hard identity swap mid-conversation can overcome the system prompt."
+        body: "Fan evaluates first, then gets: 'You now adopt the following perspective: [full opposing persona with thesis and claims embedded].' Tests whether a hard identity swap midconversation can overcome the system prompt."
       },
       {
         header: "Contradict",
@@ -605,7 +605,7 @@ const PROJECTS = [
       },
       {
         header: "Expert",
-        body: "Fan evaluates first, then challenged with only the opposing expert's title: 'A senior epidemiologist disagrees. Given their expertise, re-evaluate.' Tests whether pure authority (no reasoning content) is enough to flip answers."
+        body: "Fan evaluates first, then challenged with only the opposing expert's title: 'A senior epidemiologist disagrees. Given their expertise, reevaluate.' Tests whether pure authority (no reasoning content) is enough to flip answers."
       },
       {
         header: "Reasoning",
@@ -613,12 +613,12 @@ const PROJECTS = [
       },
       {
         header: "Key finding",
-        body: "The reasoning framework amplifies when stacked on the fan. The override pushes discrimination beyond both the fan alone and the framework alone. The con side shows the most dramatic effect: −28.7pp (strong persona alone) jumps to −46.6pp (override after fan). If the strong persona were just another way of saying 'agree with your side,' stacking shouldn't produce amplification — but it does. The con override flip rate stays elevated (17–30%) across all hops from root thesis, doing real work even on deep claims. The pro override drops near zero after hop 1, consistent with the fan already getting most claims 'right' from that perspective.",
+        body: "The reasoning framework amplifies when stacked on the fan. The override pushes discrimination beyond both the fan alone and the framework alone. The con side shows the most dramatic effect: −28.7pp (strong persona alone) jumps to −46.6pp (override after fan). If the strong persona were just another way of saying 'agree with your side,' stacking shouldn't produce amplification, but it does. The con override flip rate stays elevated (17–30%) across all hops from root thesis, doing real work even on deep claims. The pro override drops near zero after hop 1, consistent with the fan already getting most claims 'right' from that perspective.",
         image: "/projects/575159609-07ebb58d-cef9-4efc-b8a8-6287b2188382.png"
       },
       {
         header: "Current Status",
-        body: "The core experimental pipeline is built and producing results across multiple debates and frontier models. I'm currently running experiments that pit persona identity against logical consistency — presenting claims where the persona's reasoning tradition and the tree's logical structure conflict — to determine whether conditioned personas create genuinely independent belief structures or collapse under contradiction.",
+        body: "The core experimental pipeline is built and producing results across multiple debates and frontier models. I'm currently running experiments that pit persona identity against logical consistency by presenting claims where the persona's reasoning tradition and the tree's logical structure conflict, to determine whether conditioned personas create genuinely independent belief structures or collapse under contradiction.",
       },
     ],
     tags: ["Python", "OpenAI API", "Sentence Transformers ", "scikit-learn", "Matplotlib"],
@@ -636,11 +636,11 @@ const PROJECTS = [
     desc: [
       {
         header: "The Problem",
-        body: "Prompt engineering for image generation models like Stable Diffusion is a manual, iterative craft. Professional prompt engineers sell optimized prompts on marketplaces for real money — but the process of discovering, purchasing, and combining prompts to achieve a target output is entirely manual. The research question: can an AI agent replace a human prompt engineer by autonomously browsing a prompt marketplace, purchasing prompts, and iteratively optimizing them to generate a target image?",
+        body: "Prompt engineering for image generation models like Stable Diffusion is a manual, iterative craft. Professional prompt engineers sell optimized prompts on marketplaces for real money, but the process of discovering, purchasing, and combining prompts to achieve a target output is entirely manual. The research question: can an AI agent replace a human prompt engineer by autonomously browsing a prompt marketplace, purchasing prompts, and iteratively optimizing them to generate a target image?",
       },
       {
         header: "MCP Server: Prompt Marketplace Agent",
-        body: "I built an MCP (Model Context Protocol) server that exposes a prompt marketplace as a set of tools an LLM can use autonomously. The server provides three core tools: search prompts with pagination and regex filtering, get full prompt details, and buy prompts to unlock their full text. This turns the marketplace into an environment an AI agent can navigate programmatically — browsing listings, reading descriptions, making purchase decisions, and using acquired prompts to generate images. The MCP server is backed by a metadata store containing thousands of prompt listings with descriptions, pricing, ratings, and example images. It's deployed as an HTTP/SSE service that can be connected to any MCP-compatible client, and I built a GPT client that uses OpenAI's Responses API to give GPT access to the marketplace tools — letting it browse, evaluate, and purchase prompts as part of a reasoning loop.",
+        body: "I built an MCP (Model Context Protocol) server that exposes a prompt marketplace as a set of tools an LLM can use autonomously. The server provides three core tools: search prompts with pagination and regex filtering, get full prompt details, and buy prompts to unlock their full text. This turns the marketplace into an environment an AI agent can navigate programmatically: browsing listings, reading descriptions, making purchase decisions, and using acquired prompts to generate images. The MCP server is backed by a metadata store containing thousands of prompt listings with descriptions, pricing, ratings, and example images. It's deployed as an HTTP/SSE service that can be connected to any MCP compatible client, and I built a GPT client that uses OpenAI's Responses API to give GPT access to the marketplace tools, letting it browse, evaluate, and purchase prompts as part of a reasoning loop.",
       },
       {
         header: "Data Pipeline & Image Generation",
@@ -652,19 +652,19 @@ const PROJECTS = [
       },
       {
         header: "Image Generation",
-        body: "I built a generation pipeline using Stable Diffusion XL with Compel for long-prompt embedding, handling the correct engine configuration (SD 2.1 vs XL 1.0) for each prompt based on its marketplace metadata. The pipeline processes prompts in batches with checkpointing, generating target images that serve as the ground truth for evaluation.",
+        body: "I built a generation pipeline using Stable Diffusion XL with Compel for long prompt embedding, handling the correct engine configuration (SD 2.1 vs XL 1.0) for each prompt based on its marketplace metadata. The pipeline processes prompts in batches with checkpointing, generating target images that serve as the ground truth for evaluation.",
       },
       {
         header: "Reverse engineering",
-        body: "Using OpenAI's Batch API, I fed generated target images back to GPT and asked it to reverse-engineer the Stable Diffusion prompt that would reproduce them. This creates the initial seed prompt for the optimization loop — a starting point the agent can then iteratively improve.",
+        body: "Using OpenAI's Batch API, I fed generated target images back to GPT and asked it to reverse engineer the Stable Diffusion prompt that would reproduce them. This creates the initial seed prompt for the optimization loop, a starting point the agent can then iteratively improve.",
       },
       {
         header: "Evaluation Pipeline",
-        body: "I built the evaluation framework to measure how well automated prompt optimization can match human prompt engineers. The core loop: take a target image, give the agent an initial prompt (just the first few words), let it use the marketplace and iterative refinement to produce an optimized prompt, generate an image from that prompt, and measure image similarity against the target. I integrated GEPA (Genetic Evolution of Prompt Agents) as one optimization strategy, where GPT iteratively refines prompts with image similarity as the fitness function. The pipeline produces step-by-step outputs showing how the generated image converges toward the target across optimization iterations.",
+        body: "I built the evaluation framework to measure how well automated prompt optimization can match human prompt engineers. The core loop: take a target image, give the agent an initial prompt (just the first few words), let it use the marketplace and iterative refinement to produce an optimized prompt, generate an image from that prompt, and measure image similarity against the target. I integrated GEPA (Genetic Evolution of Prompt Agents) as one optimization strategy, where GPT iteratively refines prompts with image similarity as the fitness function. The pipeline produces step by step outputs showing how the generated image converges toward the target across optimization iterations.",
       },
       {
         header: "VLM Benchmarking",
-        body: "Early in the project, I surveyed and benchmarked vision-language models (Qwen 2.5 VL, LLaMA 3.2, and others) to determine which could serve as the policy model in a reinforcement learning pipeline. I profiled each model's VRAM usage, inference latency, and output quality on the marketplace browsing task, and compiled a comparison table of VLMs used as RL policies in recent literature.",
+        body: "Early in the project, I surveyed and benchmarked vision language models (Qwen 2.5 VL, LLaMA 3.2, and others) to determine which could serve as the policy model in a reinforcement learning pipeline. I profiled each model's VRAM usage, inference latency, and output quality on the marketplace browsing task, and compiled a comparison table of VLMs used as RL policies in recent literature.",
       },
       {
         header: "Contribution",
@@ -694,15 +694,15 @@ const PROJECTS = [
     desc: [
       {
         header: "The Problem",
-        body: "Venture capital investment decisions are driven by pattern recognition — experienced investors develop intuition over hundreds of deals about what makes a startup fundable. But this expertise is hard to scale, hard to transfer, and hard to evaluate objectively. The lab's long-term goal is to build a pretrained financial model capable of acting as an AI venture capital investor — one that can evaluate startups the way a seasoned VC would, using the same inputs: pitch decks, financial projections, and company descriptions. Before building that model, we needed to answer a foundational question: how do existing language models respond to financial training data? What do they learn, what do they miss, and what metrics should we use to evaluate an AI investor's judgment? My work focused on building the data infrastructure and running the initial experiments to establish those baselines.",
+        body: "Venture capital investment decisions are driven by pattern recognition. Experienced investors develop intuition over hundreds of deals about what makes a startup fundable. But this expertise is hard to scale, hard to transfer, and hard to evaluate objectively. The lab's long term goal is to build a pretrained financial model capable of acting as an AI venture capital investor, one that can evaluate startups the way a seasoned VC would, using the same inputs: pitch decks, financial projections, and company descriptions. Before building that model, we needed to answer a foundational question: how do existing language models respond to financial training data? What do they learn, what do they miss, and what metrics should we use to evaluate an AI investor's judgment? My work focused on building the data infrastructure and running the initial experiments to establish those baselines.",
       },
       {
         header: "Data Collection Pipeline",
-        body: "I built a suite of web scrapers using Selenium to collect real startup deal data from two major angel investing platforms. The scrapers authenticate, navigate paginated deal listings, and extract structured data for each company: deal IDs, funding stage, round type, company descriptions, annual financials (revenue, expenditure, user metrics across projected years), current funding round details, and complete funding histories. One scraper also downloads pitch deck PDFs — collecting hundreds of decks that serve as the raw training corpus. A separate scraper targets an investor portfolio platform, extracting company names and detailed descriptions from individual company pages. All scrapers handle pagination, rate limiting, and error recovery to reliably collect data at scale.",
+        body: "I built a suite of web scrapers using Selenium to collect real startup deal data from two major angel investing platforms. The scrapers authenticate, navigate paginated deal listings, and extract structured data for each company: deal IDs, funding stage, round type, company descriptions, annual financials (revenue, expenditure, user metrics across projected years), current funding round details, and complete funding histories. One scraper also downloads pitch deck PDFs, collecting hundreds of decks that serve as the raw training corpus. A separate scraper targets an investor portfolio platform, extracting company names and detailed descriptions from individual company pages. All scrapers handle pagination, rate limiting, and error recovery to reliably collect data at scale.",
       },
       {
         header: "Data Cleansing & Feature Engineering",
-        body: "I built a data cleansing pipeline that filters the raw scraped data to rows with complete information across all required fields. From the text-heavy financial fields, I wrote parsers that extract structured numerical features — seeking amounts and total raised — from freeform strings like 'Seeking: $1M' and 'Total Raised: $2.75M', handling various formats and edge cases. This produces a clean dataset linking company descriptions, financial trajectories, and actual investment outcomes.",
+        body: "I built a data cleansing pipeline that filters the raw scraped data to rows with complete information across all required fields. From the text heavy financial fields, I wrote parsers that extract structured numerical features (seeking amounts and total raised) from freeform strings like 'Seeking: $1M' and 'Total Raised: $2.75M', handling various formats and edge cases. This produces a clean dataset linking company descriptions, financial trajectories, and actual investment outcomes.",
       },
       {
         header: "Model Evaluattion & Baselines",
@@ -714,11 +714,11 @@ const PROJECTS = [
       },
       {
         header: "LLM Fine-Tuning",
-        body: "I fine-tuned a LLaMA 3.1 model on pitch deck content extracted from the collected PDFs using PyMuPDF. I compared zero-shot performance (the model's out-of-the-box financial reasoning) against fine-tuned results to measure how much domain-specific training data moves the needle. Training used bfloat16 precision for GPU efficiency. The experiments capture how models respond to different types of financial signals — whether they pick up on revenue trajectory patterns, funding round sizing, or narrative quality in company descriptions — and where they fall short compared to human investor judgment.",
+        body: "I fine tuned a LLaMA 3.1 model on pitch deck content extracted from the collected PDFs using PyMuPDF. I compared zero shot performance (the model's out of the box financial reasoning) against fine tuned results to measure how much domain specific training data moves the needle. Training used bfloat16 precision for GPU efficiency. The experiments capture how models respond to different types of financial signals, whether they pick up on revenue trajectory patterns, funding round sizing, or narrative quality in company descriptions, and where they fall short compared to human investor judgment.",
       },
       {
         header: "Pitch Deck Processing",
-        body: "The PDF pipeline extracts text and images from hundreds of real pitch decks, creating a unique dataset that links pitch content directly to actual investment decisions. This corpus is designed to support the lab's longer-term work on building a full pretrained financial model.",
+        body: "The PDF pipeline extracts text and images from hundreds of real pitch decks, creating a unique dataset that links pitch content directly to actual investment decisions. This corpus is designed to support the lab's longer term work on building a full pretrained financial model.",
       },
     ],
     tags: [
@@ -745,21 +745,21 @@ const PROJECTS = [
     desc: [
       {
         header: "The Problem",
-        body: "Modern LLM deployment is bottlenecked by memory bandwidth. Quantizing model weights from 16-bit to 4-bit floating point (FP4) dramatically reduces memory footprint and improves inference throughput — but the question of which 4-bit format to use is far from settled. Nearly all existing FP4 work focuses on the E2M1 format (2 exponent bits, 1 mantissa bit), which allocates its 16 representable values with logarithmic spacing biased toward small magnitudes. But neural network weight distributions aren't uniform — they're sharply peaked near zero with heavy tails — and different formats place their quantization levels in fundamentally different positions along the number line. I investigated whether E1M2 (1 exponent bit, 2 mantissa bits), a largely overlooked format, could outperform E2M1 when combined with weight pruning.",
+        body: "Modern LLM deployment is bottlenecked by memory bandwidth. Quantizing model weights from 16 bit to 4 bit floating point (FP4) dramatically reduces memory footprint and improves inference throughput, but the question of which 4 bit format to use is far from settled. Nearly all existing FP4 work focuses on the E2M1 format (2 exponent bits, 1 mantissa bit), which allocates its 16 representable values with logarithmic spacing biased toward small magnitudes. But neural network weight distributions aren't uniform. They're sharply peaked near zero with heavy tails, and different formats place their quantization levels in fundamentally different positions along the number line. I investigated whether E1M2 (1 exponent bit, 2 mantissa bits), a largely overlooked format, could outperform E2M1 when combined with weight pruning.",
         image: "/projects/fp4-quantized-values.png",
         caption:
           "Standard FP4 formats (E2M1 variants) and their quantization level placements",
       },
       {
         header: "Key Insight",
-        body: "E1M2 has a natural coverage gap around zero — it allocates fewer representable values to small magnitudes compared to E2M1. At first glance this seems like a disadvantage, since most neural network weights cluster near zero. But when combined with magnitude-based pruning, this gap becomes an advantage: pruning removes the smallest-magnitude weights entirely, and E1M2 can then reallocate its precision budget to the remaining (larger) unpruned values. The hypothesis was that the combination of quantization and pruning could outperform either technique alone at high compression ratios.",
+        body: "E1M2 has a natural coverage gap around zero. It allocates fewer representable values to small magnitudes compared to E2M1. At first glance this seems like a disadvantage, since most neural network weights cluster near zero. But when combined with magnitude based pruning, this gap becomes an advantage: pruning removes the smallest magnitude weights entirely, and E1M2 can then reallocate its precision budget to the remaining (larger) unpruned values. The hypothesis was that the combination of quantization and pruning could outperform either technique alone at high compression ratios.",
         image: "/projects/fp4-quantized-e1m2.png",
         caption:
           "SF4 quantization levels shift outward as pruning ratio increases",
       },
       {
         header: "Weight Distribution Profiling",
-        body: "I profiled the weight distributions across every layer and sub-channel of transformer models, fitting each to both Normal and Student's t distributions using QQ plots to assess goodness of fit. The profiling revealed that weight distributions are consistently leptokurtic (heavier-tailed than Gaussian), which informed the choice of quantization strategy.",
+        body: "I profiled the weight distributions across every layer and subchannel of transformer models, fitting each to both Normal and Student's t distributions using QQ plots to assess goodness of fit. The profiling revealed that weight distributions are consistently leptokurtic (heavier tailed than Gaussian), which informed the choice of quantization strategy.",
         image: "/projects/fp4-profiled-values.png",
         caption: "Quantization datatypes overlaid on weight distribution",
       },
@@ -768,47 +768,47 @@ const PROJECTS = [
         body: "I designed a parameterized 4-bit format called SF4 that continuously interpolates its quantization levels based on a pruning parameter. As the pruning ratio increases (more small weights removed), SF4 shifts its representable values outward to better cover the remaining distribution. At ~50% sparsity, the SF4 format with E1M2-like spacing showed theoretical advantages over standard E2M1.",
         image: "/projects/fp4-pruned-normalized.png",
         caption:
-          "Per-layer weight distributions after pruning — attention and dense layers show distinct shapes",
+          "Per layer weight distributions after pruning: attention and dense layers show distinct shapes",
       },
       {
         header: "Datatype generator functions",
-        body: "I explored several mathematical functions for generating quantization level placements, including normal quantile mappings, Student's t quantile mappings, and power-law transformations, comparing their MSE performance against the Lloyd-Max optimal.",
+        body: "I explored several mathematical functions for generating quantization level placements, including normal quantile mappings, Student's t quantile mappings, and power law transformations, comparing their MSE performance against the Lloyd Max optimal.",
         image: "/projects/fp4-datatype-generators.png",
         caption:
           "Generator functions mapping uniform inputs to quantization levels: quantile-based vs. power-law",
       },
       {
         header: "Findings",
-        body: "E2M1 remains the better format for quantization alone — its logarithmic spacing naturally matches the near-zero concentration of unpruned weight distributions. However, when combined with structured 2:4 sparsity (50% pruning with GPU-accelerated support), E1M2-based formats showed promise by reallocating precision to the surviving weights. The research also identified practical challenges: advanced pruning methods don't produce clean gaps in the distribution (since they don't use pure magnitude-based pruning), and E1M2 struggles to independently fit both the inner and outer regions of the distribution with linear scaling.",
+        body: "E2M1 remains the better format for quantization alone. Its logarithmic spacing naturally matches the near zero concentration of unpruned weight distributions. However, when combined with structured 2:4 sparsity (50% pruning with GPU accelerated support), E1M2 based formats showed promise by reallocating precision to the surviving weights. The research also identified practical challenges: advanced pruning methods don't produce clean gaps in the distribution (since they don't use pure magnitude based pruning), and E1M2 struggles to independently fit both the inner and outer regions of the distribution with linear scaling.",
         image: "/projects/pareto_fixed_distance.png",
         caption:
-          "Accuracy vs. hardware cost (MAC area) across FP4 formats — E2M1 and APoT dominate the Pareto frontier",
+          "Accuracy vs. hardware cost (MAC area) across FP4 formats: E2M1 and APoT dominate the Pareto frontier",
       },
     ],
     tags: ["Python", "PyTorch", "NumPy", "SciPy", "Matplotlib"],
   },
   {
     id: 4,
-    name: "Hardware Chatbot — Verilog Code Generation",
+    name: "Hardware Chatbot: Verilog Code Generation",
     company: "Cornell Computer Systems Lab",
     thumbnail: "/projects/hw-chatbot-logo.svg",
     date: "January 2023 - December 2023",
     desc: [
       {
         header: "The Problem",
-        body: "Large language models can generate Python, JavaScript, and other popular languages with reasonable accuracy, but hardware description languages like Verilog remain a major gap. General-purpose models frequently produce Verilog that looks syntactically plausible but fails to compile, or compiles but produces incorrect functional behavior. This matters because Verilog bugs caught late in the design cycle are vastly more expensive than software bugs — they can mean re-spinning a chip. The lab set out to build a domain-specific code generation system for Verilog, and I focused on two key pieces: building the evaluation datasets and writing the evaluation framework that measures whether generated code actually works.",
+        body: "Large language models can generate Python, JavaScript, and other popular languages with reasonable accuracy, but hardware description languages like Verilog remain a major gap. General purpose models frequently produce Verilog that looks syntactically plausible but fails to compile, or compiles but produces incorrect functional behavior. This matters because Verilog bugs caught late in the design cycle are vastly more expensive than software bugs and can mean respinning a chip. The lab set out to build a domain specific code generation system for Verilog, and I focused on two key pieces: building the evaluation datasets and writing the evaluation framework that measures whether generated code actually works.",
       },
       {
         header: "Evaluation Dataset",
-        body: "I created a curated dataset of Verilog modules paired with test benches. Each evaluation file contains a natural-language-annotated module specification (the prompt) and a corresponding test bench separated by a marker. The test benches exercise the generated modules with specific input vectors and check outputs against expected values, enabling automated functional verification — not just 'does it compile' but 'does it do the right thing.'",
+        body: "I created a curated dataset of Verilog modules paired with test benches. Each evaluation file contains a natural language annotated module specification (the prompt) and a corresponding test bench separated by a marker. The test benches exercise the generated modules with specific input vectors and check outputs against expected values, enabling automated functional verification: not just 'does it compile' but 'does it do the right thing.'",
       },
       {
         header: "Evaluation Framework",
-        body: "I built a two-stage evaluation pipeline that measures both compilation accuracy and functional correctness:",
+        body: "I built a two stage evaluation pipeline that measures both compilation accuracy and functional correctness:",
       },
       {
         header: "Stage 1: Code Generation",
-        body: "The framework takes each prompt from the dataset, feeds it to a model (either a fine-tuned CodeGen-2B-Verilog or GPT-3.5-turbo as a baseline), and extracts the generated Verilog module from the response by parsing between module and endmodule boundaries.",
+        body: "The framework takes each prompt from the dataset, feeds it to a model (either a fine tuned CodeGen-2B-Verilog or GPT-3.5-turbo as a baseline), and extracts the generated Verilog module from the response by parsing between module and endmodule boundaries.",
       },
       {
         header: "Stage 2: Compile & Simulate",
@@ -816,11 +816,11 @@ const PROJECTS = [
       },
       {
         header: "Model Benchmarking",
-        body: "I set up the evaluation to compare a domain-specific fine-tuned model (CodeGen-2B-Verilog) against a general-purpose model (GPT-3.5-turbo). The fine-tuned model runs on GPU with half-precision inference for efficiency, while the GPT baseline uses the OpenAI API. Both are evaluated against the same dataset using the same compilation and functional correctness criteria, providing an apples-to-apples comparison of domain-specific fine-tuning vs. general-purpose scale.",
+        body: "I set up the evaluation to compare a domain specific fine tuned model (CodeGen-2B-Verilog) against a general purpose model (GPT-3.5-turbo). The fine tuned model runs on GPU with half precision inference for efficiency, while the GPT baseline uses the OpenAI API. Both are evaluated against the same dataset using the same compilation and functional correctness criteria, providing an apples to apples comparison of domain specific fine tuning vs. general purpose scale.",
       },
       {
         header: "Interactive Testing",
-        body: "I also built a simple interactive tool that lets researchers type a Verilog prompt and get generated code back in real-time, useful for quickly testing specific module types or edge cases outside the formal evaluation suite.",
+        body: "I also built a simple interactive tool that lets researchers type a Verilog prompt and get generated code back in real time, useful for quickly testing specific module types or edge cases outside the formal evaluation suite.",
       },
     ],
     tags: [
