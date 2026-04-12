@@ -309,7 +309,7 @@ const JOBS = [
     role: "Software Engineer, Engine",
     date: "Aug 2026 – Present",
     tags: ["TBD"],
-    thumbnail: "/experience/databricks.svg",
+    thumbnail: "/experience/databricks.jpeg",
     desc: "Incoming Software Engineer at Databricks in Palo Alto, CA.",
   },
   {
