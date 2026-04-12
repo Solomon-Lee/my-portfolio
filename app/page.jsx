@@ -2224,75 +2224,127 @@ function Starfield({ isDark }) {
       ctx.fill();
     }
 
-    function drawLightSaturn(t) {
+    function drawJupiter(t) {
       const cx = canvas.width * 0.75;
-      const cy = canvas.height * 0.4;
-      const planetR = Math.min(canvas.width, canvas.height) * 0.07;
-      const tilt = -0.35;
+      const cy = canvas.height * 0.38;
+      const planetR = Math.min(canvas.width, canvas.height) * 0.09;
 
       ctx.save();
       ctx.translate(cx, cy);
-      ctx.rotate(tilt);
 
-      // Ring behind planet
+      // Outer glow
+      const glow = ctx.createRadialGradient(0, 0, planetR * 0.8, 0, 0, planetR * 2);
+      glow.addColorStop(0, "rgba(220, 190, 140, 0.1)");
+      glow.addColorStop(1, "rgba(220, 190, 140, 0)");
       ctx.beginPath();
-      ctx.ellipse(0, 0, planetR * 2.2, planetR * 0.45, 0, 0, Math.PI);
-      ctx.strokeStyle = "rgba(180, 160, 120, 0.35)";
-      ctx.lineWidth = planetR * 0.18;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.ellipse(0, 0, planetR * 1.7, planetR * 0.35, 0, 0, Math.PI);
-      ctx.strokeStyle = "rgba(190, 170, 130, 0.25)";
-      ctx.lineWidth = planetR * 0.1;
-      ctx.stroke();
+      ctx.arc(0, 0, planetR * 2, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
 
       // Planet body
       const bodyGrad = ctx.createRadialGradient(-planetR * 0.3, -planetR * 0.2, planetR * 0.1, 0, 0, planetR);
-      bodyGrad.addColorStop(0, "rgba(235, 215, 175, 0.9)");
-      bodyGrad.addColorStop(0.5, "rgba(210, 185, 140, 0.8)");
-      bodyGrad.addColorStop(1, "rgba(180, 150, 100, 0.7)");
+      bodyGrad.addColorStop(0, "rgba(240, 220, 180, 0.95)");
+      bodyGrad.addColorStop(0.5, "rgba(215, 185, 140, 0.9)");
+      bodyGrad.addColorStop(1, "rgba(180, 145, 100, 0.85)");
       ctx.beginPath();
       ctx.arc(0, 0, planetR, 0, Math.PI * 2);
       ctx.fillStyle = bodyGrad;
       ctx.fill();
 
-      // Banding
-      const bandAlpha = 0.1 + Math.sin(t * 0.2) * 0.03;
-      for (let i = -3; i <= 3; i++) {
-        ctx.beginPath();
-        ctx.ellipse(0, i * planetR * 0.2, planetR * 0.95, planetR * 0.06, 0, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 240, 200, ${bandAlpha})`;
-        ctx.fill();
+      // Clip to planet circle for bands
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.clip();
+
+      // Horizontal bands (alternating warm/cool tones like Jupiter)
+      const bandColors = [
+        "rgba(200, 160, 100, 0.35)",
+        "rgba(230, 210, 170, 0.15)",
+        "rgba(180, 120, 80, 0.3)",
+        "rgba(240, 220, 180, 0.12)",
+        "rgba(190, 140, 90, 0.28)",
+        "rgba(220, 200, 160, 0.15)",
+        "rgba(170, 110, 70, 0.3)",
+        "rgba(235, 215, 175, 0.12)",
+        "rgba(195, 150, 100, 0.25)",
+      ];
+      const bandH = (planetR * 2) / bandColors.length;
+      for (let i = 0; i < bandColors.length; i++) {
+        ctx.fillStyle = bandColors[i];
+        ctx.fillRect(-planetR, -planetR + i * bandH, planetR * 2, bandH);
       }
 
-      // Ring in front
+      // Great Red Spot
+      const spotX = planetR * 0.25;
+      const spotY = planetR * 0.2;
+      const spotGrad = ctx.createRadialGradient(spotX, spotY, 0, spotX, spotY, planetR * 0.18);
+      spotGrad.addColorStop(0, "rgba(200, 100, 60, 0.4)");
+      spotGrad.addColorStop(0.6, "rgba(190, 90, 50, 0.2)");
+      spotGrad.addColorStop(1, "rgba(180, 80, 40, 0)");
       ctx.beginPath();
-      ctx.ellipse(0, 0, planetR * 2.2, planetR * 0.45, 0, Math.PI, Math.PI * 2);
-      ctx.strokeStyle = "rgba(180, 160, 120, 0.35)";
-      ctx.lineWidth = planetR * 0.18;
-      ctx.stroke();
+      ctx.ellipse(spotX, spotY, planetR * 0.18, planetR * 0.12, 0.1, 0, Math.PI * 2);
+      ctx.fillStyle = spotGrad;
+      ctx.fill();
+
+      ctx.restore(); // unclip
+
+      // Subtle terminator shadow (right side darker)
+      const shadow = ctx.createLinearGradient(-planetR, 0, planetR, 0);
+      shadow.addColorStop(0, "rgba(0, 0, 0, 0)");
+      shadow.addColorStop(0.6, "rgba(0, 0, 0, 0)");
+      shadow.addColorStop(1, "rgba(0, 0, 0, 0.2)");
       ctx.beginPath();
-      ctx.ellipse(0, 0, planetR * 1.7, planetR * 0.35, 0, Math.PI, Math.PI * 2);
-      ctx.strokeStyle = "rgba(190, 170, 130, 0.25)";
-      ctx.lineWidth = planetR * 0.1;
-      ctx.stroke();
+      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.fillStyle = shadow;
+      ctx.fill();
 
       ctx.restore();
     }
 
+    // Precomputed landmass patches (generated once, drawn with offset for rotation)
+    let earthPatches = [];
+    function initEarthPatches() {
+      earthPatches = [];
+      // Each patch: angular position, angular width, depth into earth, color variation
+      const continents = [
+        // Large landmasses at various longitudes
+        { lng: 0.0, width: 0.12, depth: 0.06, g: 120 },
+        { lng: 0.15, width: 0.06, depth: 0.04, g: 140 },
+        { lng: 0.35, width: 0.14, depth: 0.07, g: 110 },
+        { lng: 0.4, width: 0.04, depth: 0.03, g: 130 },
+        { lng: 0.55, width: 0.1, depth: 0.05, g: 125 },
+        { lng: 0.7, width: 0.08, depth: 0.06, g: 115 },
+        { lng: 0.72, width: 0.03, depth: 0.02, g: 145 },
+        { lng: 0.85, width: 0.11, depth: 0.05, g: 135 },
+        { lng: 0.92, width: 0.05, depth: 0.04, g: 120 },
+      ];
+      // Add smaller islands
+      for (let i = 0; i < 15; i++) {
+        continents.push({
+          lng: Math.random(),
+          width: 0.01 + Math.random() * 0.03,
+          depth: 0.01 + Math.random() * 0.02,
+          g: 110 + Math.random() * 40,
+        });
+      }
+      earthPatches = continents;
+    }
+    initEarthPatches();
+
     function drawEarthCurvature(t) {
       const w = canvas.width;
       const h = canvas.height;
-      // Large arc at the bottom
       const earthRadius = w * 1.8;
       const earthCenterY = h + earthRadius - h * 0.12;
+      const ecx = w * 0.5;
 
       // Atmosphere glow layers
       for (let i = 3; i >= 0; i--) {
         const offset = i * 8;
         const alpha = 0.04 + (3 - i) * 0.03;
         ctx.beginPath();
-        ctx.arc(w * 0.5, earthCenterY, earthRadius + offset, Math.PI, Math.PI * 2);
+        ctx.arc(ecx, earthCenterY, earthRadius + offset, Math.PI, Math.PI * 2);
         ctx.strokeStyle = `rgba(100, 180, 255, ${alpha})`;
         ctx.lineWidth = 6;
         ctx.stroke();
@@ -2300,32 +2352,69 @@ function Starfield({ isDark }) {
 
       // Thin bright atmosphere line
       ctx.beginPath();
-      ctx.arc(w * 0.5, earthCenterY, earthRadius, Math.PI, Math.PI * 2);
+      ctx.arc(ecx, earthCenterY, earthRadius, Math.PI, Math.PI * 2);
       ctx.strokeStyle = "rgba(120, 200, 255, 0.3)";
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Earth body (gradient from blue to darker blue)
-      const earthGrad = ctx.createRadialGradient(w * 0.5, earthCenterY, earthRadius * 0.95, w * 0.5, earthCenterY, earthRadius);
-      earthGrad.addColorStop(0, "rgba(30, 80, 160, 0.5)");
-      earthGrad.addColorStop(1, "rgba(20, 60, 130, 0.7)");
+      // Earth body (ocean blue)
+      ctx.save();
       ctx.beginPath();
-      ctx.arc(w * 0.5, earthCenterY, earthRadius, Math.PI, Math.PI * 2);
+      ctx.arc(ecx, earthCenterY, earthRadius, Math.PI, Math.PI * 2);
       ctx.lineTo(w, h);
       ctx.lineTo(0, h);
       ctx.closePath();
-      ctx.fillStyle = earthGrad;
-      ctx.fill();
+      ctx.clip();
 
-      // Cloud wisps along the curvature
-      for (let i = 0; i < 6; i++) {
-        const angle = Math.PI + (i / 6) * Math.PI * 0.8 + 0.1;
-        const cx = w * 0.5 + Math.cos(angle) * (earthRadius + 2);
-        const cy = earthCenterY + Math.sin(angle) * (earthRadius + 2);
-        const cloudW = 40 + Math.sin(t * 0.15 + i * 2) * 10;
+      // Ocean base
+      const oceanGrad = ctx.createRadialGradient(ecx, earthCenterY, earthRadius * 0.97, ecx, earthCenterY, earthRadius);
+      oceanGrad.addColorStop(0, "rgba(25, 80, 170, 0.6)");
+      oceanGrad.addColorStop(1, "rgba(20, 60, 140, 0.8)");
+      ctx.fillStyle = oceanGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Rotating landmasses
+      const rotationOffset = t * 0.015; // slow rotation
+      const visibleArc = Math.PI; // we see from PI to 2*PI (top half of arc)
+
+      for (const patch of earthPatches) {
+        // Map longitude (0-1) to angle, offset by rotation
+        const patchCenter = Math.PI + ((patch.lng + rotationOffset) % 1) * visibleArc;
+        const patchHalfW = patch.width * visibleArc * 0.5;
+
+        // Draw the landmass as an arc segment with depth
+        const innerR = earthRadius - patch.depth * earthRadius;
+        const startAngle = patchCenter - patchHalfW;
+        const endAngle = patchCenter + patchHalfW;
+
         ctx.beginPath();
-        ctx.ellipse(cx, cy, cloudW, 4, angle + Math.PI * 0.5, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
+        ctx.arc(ecx, earthCenterY, earthRadius - 1, startAngle, endAngle);
+        ctx.arc(ecx, earthCenterY, innerR, endAngle, startAngle, true);
+        ctx.closePath();
+        ctx.fillStyle = `rgba(40, ${patch.g}, 55, 0.55)`;
+        ctx.fill();
+
+        // Lighter highlight on top edge of landmass
+        ctx.beginPath();
+        ctx.arc(ecx, earthCenterY, earthRadius - 2, startAngle + patchHalfW * 0.1, endAngle - patchHalfW * 0.1);
+        ctx.strokeStyle = `rgba(60, ${patch.g + 20}, 70, 0.2)`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      ctx.restore();
+
+      // Cloud wisps (also rotating, but slightly faster than land)
+      const cloudOffset = t * 0.02;
+      for (let i = 0; i < 8; i++) {
+        const baseLng = (i / 8 + cloudOffset) % 1;
+        const angle = Math.PI + baseLng * Math.PI;
+        const cloudX = ecx + Math.cos(angle) * (earthRadius + 2);
+        const cloudY = earthCenterY + Math.sin(angle) * (earthRadius + 2);
+        const cloudW = 30 + Math.sin(t * 0.15 + i * 2.5) * 12;
+        ctx.beginPath();
+        ctx.ellipse(cloudX, cloudY, cloudW, 3.5, angle + Math.PI * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
         ctx.fill();
       }
     }
@@ -2346,8 +2435,8 @@ function Starfield({ isDark }) {
       // Sun (left side)
       drawLightSun(t);
 
-      // Saturn (right side, upper area)
-      drawLightSaturn(t);
+      // Jupiter (right side, upper area)
+      drawJupiter(t);
 
       // Small distant stars (faintly visible in daytime sky)
       for (const s of stars) {
