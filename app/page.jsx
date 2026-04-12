@@ -298,7 +298,7 @@ const JOBS = [
 
 const PROJECTS = [
   {
-    id: 0,
+    id: 1,
     name: "FP4 Quantization Format Research",
     company: "Cornell — Computer Systems Lab",
     thumbnail: "/projects/fp4-logo.svg",
@@ -343,7 +343,7 @@ const PROJECTS = [
     tags: ["Python", "PyTorch", "NumPy", "SciPy", "Matplotlib"],
   },
   {
-    id: 1,
+    id: 2,
     name: "Hardware Chatbot — Verilog Code Generation",
     company: "Cornell — Computer Systems Lab",
     thumbnail: "/projects/hw-chatbot-logo.svg",
@@ -382,10 +382,9 @@ const PROJECTS = [
     diagram: { label: "Evaluation Pipeline", src: "/diagrams/hw-chatbot-eval.svg" },
   },
   {
-    id: 5,
+    id: 0,
     name: "AI Venture Capital Research",
     company: "Cornell — Data Analytics Lab",
-    metric: "500+ pitch decks · LLaMA fine-tuning · AI VC baselines",
     thumbnail: "/projects/ai-vc-logo.svg",
     desc: [
       {
