@@ -365,7 +365,7 @@ const JOBS = [
     company: "Roblox",
     role: "Software Engineer Intern, Foundation AI (ML Platform)",
     date: "May – Aug 2025",
-    thumbnail: "/experience/roblox.svg",
+    thumbnail: "/experience/roblox.jpeg",
     tags: [
       "Go",
       "Kubernetes",
@@ -485,7 +485,7 @@ const JOBS = [
     id: 4,
     company: "Roblox",
     role: "Software Engineer Intern, Economy (Avatar Core Services)",
-    thumbnail: "/experience/roblox.svg",
+    thumbnail: "/experience/roblox.jpeg",
     date: "May – Aug 2024",
     tags: [
       "Python",
