@@ -1,0 +1,68 @@
+<svg width="100%" viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Investor Platforms -->
+  <rect x="40" y="30" width="130" height="70" rx="6" fill="FILL_GRAY" stroke="STROKE_GRAY" stroke-width="0.5"/>
+  <text x="105" y="53" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Angel platforms</text>
+  <text x="105" y="73" text-anchor="middle" font-size="11" fill="MUTED">Deals · Financials</text>
+  <text x="105" y="89" text-anchor="middle" font-size="11" fill="MUTED">Pitch decks</text>
+
+  <!-- Scrapers -->
+  <rect x="230" y="25" width="150" height="80" rx="6" fill="FILL_ACCENT" stroke="STROKE_ACCENT" stroke-width="0.5"/>
+  <text x="305" y="50" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Web scrapers</text>
+  <text x="305" y="70" text-anchor="middle" font-size="11" fill="MUTED">(Selenium)</text>
+  <text x="305" y="88" text-anchor="middle" font-size="11" fill="MUTED">Pagination · Auth</text>
+
+  <!-- Platforms → Scrapers -->
+  <line x1="170" y1="65" x2="228" y2="65" stroke="TEXT" stroke-width="1" marker-end="url(#a6)"/>
+
+  <!-- Raw Data -->
+  <rect x="440" y="25" width="140" height="80" rx="6" fill="FILL_GRAY" stroke="STROKE_GRAY" stroke-width="0.5"/>
+  <text x="510" y="48" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Raw dataset</text>
+  <text x="510" y="68" text-anchor="middle" font-size="11" fill="MUTED">CSVs + PDFs</text>
+  <text x="510" y="84" text-anchor="middle" font-size="11" fill="MUTED">500+ pitch decks</text>
+
+  <!-- Scrapers → Raw Data -->
+  <line x1="380" y1="65" x2="438" y2="65" stroke="TEXT" stroke-width="1" marker-end="url(#a6)"/>
+
+  <!-- Data Cleansing -->
+  <rect x="440" y="140" width="140" height="55" rx="6" fill="FILL_BLUE" stroke="STROKE_BLUE" stroke-width="0.5"/>
+  <text x="510" y="160" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Data cleansing</text>
+  <text x="510" y="180" text-anchor="middle" font-size="11" fill="MUTED">Feature extraction</text>
+
+  <!-- Raw → Cleansing -->
+  <line x1="510" y1="105" x2="510" y2="138" stroke="STROKE_BLUE" stroke-width="1" marker-end="url(#a6)"/>
+
+  <!-- Traditional ML -->
+  <rect x="60" y="240" width="170" height="70" rx="6" fill="FILL_CORAL" stroke="STROKE_CORAL" stroke-width="0.5"/>
+  <text x="145" y="262" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Random Forest</text>
+  <text x="145" y="282" text-anchor="middle" font-size="11" fill="MUTED">TF-IDF + financials</text>
+  <text x="145" y="298" text-anchor="middle" font-size="10" fill="MUTED">ML baseline</text>
+
+  <!-- LLM Fine-tuning -->
+  <rect x="280" y="240" width="170" height="70" rx="6" fill="FILL_PURPLE" stroke="STROKE_PURPLE" stroke-width="0.5"/>
+  <text x="365" y="262" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">LLaMA fine-tune</text>
+  <text x="365" y="282" text-anchor="middle" font-size="11" fill="MUTED">Zero-shot vs. tuned</text>
+  <text x="365" y="298" text-anchor="middle" font-size="10" fill="MUTED">LLM baseline</text>
+
+  <!-- Cleansing → ML -->
+  <line x1="440" y1="180" x2="232" y2="260" stroke="STROKE_CORAL" stroke-width="1" marker-end="url(#a6)"/>
+
+  <!-- Cleansing → LLM -->
+  <line x1="480" y1="195" x2="410" y2="238" stroke="STROKE_PURPLE" stroke-width="1" marker-end="url(#a6)"/>
+
+  <!-- Metrics output -->
+  <rect x="500" y="250" width="150" height="60" rx="6" fill="FILL_ACCENT" stroke="STROKE_ACCENT" stroke-width="0.5"/>
+  <text x="575" y="270" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="600" fill="TEXT">Metrics</text>
+  <text x="575" y="290" text-anchor="middle" font-size="11" fill="MUTED">→ Pretrained AI VC</text>
+
+  <!-- ML → Metrics -->
+  <line x1="230" y1="290" x2="498" y2="280" stroke="TEXT" stroke-width="1" marker-end="url(#a6)"/>
+
+  <!-- LLM → Metrics -->
+  <line x1="450" y1="280" x2="498" y2="280" stroke="TEXT" stroke-width="1" marker-end="url(#a6)"/>
+</svg>

@@ -380,6 +380,44 @@ const PROJECTS = [
     ],
     tags: ["Python", "PyTorch", "Hugging Face Transformers", "Verilog", "OpenAI API", "CUDA"],
     diagram: { label: "Evaluation Pipeline", src: "/diagrams/hw-chatbot-eval.svg" },
+  },
+  {
+    id: 5,
+    name: "AI Venture Capital Research",
+    company: "Cornell — Data Analytics Lab",
+    metric: "500+ pitch decks · LLaMA fine-tuning · AI VC baselines",
+    desc: [
+      {
+        header: "The Problem",
+        body: "Venture capital investment decisions are driven by pattern recognition — experienced investors develop intuition over hundreds of deals about what makes a startup fundable. But this expertise is hard to scale, hard to transfer, and hard to evaluate objectively. The lab's long-term goal is to build a pretrained financial model capable of acting as an AI venture capital investor — one that can evaluate startups the way a seasoned VC would, using the same inputs: pitch decks, financial projections, and company descriptions. Before building that model, we needed to answer a foundational question: how do existing language models respond to financial training data? What do they learn, what do they miss, and what metrics should we use to evaluate an AI investor's judgment? My work focused on building the data infrastructure and running the initial experiments to establish those baselines."
+      },
+      {
+        header: "Data Collection Pipeline",
+        body: "I built a suite of web scrapers using Selenium to collect real startup deal data from two major angel investing platforms. The scrapers authenticate, navigate paginated deal listings, and extract structured data for each company: deal IDs, funding stage, round type, company descriptions, annual financials (revenue, expenditure, user metrics across projected years), current funding round details, and complete funding histories. One scraper also downloads pitch deck PDFs — collecting hundreds of decks that serve as the raw training corpus. A separate scraper targets an investor portfolio platform, extracting company names and detailed descriptions from individual company pages. All scrapers handle pagination, rate limiting, and error recovery to reliably collect data at scale."
+      },
+      {
+        header: "Data Cleansing & Feature Engineering",
+        body: "I built a data cleansing pipeline that filters the raw scraped data to rows with complete information across all required fields. From the text-heavy financial fields, I wrote parsers that extract structured numerical features — seeking amounts and total raised — from freeform strings like 'Seeking: $1M' and 'Total Raised: $2.75M', handling various formats and edge cases. This produces a clean dataset linking company descriptions, financial trajectories, and actual investment outcomes."
+      },
+      {
+        header: "Model Evaluattion & Baselines",
+        body: "Model Evaluation & Baselines"
+      },
+      {
+        header: "Traditional ML Baselines",
+        body: "A Random Forest classifier using TF-IDF features from company descriptions combined with numerical financial features (seeking amount, revenue projections). This establishes a baseline for what's achievable with straightforward feature engineering on the collected dataset."
+      },
+      {
+        header: "LLM Fine-Tuning",
+        body: "I fine-tuned a LLaMA 3.1 model on pitch deck content extracted from the collected PDFs using PyMuPDF. I compared zero-shot performance (the model's out-of-the-box financial reasoning) against fine-tuned results to measure how much domain-specific training data moves the needle. Training used bfloat16 precision for GPU efficiency. The experiments capture how models respond to different types of financial signals — whether they pick up on revenue trajectory patterns, funding round sizing, or narrative quality in company descriptions — and where they fall short compared to human investor judgment."
+      },
+      {
+        header: "Pitch Deck Processing",
+        body: "The PDF pipeline extracts text and images from hundreds of real pitch decks, creating a unique dataset that links pitch content directly to actual investment decisions. This corpus is designed to support the lab's longer-term work on building a full pretrained financial model."
+      }
+    ],
+    tags: ["Python", "Selenium", "scikit-learn", "PyTorch", "LLaMA", "PyMuPDF", "Pandas", "NumPy"],
+    diagram: { label: "Research Pipeline", src: "/diagrams/data-analytics-pipeline.svg" },
   }
 ];
 
