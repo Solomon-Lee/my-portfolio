@@ -300,7 +300,7 @@ const PROJECTS = [
   {
     id: 0,
     name: "Automated Prompt Optimization",
-    company: "Cornell — Data Analytics Lab",
+    company: "Cornell Data Analytics Group",
     thumbnail: "/projects/prompt-optimizer-logo.svg",
     desc: [
       {
@@ -346,7 +346,7 @@ const PROJECTS = [
   {
     id: 1,
     name: "AI Venture Capital Research",
-    company: "Cornell — Data Analytics Lab",
+    company: "Cornell Data Analytics Group",
     thumbnail: "/projects/ai-vc-logo.svg",
     desc: [
       {
@@ -384,7 +384,7 @@ const PROJECTS = [
   {
     id: 2,
     name: "FP4 Quantization Format Research",
-    company: "Cornell — Computer Systems Lab",
+    company: "Cornell Computer Systems Lab",
     thumbnail: "/projects/fp4-logo.svg",
     desc: [
       {
@@ -429,7 +429,7 @@ const PROJECTS = [
   {
     id: 3,
     name: "Hardware Chatbot — Verilog Code Generation",
-    company: "Cornell — Computer Systems Lab",
+    company: "Cornell Computer Systems Lab",
     thumbnail: "/projects/hw-chatbot-logo.svg",
     desc: [
       { 
