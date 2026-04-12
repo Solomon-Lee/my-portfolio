@@ -530,6 +530,7 @@ const PROJECTS = [
     name: "LLM Persona Belief Influence",
     company: "Cornell Data Analytics Group",
     thumbnail: "/projects/llm-persona-logo.svg",
+    date: "In Progress",
     desc: [
       {
         header: "The Problem",
@@ -631,6 +632,7 @@ const PROJECTS = [
     name: "Automated Prompt Optimization",
     company: "Cornell Data Analytics Group",
     thumbnail: "/projects/prompt-optimizer-logo.svg",
+    date: "September 2025 - December 2025",
     desc: [
       {
         header: "The Problem",
@@ -688,6 +690,7 @@ const PROJECTS = [
     name: "AI Venture Capital Research",
     company: "Cornell Data Analytics Group",
     thumbnail: "/projects/ai-vc-logo.svg",
+    date: "January 2025 - May 2025",
     desc: [
       {
         header: "The Problem",
@@ -738,6 +741,7 @@ const PROJECTS = [
     name: "FP4 Quantization Format Research",
     company: "Cornell Computer Systems Lab",
     thumbnail: "/projects/fp4-logo.svg",
+    date: "January 2024 - May 2024",
     desc: [
       {
         header: "The Problem",
@@ -788,6 +792,7 @@ const PROJECTS = [
     name: "Hardware Chatbot — Verilog Code Generation",
     company: "Cornell Computer Systems Lab",
     thumbnail: "/projects/hw-chatbot-logo.svg",
+    date: "January 2023 - December 2023",
     desc: [
       {
         header: "The Problem",
