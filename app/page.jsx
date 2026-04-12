@@ -340,6 +340,44 @@ const PROJECTS = [
       }
     ],
     tags: ["Python", "PyTorch", "NumPy", "SciPy", "Matplotlib"],
+  },
+  {
+    id: 1,
+    name: "Hardware Chatbot — Verilog Code Generation",
+    company: "Cornell — Computer Systems Lab",
+    desc: [
+      { 
+        header: "The Problem", 
+        body: "Large language models can generate Python, JavaScript, and other popular languages with reasonable accuracy, but hardware description languages like Verilog remain a major gap. General-purpose models frequently produce Verilog that looks syntactically plausible but fails to compile, or compiles but produces incorrect functional behavior. This matters because Verilog bugs caught late in the design cycle are vastly more expensive than software bugs — they can mean re-spinning a chip. The lab set out to build a domain-specific code generation system for Verilog, and I focused on two key pieces: building the evaluation datasets and writing the evaluation framework that measures whether generated code actually works." 
+      },
+      { 
+        
+        header: "Evaluation Dataset", 
+        body: "I created a curated dataset of Verilog modules paired with test benches. Each evaluation file contains a natural-language-annotated module specification (the prompt) and a corresponding test bench separated by a marker. The test benches exercise the generated modules with specific input vectors and check outputs against expected values, enabling automated functional verification — not just 'does it compile' but 'does it do the right thing.'" 
+      },
+      { 
+        header: "Evaluation Framework", 
+        body: "I built a two-stage evaluation pipeline that measures both compilation accuracy and functional correctness:" 
+      },
+      {
+        header: "Stage 1: Code Generation",
+        body: "The framework takes each prompt from the dataset, feeds it to a model (either a fine-tuned CodeGen-2B-Verilog or GPT-3.5-turbo as a baseline), and extracts the generated Verilog module from the response by parsing between module and endmodule boundaries."
+      },
+      {
+        header: "Stage 2: Compile & Simulate",
+        body: "The generated module is concatenated with its test bench, compiled using Icarus Verilog (iverilog), and if compilation succeeds, simulated using vvp. The simulation output is parsed for ERROR markers to determine functional correctness. This gives two metrics per model: compilation accuracy (percentage of generated modules that compile) and functional accuracy (percentage that pass all test cases)."
+      },
+      { 
+        header: "Model Benchmarking", 
+        body: "I set up the evaluation to compare a domain-specific fine-tuned model (CodeGen-2B-Verilog) against a general-purpose model (GPT-3.5-turbo). The fine-tuned model runs on GPU with half-precision inference for efficiency, while the GPT baseline uses the OpenAI API. Both are evaluated against the same dataset using the same compilation and functional correctness criteria, providing an apples-to-apples comparison of domain-specific fine-tuning vs. general-purpose scale." 
+      },
+      {
+        header: "Interactive Testing",
+        body: "I also built a simple interactive tool that lets researchers type a Verilog prompt and get generated code back in real-time, useful for quickly testing specific module types or edge cases outside the formal evaluation suite."
+      }
+    ],
+    tags: ["Python", "PyTorch", "Hugging Face Transformers", "Verilog", "OpenAI API", "CUDA"],
+    diagram: { label: "Evaluation Pipeline", src: "/diagrams/hw-chatbot-eval.svg" },
   }
 ];
 
