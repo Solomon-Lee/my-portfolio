@@ -849,6 +849,46 @@ function CornellModal({ onClose, c }) {
   );
 }
 
+function Diagram({ src, c }) {
+  const [html, setHtml] = useState("");
+  useEffect(() => {
+    fetch(src)
+      .then((r) => r.text())
+      .then((svg) =>
+        setHtml(
+          svg
+            .replaceAll("FILL_GRAY", c.chipDark)
+            .replaceAll("FILL_CARD", c.card)
+            .replaceAll("FILL_ACCENT", c.accentBadgeBg)
+            .replaceAll("FILL_PURPLE", c.accentBadgeBg)
+            .replaceAll("FILL_BLUE", c.accentBadgeBg)
+            .replaceAll("FILL_CORAL", c.accentBadgeBg)
+            .replaceAll("STROKE_GRAY", c.muted)
+            .replaceAll("STROKE_ACCENT", c.accent)
+            .replaceAll("STROKE_PURPLE", "#7F77DD")
+            .replaceAll("STROKE_BLUE", "#378ADD")
+            .replaceAll("STROKE_CORAL", "#D85A30")
+            .replaceAll("STROKE", c.border)
+            .replaceAll("MUTED", c.muted)
+            .replaceAll("TEXT", c.text)
+        )
+      );
+  }, [src, c]);
+  if (!html) return null;
+  return (
+    <div
+      style={{
+        background: c.card,
+        border: `1px solid ${c.border}`,
+        borderRadius: 10,
+        padding: "16px 12px",
+        overflow: "hidden",
+      }}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
 function Modal({ item, type, onClose, c }) {
   const ref = useRef();
   useEffect(() => {
