@@ -386,6 +386,7 @@ const PROJECTS = [
     name: "AI Venture Capital Research",
     company: "Cornell — Data Analytics Lab",
     metric: "500+ pitch decks · LLaMA fine-tuning · AI VC baselines",
+    thumbnail: "/projects/ai-vc-logo.svg",
     desc: [
       {
         header: "The Problem",
