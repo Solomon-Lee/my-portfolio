@@ -589,7 +589,8 @@ const PROJECTS = [
       },
       {
         header: "Key finding",
-        body: "The reasoning framework amplifies when stacked on the fan. The override pushes discrimination beyond both the fan alone and the framework alone. The con side shows the most dramatic effect: −28.7pp (strong persona alone) jumps to −46.6pp (override after fan). If the strong persona were just another way of saying 'agree with your side,' stacking shouldn't produce amplification — but it does. The con override flip rate stays elevated (17–30%) across all hops from root thesis, doing real work even on deep claims. The pro override drops near zero after hop 1, consistent with the fan already getting most claims "right" from that perspective.",
+        body: "The reasoning framework amplifies when stacked on the fan. The override pushes discrimination beyond both the fan alone and the framework alone. The con side shows the most dramatic effect: −28.7pp (strong persona alone) jumps to −46.6pp (override after fan). If the strong persona were just another way of saying 'agree with your side,' stacking shouldn't produce amplification — but it does. The con override flip rate stays elevated (17–30%) across all hops from root thesis, doing real work even on deep claims. The pro override drops near zero after hop 1, consistent with the fan already getting most claims 'right' from that perspective.",
+        image: "/projects/575159609-07ebb58d-cef9-4efc-b8a8-6287b2188382.png"
       },
       {
         header: "Current Status",
