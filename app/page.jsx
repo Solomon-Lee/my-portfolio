@@ -298,7 +298,91 @@ const JOBS = [
 
 const PROJECTS = [
   {
+    id: 0,
+    name: "Automated Prompt Optimization",
+    company: "Cornell — Data Analytics Lab",
+    thumbnail: "/projects/prompt-optimizer-logo.svg",
+    desc: [
+      {
+        header: "The Problem",
+        body: "Prompt engineering for image generation models like Stable Diffusion is a manual, iterative craft. Professional prompt engineers sell optimized prompts on marketplaces for real money — but the process of discovering, purchasing, and combining prompts to achieve a target output is entirely manual. The research question: can an AI agent replace a human prompt engineer by autonomously browsing a prompt marketplace, purchasing prompts, and iteratively optimizing them to generate a target image?"
+      },
+      {
+        header: "MCP Server: Prompt Marketplace Agent",
+        body: "I built an MCP (Model Context Protocol) server that exposes a prompt marketplace as a set of tools an LLM can use autonomously. The server provides three core tools: search prompts with pagination and regex filtering, get full prompt details, and buy prompts to unlock their full text. This turns the marketplace into an environment an AI agent can navigate programmatically — browsing listings, reading descriptions, making purchase decisions, and using acquired prompts to generate images. The MCP server is backed by a metadata store containing thousands of prompt listings with descriptions, pricing, ratings, and example images. It's deployed as an HTTP/SSE service that can be connected to any MCP-compatible client, and I built a GPT client that uses OpenAI's Responses API to give GPT access to the marketplace tools — letting it browse, evaluate, and purchase prompts as part of a reasoning loop."
+      },
+      {
+        header: "Data Pipeline & Image Generation",
+        body: "The research required generating thousands of target images to evaluate against. I built the full pipeline:"
+      },
+      {
+        header: "Template Filling",
+        body: "Stable Diffusion prompts on the marketplace are often templates with placeholders (e.g., '[subject] in [style]'). I wrote a batch processing script that uses OpenAI's Batch API to fill in all placeholders with contextually appropriate values, producing complete, usable prompts from every template in the dataset."
+      },
+      {
+        header: "Image Generation",
+        body: "I built a generation pipeline using Stable Diffusion XL with Compel for long-prompt embedding, handling the correct engine configuration (SD 2.1 vs XL 1.0) for each prompt based on its marketplace metadata. The pipeline processes prompts in batches with checkpointing, generating target images that serve as the ground truth for evaluation."
+      },
+      {
+        header: "Reverse engineering",
+        body: "Using OpenAI's Batch API, I fed generated target images back to GPT and asked it to reverse-engineer the Stable Diffusion prompt that would reproduce them. This creates the initial seed prompt for the optimization loop — a starting point the agent can then iteratively improve."
+      },
+      {
+        header: "Evaluation Pipeline",
+        body: "I built the evaluation framework to measure how well automated prompt optimization can match human prompt engineers. The core loop: take a target image, give the agent an initial prompt (just the first few words), let it use the marketplace and iterative refinement to produce an optimized prompt, generate an image from that prompt, and measure image similarity against the target. I integrated GEPA (Genetic Evolution of Prompt Agents) as one optimization strategy, where GPT iteratively refines prompts with image similarity as the fitness function. The pipeline produces step-by-step outputs showing how the generated image converges toward the target across optimization iterations."
+      },
+      {
+        header: "VLM Benchmarking",
+        body: "Early in the project, I surveyed and benchmarked vision-language models (Qwen 2.5 VL, LLaMA 3.2, and others) to determine which could serve as the policy model in a reinforcement learning pipeline. I profiled each model's VRAM usage, inference latency, and output quality on the marketplace browsing task, and compiled a comparison table of VLMs used as RL policies in recent literature."
+      },
+      {
+        header: "Contribution",
+        body: "The research investigates whether automated prompt optimizers can replace human prompt engineers, using the marketplace browsing agent and image similarity metrics as the evaluation framework."
+      }
+    ],
+    tags: ["Python", "FastMCP", "OpenAI Batch API", "Stable Diffusion XL", "Compel", "PyTorch", "CUDA"],
+    diagram: { label: "Optimization Pipeline", src: "/diagrams/promptbase-pipeline.svg" },
+  },
+  {
     id: 1,
+    name: "AI Venture Capital Research",
+    company: "Cornell — Data Analytics Lab",
+    thumbnail: "/projects/ai-vc-logo.svg",
+    desc: [
+      {
+        header: "The Problem",
+        body: "Venture capital investment decisions are driven by pattern recognition — experienced investors develop intuition over hundreds of deals about what makes a startup fundable. But this expertise is hard to scale, hard to transfer, and hard to evaluate objectively. The lab's long-term goal is to build a pretrained financial model capable of acting as an AI venture capital investor — one that can evaluate startups the way a seasoned VC would, using the same inputs: pitch decks, financial projections, and company descriptions. Before building that model, we needed to answer a foundational question: how do existing language models respond to financial training data? What do they learn, what do they miss, and what metrics should we use to evaluate an AI investor's judgment? My work focused on building the data infrastructure and running the initial experiments to establish those baselines."
+      },
+      {
+        header: "Data Collection Pipeline",
+        body: "I built a suite of web scrapers using Selenium to collect real startup deal data from two major angel investing platforms. The scrapers authenticate, navigate paginated deal listings, and extract structured data for each company: deal IDs, funding stage, round type, company descriptions, annual financials (revenue, expenditure, user metrics across projected years), current funding round details, and complete funding histories. One scraper also downloads pitch deck PDFs — collecting hundreds of decks that serve as the raw training corpus. A separate scraper targets an investor portfolio platform, extracting company names and detailed descriptions from individual company pages. All scrapers handle pagination, rate limiting, and error recovery to reliably collect data at scale."
+      },
+      {
+        header: "Data Cleansing & Feature Engineering",
+        body: "I built a data cleansing pipeline that filters the raw scraped data to rows with complete information across all required fields. From the text-heavy financial fields, I wrote parsers that extract structured numerical features — seeking amounts and total raised — from freeform strings like 'Seeking: $1M' and 'Total Raised: $2.75M', handling various formats and edge cases. This produces a clean dataset linking company descriptions, financial trajectories, and actual investment outcomes."
+      },
+      {
+        header: "Model Evaluattion & Baselines",
+        body: "Model Evaluation & Baselines"
+      },
+      {
+        header: "Traditional ML Baselines",
+        body: "A Random Forest classifier using TF-IDF features from company descriptions combined with numerical financial features (seeking amount, revenue projections). This establishes a baseline for what's achievable with straightforward feature engineering on the collected dataset."
+      },
+      {
+        header: "LLM Fine-Tuning",
+        body: "I fine-tuned a LLaMA 3.1 model on pitch deck content extracted from the collected PDFs using PyMuPDF. I compared zero-shot performance (the model's out-of-the-box financial reasoning) against fine-tuned results to measure how much domain-specific training data moves the needle. Training used bfloat16 precision for GPU efficiency. The experiments capture how models respond to different types of financial signals — whether they pick up on revenue trajectory patterns, funding round sizing, or narrative quality in company descriptions — and where they fall short compared to human investor judgment."
+      },
+      {
+        header: "Pitch Deck Processing",
+        body: "The PDF pipeline extracts text and images from hundreds of real pitch decks, creating a unique dataset that links pitch content directly to actual investment decisions. This corpus is designed to support the lab's longer-term work on building a full pretrained financial model."
+      }
+    ],
+    tags: ["Python", "Selenium", "scikit-learn", "PyTorch", "LLaMA", "PyMuPDF", "Pandas", "NumPy"],
+    diagram: { label: "Research Pipeline", src: "/diagrams/data-analytics-pipeline.svg" },
+  },
+  {
+    id: 2,
     name: "FP4 Quantization Format Research",
     company: "Cornell — Computer Systems Lab",
     thumbnail: "/projects/fp4-logo.svg",
@@ -343,7 +427,7 @@ const PROJECTS = [
     tags: ["Python", "PyTorch", "NumPy", "SciPy", "Matplotlib"],
   },
   {
-    id: 2,
+    id: 3,
     name: "Hardware Chatbot — Verilog Code Generation",
     company: "Cornell — Computer Systems Lab",
     thumbnail: "/projects/hw-chatbot-logo.svg",
@@ -381,44 +465,6 @@ const PROJECTS = [
     tags: ["Python", "PyTorch", "Hugging Face Transformers", "Verilog", "OpenAI API", "CUDA"],
     diagram: { label: "Evaluation Pipeline", src: "/diagrams/hw-chatbot-eval.svg" },
   },
-  {
-    id: 0,
-    name: "AI Venture Capital Research",
-    company: "Cornell — Data Analytics Lab",
-    thumbnail: "/projects/ai-vc-logo.svg",
-    desc: [
-      {
-        header: "The Problem",
-        body: "Venture capital investment decisions are driven by pattern recognition — experienced investors develop intuition over hundreds of deals about what makes a startup fundable. But this expertise is hard to scale, hard to transfer, and hard to evaluate objectively. The lab's long-term goal is to build a pretrained financial model capable of acting as an AI venture capital investor — one that can evaluate startups the way a seasoned VC would, using the same inputs: pitch decks, financial projections, and company descriptions. Before building that model, we needed to answer a foundational question: how do existing language models respond to financial training data? What do they learn, what do they miss, and what metrics should we use to evaluate an AI investor's judgment? My work focused on building the data infrastructure and running the initial experiments to establish those baselines."
-      },
-      {
-        header: "Data Collection Pipeline",
-        body: "I built a suite of web scrapers using Selenium to collect real startup deal data from two major angel investing platforms. The scrapers authenticate, navigate paginated deal listings, and extract structured data for each company: deal IDs, funding stage, round type, company descriptions, annual financials (revenue, expenditure, user metrics across projected years), current funding round details, and complete funding histories. One scraper also downloads pitch deck PDFs — collecting hundreds of decks that serve as the raw training corpus. A separate scraper targets an investor portfolio platform, extracting company names and detailed descriptions from individual company pages. All scrapers handle pagination, rate limiting, and error recovery to reliably collect data at scale."
-      },
-      {
-        header: "Data Cleansing & Feature Engineering",
-        body: "I built a data cleansing pipeline that filters the raw scraped data to rows with complete information across all required fields. From the text-heavy financial fields, I wrote parsers that extract structured numerical features — seeking amounts and total raised — from freeform strings like 'Seeking: $1M' and 'Total Raised: $2.75M', handling various formats and edge cases. This produces a clean dataset linking company descriptions, financial trajectories, and actual investment outcomes."
-      },
-      {
-        header: "Model Evaluattion & Baselines",
-        body: "Model Evaluation & Baselines"
-      },
-      {
-        header: "Traditional ML Baselines",
-        body: "A Random Forest classifier using TF-IDF features from company descriptions combined with numerical financial features (seeking amount, revenue projections). This establishes a baseline for what's achievable with straightforward feature engineering on the collected dataset."
-      },
-      {
-        header: "LLM Fine-Tuning",
-        body: "I fine-tuned a LLaMA 3.1 model on pitch deck content extracted from the collected PDFs using PyMuPDF. I compared zero-shot performance (the model's out-of-the-box financial reasoning) against fine-tuned results to measure how much domain-specific training data moves the needle. Training used bfloat16 precision for GPU efficiency. The experiments capture how models respond to different types of financial signals — whether they pick up on revenue trajectory patterns, funding round sizing, or narrative quality in company descriptions — and where they fall short compared to human investor judgment."
-      },
-      {
-        header: "Pitch Deck Processing",
-        body: "The PDF pipeline extracts text and images from hundreds of real pitch decks, creating a unique dataset that links pitch content directly to actual investment decisions. This corpus is designed to support the lab's longer-term work on building a full pretrained financial model."
-      }
-    ],
-    tags: ["Python", "Selenium", "scikit-learn", "PyTorch", "LLaMA", "PyMuPDF", "Pandas", "NumPy"],
-    diagram: { label: "Research Pipeline", src: "/diagrams/data-analytics-pipeline.svg" },
-  }
 ];
 
 function useTypewriter(text, speed) {
