@@ -303,7 +303,7 @@ const PROJECTS = [
     company: "Cornell Data Analytics Group",
     thumbnail: "/projects/llm-persona-logo.svg",
     desc: [
-      { header: "The Problem", body: "LLMs increasingly operate under system-prompt personas..." },
+      { header: "The Problem", body: "LLMs increasingly operate under system-prompt personas — customer service agents, tutors, domain experts — that shape how they reason and evaluate claims. Prior work has shown that personas shift model behavior directionally. But nobody has tested whether this shift reflects genuine adoption of a reasoning framework or merely a directional bias toward one side of an argument. This distinction matters. A model that internalizes a structured belief system is much harder to audit and more unpredictable than one that simply biases outputs toward a side. If personas create structured reasoning, they could be used to steer model behavior in ways that are difficult to detect — a serious concern for enterprises deploying agentic AI systems." },
       { header: "Central Research Question", body: "Do LLM personas produce coherent belief systems..." },
       { header: "Experimental Setup", body: "I use hierarchical debate trees from Kialo..." },
       { header: "Persona Generator", body: "Building effective personas required solving several failure modes..." },
