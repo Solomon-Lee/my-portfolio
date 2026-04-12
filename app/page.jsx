@@ -1886,6 +1886,8 @@ function Starfield({ isDark }) {
     let lastShootTime = 0;
     let rocket = null;
     let rocketDismissed = false;
+    let ufo = null;
+    let ufoDismissed = false;
     let mouseX = -1;
     let mouseY = -1;
     let mouseInSection = false;
@@ -1900,6 +1902,7 @@ function Starfield({ isDark }) {
     function onMouseLeave() {
       mouseInSection = false;
       rocketDismissed = false;
+      ufoDismissed = false;
     }
     // Listen on the section (parent) so clicks on content aren't blocked
     const section = containerRef.current?.parentElement;
@@ -2230,78 +2233,85 @@ function Starfield({ isDark }) {
       ctx.fill();
     }
 
-    function drawJupiter(t) {
+    function drawMoon(t) {
       const cx = canvas.width * 0.75;
       const cy = canvas.height * 0.38;
-      const planetR = Math.min(canvas.width, canvas.height) * 0.09;
+      const moonR = Math.min(canvas.width, canvas.height) * 0.07;
 
       ctx.save();
       ctx.translate(cx, cy);
 
       // Outer glow
-      const glow = ctx.createRadialGradient(0, 0, planetR * 0.8, 0, 0, planetR * 2);
-      glow.addColorStop(0, "rgba(220, 190, 140, 0.1)");
-      glow.addColorStop(1, "rgba(220, 190, 140, 0)");
+      const glow = ctx.createRadialGradient(0, 0, moonR * 0.8, 0, 0, moonR * 2.5);
+      glow.addColorStop(0, "rgba(220, 220, 230, 0.15)");
+      glow.addColorStop(1, "rgba(220, 220, 230, 0)");
       ctx.beginPath();
-      ctx.arc(0, 0, planetR * 2, 0, Math.PI * 2);
+      ctx.arc(0, 0, moonR * 2.5, 0, Math.PI * 2);
       ctx.fillStyle = glow;
       ctx.fill();
 
-      // Planet body
-      const bodyGrad = ctx.createRadialGradient(-planetR * 0.3, -planetR * 0.2, planetR * 0.1, 0, 0, planetR);
-      bodyGrad.addColorStop(0, "rgba(240, 220, 180, 0.95)");
-      bodyGrad.addColorStop(0.5, "rgba(215, 185, 140, 0.9)");
-      bodyGrad.addColorStop(1, "rgba(180, 145, 100, 0.85)");
+      // Moon body
+      const bodyGrad = ctx.createRadialGradient(-moonR * 0.3, -moonR * 0.3, moonR * 0.1, 0, 0, moonR);
+      bodyGrad.addColorStop(0, "rgba(240, 240, 245, 0.95)");
+      bodyGrad.addColorStop(0.5, "rgba(210, 210, 215, 0.9)");
+      bodyGrad.addColorStop(1, "rgba(180, 180, 190, 0.85)");
       ctx.beginPath();
-      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.arc(0, 0, moonR, 0, Math.PI * 2);
       ctx.fillStyle = bodyGrad;
       ctx.fill();
 
-      // Clip to planet circle for bands
+      // Clip to moon circle for craters
       ctx.save();
       ctx.beginPath();
-      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.arc(0, 0, moonR, 0, Math.PI * 2);
       ctx.clip();
 
-      // Horizontal bands (alternating warm/cool tones like Jupiter)
-      const bandColors = [
-        "rgba(200, 160, 100, 0.35)",
-        "rgba(230, 210, 170, 0.15)",
-        "rgba(180, 120, 80, 0.3)",
-        "rgba(240, 220, 180, 0.12)",
-        "rgba(190, 140, 90, 0.28)",
-        "rgba(220, 200, 160, 0.15)",
-        "rgba(170, 110, 70, 0.3)",
-        "rgba(235, 215, 175, 0.12)",
-        "rgba(195, 150, 100, 0.25)",
+      // Craters (dark circular patches)
+      const craters = [
+        { x: -0.3, y: -0.25, r: 0.18, a: 0.12 },
+        { x: 0.2, y: -0.35, r: 0.14, a: 0.1 },
+        { x: -0.1, y: 0.3, r: 0.22, a: 0.1 },
+        { x: 0.35, y: 0.15, r: 0.16, a: 0.08 },
+        { x: -0.4, y: 0.1, r: 0.12, a: 0.1 },
+        { x: 0.1, y: -0.05, r: 0.1, a: 0.07 },
+        { x: -0.15, y: -0.5, r: 0.09, a: 0.09 },
+        { x: 0.4, y: -0.15, r: 0.08, a: 0.06 },
       ];
-      const bandH = (planetR * 2) / bandColors.length;
-      for (let i = 0; i < bandColors.length; i++) {
-        ctx.fillStyle = bandColors[i];
-        ctx.fillRect(-planetR, -planetR + i * bandH, planetR * 2, bandH);
+      for (const c of craters) {
+        const cGrad = ctx.createRadialGradient(
+          c.x * moonR, c.y * moonR, 0,
+          c.x * moonR, c.y * moonR, c.r * moonR
+        );
+        cGrad.addColorStop(0, `rgba(140, 140, 150, ${c.a})`);
+        cGrad.addColorStop(0.7, `rgba(160, 160, 170, ${c.a * 0.5})`);
+        cGrad.addColorStop(1, "rgba(160, 160, 170, 0)");
+        ctx.beginPath();
+        ctx.arc(c.x * moonR, c.y * moonR, c.r * moonR, 0, Math.PI * 2);
+        ctx.fillStyle = cGrad;
+        ctx.fill();
       }
 
-      // Great Red Spot
-      const spotX = planetR * 0.25;
-      const spotY = planetR * 0.2;
-      const spotGrad = ctx.createRadialGradient(spotX, spotY, 0, spotX, spotY, planetR * 0.18);
-      spotGrad.addColorStop(0, "rgba(200, 100, 60, 0.4)");
-      spotGrad.addColorStop(0.6, "rgba(190, 90, 50, 0.2)");
-      spotGrad.addColorStop(1, "rgba(180, 80, 40, 0)");
-      ctx.beginPath();
-      ctx.ellipse(spotX, spotY, planetR * 0.18, planetR * 0.12, 0.1, 0, Math.PI * 2);
-      ctx.fillStyle = spotGrad;
-      ctx.fill();
+      // Maria (dark patches, like lunar seas)
+      const maria = [
+        { x: -0.15, y: -0.1, rx: 0.35, ry: 0.25, a: 0.08 },
+        { x: 0.2, y: 0.2, rx: 0.25, ry: 0.2, a: 0.06 },
+      ];
+      for (const m of maria) {
+        ctx.beginPath();
+        ctx.ellipse(m.x * moonR, m.y * moonR, m.rx * moonR, m.ry * moonR, 0.3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(150, 150, 160, ${m.a})`;
+        ctx.fill();
+      }
 
       ctx.restore(); // unclip
 
       // Subtle terminator shadow (right side darker)
-      const shadow = ctx.createLinearGradient(-planetR, 0, planetR, 0);
+      const shadow = ctx.createLinearGradient(-moonR, 0, moonR, 0);
       shadow.addColorStop(0, "rgba(0, 0, 0, 0)");
-      shadow.addColorStop(0.6, "rgba(0, 0, 0, 0)");
-      shadow.addColorStop(1, "rgba(0, 0, 0, 0.2)");
+      shadow.addColorStop(0.55, "rgba(0, 0, 0, 0)");
+      shadow.addColorStop(1, "rgba(0, 0, 0, 0.25)");
       ctx.beginPath();
-      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.arc(0, 0, moonR, 0, Math.PI * 2);
       ctx.fillStyle = shadow;
       ctx.fill();
 
@@ -2441,8 +2451,8 @@ function Starfield({ isDark }) {
       // Sun (left side)
       drawLightSun(t);
 
-      // Jupiter (right side, upper area)
-      drawJupiter(t);
+      // Moon (right side, upper area)
+      drawMoon(t);
 
       // Small distant stars (faintly visible in daytime sky)
       for (const s of stars) {
@@ -2455,6 +2465,150 @@ function Starfield({ isDark }) {
 
       // Earth curvature at bottom
       drawEarthCurvature(t);
+
+      // UFO — spawns on mouse enter, chases cursor
+      if (!ufo && mouseInSection && !ufoDismissed) {
+        const edge = Math.floor(Math.random() * 4);
+        let sx, sy;
+        if (edge === 0) {
+          sx = -30;
+          sy = Math.random() * canvas.height;
+        } else if (edge === 1) {
+          sx = canvas.width + 30;
+          sy = Math.random() * canvas.height;
+        } else if (edge === 2) {
+          sx = Math.random() * canvas.width;
+          sy = -30;
+        } else {
+          sx = Math.random() * canvas.width;
+          sy = canvas.height + 30;
+        }
+        ufo = {
+          x: sx,
+          y: sy,
+          vx: 0,
+          vy: 0,
+          angle: 0,
+          size: 14,
+          wobble: 0,
+          life: 0,
+        };
+      }
+
+      if (ufo) {
+        ufo.wobble += 0.05;
+        ufo.life++;
+        const targetX = mouseInSection
+          ? mouseX
+          : ufo.x + Math.cos(ufo.angle) * 100;
+        const targetY = mouseInSection
+          ? mouseY
+          : ufo.y + Math.sin(ufo.angle) * 100;
+        const dx = targetX - ufo.x;
+        const dy = targetY - ufo.y;
+        const targetAngle = Math.atan2(dy, dx);
+
+        // Smoothly steer toward cursor
+        let angleDiff = targetAngle - ufo.angle;
+        while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+        while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+        ufo.angle += angleDiff * 0.04;
+
+        const accel = 0.1;
+        ufo.vx += Math.cos(ufo.angle) * accel;
+        ufo.vy += Math.sin(ufo.angle) * accel;
+
+        // Limit speed
+        const spd = Math.sqrt(ufo.vx * ufo.vx + ufo.vy * ufo.vy);
+        const maxSpd = 3.0;
+        if (spd > maxSpd) {
+          ufo.vx = (ufo.vx / spd) * maxSpd;
+          ufo.vy = (ufo.vy / spd) * maxSpd;
+        }
+
+        ufo.x += ufo.vx;
+        ufo.y += ufo.vy;
+
+        const ux = ufo.x;
+        const uy = ufo.y;
+        const sz = ufo.size;
+        const tilt = Math.sin(ufo.wobble) * 0.15;
+
+        ctx.save();
+        ctx.translate(ux, uy);
+        ctx.rotate(tilt);
+
+        // Tractor beam (faint triangle below UFO)
+        const beamAlpha = 0.06 + Math.sin(ufo.wobble * 2) * 0.03;
+        ctx.beginPath();
+        ctx.moveTo(-sz * 0.3, sz * 0.15);
+        ctx.lineTo(sz * 0.3, sz * 0.15);
+        ctx.lineTo(sz * 0.8, sz * 2.5);
+        ctx.lineTo(-sz * 0.8, sz * 2.5);
+        ctx.closePath();
+        const beamGrad = ctx.createLinearGradient(0, sz * 0.15, 0, sz * 2.5);
+        beamGrad.addColorStop(0, `rgba(120, 255, 180, ${beamAlpha * 2})`);
+        beamGrad.addColorStop(1, `rgba(120, 255, 180, 0)`);
+        ctx.fillStyle = beamGrad;
+        ctx.fill();
+
+        // Dome (glass top)
+        ctx.beginPath();
+        ctx.ellipse(0, -sz * 0.15, sz * 0.35, sz * 0.35, 0, Math.PI, 0);
+        const domeGrad = ctx.createRadialGradient(0, -sz * 0.3, 0, 0, -sz * 0.15, sz * 0.35);
+        domeGrad.addColorStop(0, "rgba(180, 230, 255, 0.7)");
+        domeGrad.addColorStop(1, "rgba(120, 200, 240, 0.3)");
+        ctx.fillStyle = domeGrad;
+        ctx.fill();
+
+        // Body (saucer shape)
+        ctx.beginPath();
+        ctx.ellipse(0, 0, sz, sz * 0.3, 0, 0, Math.PI * 2);
+        const bodyGrad = ctx.createLinearGradient(0, -sz * 0.3, 0, sz * 0.3);
+        bodyGrad.addColorStop(0, "rgba(180, 190, 200, 0.85)");
+        bodyGrad.addColorStop(0.5, "rgba(150, 160, 175, 0.9)");
+        bodyGrad.addColorStop(1, "rgba(120, 130, 145, 0.8)");
+        ctx.fillStyle = bodyGrad;
+        ctx.fill();
+
+        // Rim lights
+        const numLights = 6;
+        for (let i = 0; i < numLights; i++) {
+          const la = (i / numLights) * Math.PI * 2 + ufo.wobble * 1.5;
+          const lx = Math.cos(la) * sz * 0.75;
+          const ly = Math.sin(la) * sz * 0.2;
+          const lightAlpha = 0.5 + Math.sin(ufo.wobble * 3 + i) * 0.3;
+          ctx.beginPath();
+          ctx.arc(lx, ly, sz * 0.06, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(120, 255, 180, ${lightAlpha})`;
+          ctx.fill();
+        }
+
+        // Bottom center light
+        const centerGlow = ctx.createRadialGradient(0, sz * 0.15, 0, 0, sz * 0.15, sz * 0.2);
+        centerGlow.addColorStop(0, `rgba(120, 255, 180, ${0.4 + Math.sin(ufo.wobble * 2) * 0.2})`);
+        centerGlow.addColorStop(1, "rgba(120, 255, 180, 0)");
+        ctx.beginPath();
+        ctx.arc(0, sz * 0.15, sz * 0.2, 0, Math.PI * 2);
+        ctx.fillStyle = centerGlow;
+        ctx.fill();
+
+        ctx.restore();
+
+        // Despawn once off-screen after mouse leaves
+        const margin = 200;
+        if (
+          !mouseInSection &&
+          ufo.life > 60 &&
+          (ux < -margin ||
+            ux > canvas.width + margin ||
+            uy < -margin ||
+            uy > canvas.height + margin)
+        ) {
+          ufo = null;
+          ufoDismissed = true;
+        }
+      }
 
       animId = requestAnimationFrame(drawLight);
     }
