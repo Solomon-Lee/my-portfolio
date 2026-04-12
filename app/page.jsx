@@ -2103,7 +2103,7 @@ function Starfield({ isDark }) {
 
     function drawNeptune(t) {
       const cx = canvas.width * 0.15;
-      const cy = canvas.height * 0.72;
+      const cy = canvas.height * 0.30;
       const planetR = Math.min(canvas.width, canvas.height) * 0.07;
 
       ctx.save();
