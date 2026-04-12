@@ -1876,6 +1876,7 @@ function Starfield({ isDark }) {
     let animId;
     let stars = [];
     let galaxyStars = [];
+    let galaxyDust = [];
     let shootingStars = [];
     let lastShootTime = 0;
     let rocket = null;
@@ -1963,6 +1964,28 @@ function Starfield({ isDark }) {
         const brightness = 0.5 + Math.random() * 0.5;
         const size = 0.3 + Math.random() * 1.2;
         galaxyStars.push({ x, y, r: size, alpha: brightness, hue, phase: Math.random() * Math.PI * 2 });
+      }
+
+      // Orbiting dust particles (stored in polar coords, animated each frame)
+      galaxyDust = [];
+      for (let i = 0; i < 150; i++) {
+        const arm = i % arms;
+        const armOffset = (arm / arms) * Math.PI * 2;
+        const progress = 0.08 + Math.random() * 0.92;
+        const r = progress * maxR;
+        const baseAngle = armOffset + progress * twists * Math.PI * 2;
+        const spread = r * 0.12;
+        const offsetAngle = (Math.random() - 0.5) * spread / r;
+        const offsetR = (Math.random() - 0.5) * spread * 0.5;
+        // Inner dust orbits faster
+        const speed = (0.03 + Math.random() * 0.04) / (0.3 + progress);
+        const size = 0.8 + Math.random() * 1.5;
+        const alpha = 0.15 + Math.random() * 0.25;
+        const hue = 200 + progress * 30 + Math.random() * 20;
+        galaxyDust.push({
+          cx, cy, r: r + offsetR, baseAngle: baseAngle + offsetAngle,
+          speed, size, alpha, hue, tilt: 0.45,
+        });
       }
     }
 
@@ -2183,6 +2206,19 @@ function Starfield({ isDark }) {
         ctx.beginPath();
         ctx.arc(gs.x, gs.y, gs.r, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${gs.hue}, 50%, 85%, ${a})`;
+        ctx.fill();
+      }
+
+      // Orbiting dust particles
+      for (const d of galaxyDust) {
+        const angle = d.baseAngle + t * d.speed;
+        const x = d.cx + Math.cos(angle) * d.r;
+        const y = d.cy + Math.sin(angle) * d.r * d.tilt;
+        const pulse = Math.sin(t * 0.8 + angle) * 0.3 + 0.7;
+        const a = d.alpha * pulse;
+        ctx.beginPath();
+        ctx.arc(x, y, d.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${d.hue}, 40%, 80%, ${a})`;
         ctx.fill();
       }
 
