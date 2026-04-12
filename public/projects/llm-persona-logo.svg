@@ -1,0 +1,59 @@
+<svg width="260" height="200" viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Debate tree structure -->
+  <!-- Root node -->
+  <circle cx="130" cy="35" r="10" fill="#0D9488" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="130" y="38" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">R</text>
+
+  <!-- Hop 1 nodes -->
+  <line x1="124" y1="44" x2="80" y2="65" stroke="#5EEAD4" stroke-width="0.8" opacity="0.5"/>
+  <line x1="136" y1="44" x2="180" y2="65" stroke="#5EEAD4" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="80" cy="70" r="7" fill="#1a2332" stroke="#0D9488" stroke-width="1.2"/>
+  <text x="80" y="73" text-anchor="middle" font-size="6" font-weight="600" fill="#5EEAD4">+</text>
+  <circle cx="180" cy="70" r="7" fill="#1a2332" stroke="#D85A30" stroke-width="1.2"/>
+  <text x="180" y="73" text-anchor="middle" font-size="6" font-weight="600" fill="#D85A30">−</text>
+
+  <!-- Hop 2 nodes -->
+  <line x1="75" y1="76" x2="50" y2="98" stroke="#5EEAD4" stroke-width="0.6" opacity="0.35"/>
+  <line x1="85" y1="76" x2="110" y2="98" stroke="#5EEAD4" stroke-width="0.6" opacity="0.35"/>
+  <line x1="175" y1="76" x2="150" y2="98" stroke="#D85A30" stroke-width="0.6" opacity="0.35"/>
+  <line x1="185" y1="76" x2="210" y2="98" stroke="#D85A30" stroke-width="0.6" opacity="0.35"/>
+  <circle cx="50" cy="102" r="5" fill="#1a2332" stroke="#0D9488" stroke-width="1" opacity="0.7"/>
+  <circle cx="110" cy="102" r="5" fill="#1a2332" stroke="#D85A30" stroke-width="1" opacity="0.7"/>
+  <circle cx="150" cy="102" r="5" fill="#1a2332" stroke="#0D9488" stroke-width="1" opacity="0.7"/>
+  <circle cx="210" cy="102" r="5" fill="#1a2332" stroke="#D85A30" stroke-width="1" opacity="0.7"/>
+
+  <!-- Hop 3 leaf nodes -->
+  <line x1="48" y1="107" x2="38" y2="120" stroke="#5EEAD4" stroke-width="0.4" opacity="0.25"/>
+  <line x1="52" y1="107" x2="62" y2="120" stroke="#5EEAD4" stroke-width="0.4" opacity="0.25"/>
+  <line x1="208" y1="107" x2="198" y2="120" stroke="#D85A30" stroke-width="0.4" opacity="0.25"/>
+  <line x1="212" y1="107" x2="222" y2="120" stroke="#D85A30" stroke-width="0.4" opacity="0.25"/>
+  <circle cx="38" cy="123" r="3.5" fill="#1a2332" stroke="#0D9488" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="62" cy="123" r="3.5" fill="#1a2332" stroke="#D85A30" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="198" cy="123" r="3.5" fill="#1a2332" stroke="#0D9488" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="222" cy="123" r="3.5" fill="#1a2332" stroke="#D85A30" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Two persona faces/masks flanking the tree -->
+  <!-- Pro persona (left) -->
+  <rect x="15" y="45" width="22" height="22" rx="4" fill="#0D9488" opacity="0.15" stroke="#0D9488" stroke-width="0.8"/>
+  <circle cx="22" cy="53" r="1.5" fill="#5EEAD4"/>
+  <circle cx="30" cy="53" r="1.5" fill="#5EEAD4"/>
+  <path d="M22,59 Q26,62 30,59" fill="none" stroke="#5EEAD4" stroke-width="0.8" stroke-linecap="round"/>
+
+  <!-- Con persona (right) -->
+  <rect x="223" y="45" width="22" height="22" rx="4" fill="#D85A30" opacity="0.15" stroke="#D85A30" stroke-width="0.8"/>
+  <circle cx="230" cy="53" r="1.5" fill="#D85A30"/>
+  <circle cx="238" cy="53" r="1.5" fill="#D85A30"/>
+  <path d="M230,61 Q234,58 238,61" fill="none" stroke="#D85A30" stroke-width="0.8" stroke-linecap="round"/>
+
+  <!-- Arrows from personas to tree -->
+  <path d="M37,56 L71,68" fill="none" stroke="#0D9488" stroke-width="0.8" opacity="0.4" stroke-dasharray="3 2"/>
+  <path d="M223,56 L189,68" fill="none" stroke="#D85A30" stroke-width="0.8" opacity="0.4" stroke-dasharray="3 2"/>
+
+  <!-- Discrimination gap indicator -->
+  <rect x="95" y="135" width="70" height="18" rx="3" fill="#0D9488" opacity="0.12" stroke="#0D9488" stroke-width="0.6"/>
+  <text x="130" y="147" text-anchor="middle" font-family="monospace" font-size="8" fill="#5EEAD4" opacity="0.8">+55pp / −35pp</text>
+
+  <!-- Labels -->
+  <text x="130" y="172" text-anchor="middle" font-family="monospace" font-size="12" font-weight="600" fill="#5EEAD4" letter-spacing="1">PERSONA</text>
+  <text x="130" y="188" text-anchor="middle" font-family="monospace" font-size="12" font-weight="600" fill="#5EEAD4" letter-spacing="1">BELIEFS</text>
+</svg>

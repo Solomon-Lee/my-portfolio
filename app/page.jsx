@@ -299,6 +299,24 @@ const JOBS = [
 const PROJECTS = [
   {
     id: 0,
+    name: "LLM Persona Belief Influence",
+    company: "Cornell Data Analytics Group",
+    thumbnail: "/projects/llm-persona-logo.svg",
+    desc: [
+      { header: "The Problem", body: "LLMs increasingly operate under system-prompt personas..." },
+      { header: "Central Research Question", body: "Do LLM personas produce coherent belief systems..." },
+      { header: "Experimental Setup", body: "I use hierarchical debate trees from Kialo..." },
+      { header: "Persona Generator", body: "Building effective personas required solving several failure modes..." },
+      { header: "Key Findings", body: "Strong directional effects across debates..." },
+      { header: "Cross-Topic Spillover", body: "I tested whether conditioning on one topic causes shifts..." },
+      { header: "Override Experiments", body: "To test whether reasoning-framework personas do real work..." },
+      { header: "Current Status", body: "Currently running persona robustness experiments..." },
+    ],
+    tags: ["Python", "OpenAI API", "NLP", "LLM Evaluation", "AI Safety"],
+    diagram: { label: "Experimental Pipeline", src: "/diagrams/llm-persona-pipeline.svg" },
+  },
+  {
+    id: 1,
     name: "Automated Prompt Optimization",
     company: "Cornell Data Analytics Group",
     thumbnail: "/projects/prompt-optimizer-logo.svg",
@@ -344,7 +362,7 @@ const PROJECTS = [
     diagram: { label: "Optimization Pipeline", src: "/diagrams/promptbase-pipeline.svg" },
   },
   {
-    id: 1,
+    id: 2,
     name: "AI Venture Capital Research",
     company: "Cornell Data Analytics Group",
     thumbnail: "/projects/ai-vc-logo.svg",
@@ -382,7 +400,7 @@ const PROJECTS = [
     diagram: { label: "Research Pipeline", src: "/diagrams/data-analytics-pipeline.svg" },
   },
   {
-    id: 2,
+    id: 3,
     name: "FP4 Quantization Format Research",
     company: "Cornell Computer Systems Lab",
     thumbnail: "/projects/fp4-logo.svg",
@@ -427,7 +445,7 @@ const PROJECTS = [
     tags: ["Python", "PyTorch", "NumPy", "SciPy", "Matplotlib"],
   },
   {
-    id: 3,
+    id: 4,
     name: "Hardware Chatbot — Verilog Code Generation",
     company: "Cornell Computer Systems Lab",
     thumbnail: "/projects/hw-chatbot-logo.svg",
