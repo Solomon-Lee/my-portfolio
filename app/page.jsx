@@ -301,6 +301,7 @@ const PROJECTS = [
     id: 0,
     name: "FP4 Quantization Format Research",
     company: "Cornell — Computer Systems Lab",
+    thumbnail: "/projects/fp4-quantized-e1m2.png",
     desc: [
       {
         header: "The Problem",
@@ -2398,7 +2399,6 @@ export default function Portfolio() {
                           minHeight: 115,
                         }}
                       >
-                        ▶ demo
                       </div>
                       <div style={{ padding: "16px 20px" }}>
                         <div style={{ marginBottom: 8 }}>
