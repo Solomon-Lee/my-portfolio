@@ -271,6 +271,12 @@ const LIFE_PHOTOS = [
     location: "Ithaca, New York",
     date: "February 2026",
   },
+  {
+    src: "/life/2CBF460D-FD3E-4D49-9145-2BAEBFEB6016_1_105_c.jpeg",
+    caption: "So cool!",
+    location: "Stuttgart, Germany",
+    date: "April 2026",
+  }
 ];
 
 const CORNELL = {
