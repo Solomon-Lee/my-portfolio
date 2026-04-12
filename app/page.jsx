@@ -2125,37 +2125,37 @@ function Starfield({ isDark }) {
       // Core glow
       const mwGrad = ctx.createLinearGradient(0, -mwWidth, 0, mwWidth);
       mwGrad.addColorStop(0, "rgba(180, 200, 255, 0)");
-      mwGrad.addColorStop(0.25, "rgba(180, 200, 255, 0.012)");
-      mwGrad.addColorStop(0.4, "rgba(200, 210, 255, 0.03)");
-      mwGrad.addColorStop(0.5, "rgba(220, 220, 255, 0.045)");
-      mwGrad.addColorStop(0.6, "rgba(200, 210, 255, 0.03)");
-      mwGrad.addColorStop(0.75, "rgba(180, 200, 255, 0.012)");
+      mwGrad.addColorStop(0.2, "rgba(180, 200, 255, 0.04)");
+      mwGrad.addColorStop(0.35, "rgba(200, 210, 255, 0.1)");
+      mwGrad.addColorStop(0.5, "rgba(220, 220, 255, 0.16)");
+      mwGrad.addColorStop(0.65, "rgba(200, 210, 255, 0.1)");
+      mwGrad.addColorStop(0.8, "rgba(180, 200, 255, 0.04)");
       mwGrad.addColorStop(1, "rgba(180, 200, 255, 0)");
       ctx.fillStyle = mwGrad;
       ctx.fillRect(-canvas.width, -mwWidth, canvas.width * 2, mwWidth * 2);
 
       // Dense star clusters along the band
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < 400; i++) {
         const sx = (Math.random() - 0.5) * canvas.width * 1.6;
         const sy = (Math.random() - 0.5) * mwWidth * 1.2;
         const distFromCenter = Math.abs(sy) / mwWidth;
-        const brightness = (1 - distFromCenter) * 0.35;
-        const sr = 0.3 + Math.random() * 0.8;
+        const brightness = (1 - distFromCenter) * 0.7;
+        const sr = 0.3 + Math.random() * 0.9;
         ctx.beginPath();
         ctx.arc(sx, sy, sr, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(220, 225, 255, ${brightness * (0.3 + Math.random() * 0.5)})`;
+        ctx.fillStyle = `rgba(220, 225, 255, ${brightness * (0.4 + Math.random() * 0.6)})`;
         ctx.fill();
       }
 
       // Subtle dust lanes (darker patches within the band)
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 12; i++) {
         const dx = (Math.random() - 0.5) * canvas.width * 1.2;
         const dy = (Math.random() - 0.5) * mwWidth * 0.4;
         const dw = 30 + Math.random() * 60;
         const dh = 8 + Math.random() * 15;
         ctx.beginPath();
         ctx.ellipse(dx, dy, dw, dh, Math.random() * Math.PI, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 0, 10, ${0.03 + Math.random() * 0.02})`;
+        ctx.fillStyle = `rgba(0, 0, 10, ${0.06 + Math.random() * 0.04})`;
         ctx.fill();
       }
 
