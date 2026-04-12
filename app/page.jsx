@@ -550,42 +550,42 @@ const PROJECTS = [
       },
       {
         header: "Iteration 1: Weak Personas",
-        body: "Third person, abstract framing ('A public health epidemiologist evaluates policy questions through the lens of harm reduction...'). Result: zero effect. All conditions produced identical true rates. The model ignored the persona entirely."
+        body: "Third person, abstract framing ('A public health epidemiologist evaluates policy questions through the lens of harm reduction...'). Result: zero effect. All conditions produced identical true rates. The model ignored the persona entirely.",
       },
       {
         header: "Iteration 2: Strong personas",
-        body: "Shifted to second person with professional identity, emotional stakes, and years of experience. But the generator produced the same profession for both sides, making the con persona generically skeptical rather than specifically directional."
+        body: "Shifted to second person with professional identity, emotional stakes, and years of experience. But the generator produced the same profession for both sides, making the con persona generically skeptical rather than specifically directional.",
       },
       {
         header: "Iteration 3: Domain isolation",
-        body: "Each persona only sees its own side's claims and receives its own domain label. I built a static domain mapping (researcher curated JSON assigning intellectual traditions to each side, e.g., gun control: pro → Epidemiology/Public Health, con → Constitutional Law) after finding that LLM inferred domains confused topics mentioned with reasoning frameworks."
+        body: "Each persona only sees its own side's claims and receives its own domain label. I built a static domain mapping (researcher curated JSON assigning intellectual traditions to each side, e.g., gun control: pro → Epidemiology/Public Health, con → Constitutional Law) after finding that LLM inferred domains confused topics mentioned with reasoning frameworks.",
       },
       {
         header: "Iteration 4: Opinionated personas",
-        body: "Even with correct domains, personas were too evenhanded, giving the model escape hatches to agree with opposing claims. I rewrote the meta prompt to generate personas that are explicitly directional: 'SO OPINIONATED that a language model adopting it would consistently lean {stance},' with built in skepticism toward the opposing reasoning tradition."
+        body: "Even with correct domains, personas were too evenhanded, giving the model escape hatches to agree with opposing claims. I rewrote the meta prompt to generate personas that are explicitly directional: 'SO OPINIONATED that a language model adopting it would consistently lean {stance},' with built in skepticism toward the opposing reasoning tradition.",
       },
       {
-        header: "Key Findings"
+        header: "Key Findings",
       },
       {
         header: "Con persona flips discrimination direction",
         body: "In the gun control debate (n=523 claims), the con persona reversed the model's baseline lean from +24.2pp (favoring pro claims) to −28.3pp (favoring con claims). The pro persona amplified the baseline from +24.2pp to +50.4pp. Pro coherence averaged 75.7%; con coherence averaged 63.9%, both well above the 50% chance line.",
-        image: "/projects/556642978-0308064b-dbba-476f-87cd-061ebc9fd586.png"
+        image: "/projects/556642978-0308064b-dbba-476f-87cd-061ebc9fd586.png",
       },
       {
         header: "Clean three way separation across all debates",
         body: "Averaged across five additional debates (gender neutral bathrooms, zoo abolition, European monarchies, parenting licenses, Confederate memorials): pro persona discrimination starts at ~+80pp at hop 1 and declines to ~+28pp at hop 5. Con persona starts at ~−70pp and attenuates to ~−18pp. Baseline hovers near zero with tight confidence bands at every hop. The symmetry of pro/con effects and tight baseline bands across debates confirm this is a robust phenomenon, not an artifact of a single topic.",
-        image: "/projects/556689185-9cbeb859-9c9b-49b3-b339-a4f92ae7cdd8.png"
+        image: "/projects/556689185-9cbeb859-9c9b-49b3-b339-a4f92ae7cdd8.png",
       },
       {
         header: "Effects generalize beyond what the persona saw",
         body: "The discrimination effect remains clearly nonzero at hop 5, well beyond the 1 to 2 hop claims the persona generator was exposed to. The personas generalize to deep claims they never saw during construction.",
-        image: "/projects/556689653-9de8b25c-c943-42a7-9218-2d8b3740bed1.png"
+        image: "/projects/556689653-9de8b25c-c943-42a7-9218-2d8b3740bed1.png",
       },
       {
         header: "Flip rate gradient is selective, not random",
         body: "Flip rate (how often pro and con personas disagree on the same claim) starts at 70-100% at hop 1 and declines to 30-45% by hop 5, consistent across all debates. The personas aren't blindly disagreeing on everything. They're differentially sensitive to claims that are more vs. less connected to the core thesis. Baseline agreement is asymmetric: the pro persona agrees with baseline 82.3% of the time (amplifying the model's existing lean) while the con persona agrees only 61.0% (fighting against the model's prior).",
-        image: "/projects/556689738-75107c42-4a28-4a69-8fbe-a6a71fe3bc2c.png"
+        image: "/projects/556689738-75107c42-4a28-4a69-8fbe-a6a71fe3bc2c.png",
       },
       {
         header: "Override Experiments",
@@ -593,19 +593,19 @@ const PROJECTS = [
       },
       {
         header: "Fan",
-        body: "The simplest possible persona: 'You strongly believe this thesis is true/false.' Pure direction, no reasoning tradition."
+        body: "The simplest possible persona: 'You strongly believe this thesis is true/false.' Pure direction, no reasoning tradition.",
       },
       {
         header: "Override",
-        body: "Fan evaluates first, then gets: 'You now adopt the following perspective: [full opposing persona with thesis and claims embedded].' Tests whether a hard identity swap midconversation can overcome the system prompt."
+        body: "Fan evaluates first, then gets: 'You now adopt the following perspective: [full opposing persona with thesis and claims embedded].' Tests whether a hard identity swap midconversation can overcome the system prompt.",
       },
       {
         header: "Contradict",
-        body: "Fan evaluates first, then challenged with: 'Reconsider. [full opposing strong persona text].'"
+        body: "Fan evaluates first, then challenged with: 'Reconsider. [full opposing strong persona text].'",
       },
       {
         header: "Expert",
-        body: "Fan evaluates first, then challenged with only the opposing expert's title: 'A senior epidemiologist disagrees. Given their expertise, reevaluate.' Tests whether pure authority (no reasoning content) is enough to flip answers."
+        body: "Fan evaluates first, then challenged with only the opposing expert's title: 'A senior epidemiologist disagrees. Given their expertise, reevaluate.' Tests whether pure authority (no reasoning content) is enough to flip answers.",
       },
       {
         header: "Reasoning",
@@ -614,14 +614,20 @@ const PROJECTS = [
       {
         header: "Key finding",
         body: "The reasoning framework amplifies when stacked on the fan. The override pushes discrimination beyond both the fan alone and the framework alone. The con side shows the most dramatic effect: −28.7pp (strong persona alone) jumps to −46.6pp (override after fan). If the strong persona were just another way of saying 'agree with your side,' stacking shouldn't produce amplification, but it does. The con override flip rate stays elevated (17–30%) across all hops from root thesis, doing real work even on deep claims. The pro override drops near zero after hop 1, consistent with the fan already getting most claims 'right' from that perspective.",
-        image: "/projects/575159609-07ebb58d-cef9-4efc-b8a8-6287b2188382.png"
+        image: "/projects/575159609-07ebb58d-cef9-4efc-b8a8-6287b2188382.png",
       },
       {
         header: "Current Status",
         body: "The core experimental pipeline is built and producing results across multiple debates and frontier models. I'm currently running experiments that pit persona identity against logical consistency by presenting claims where the persona's reasoning tradition and the tree's logical structure conflict, to determine whether conditioned personas create genuinely independent belief structures or collapse under contradiction.",
       },
     ],
-    tags: ["Python", "OpenAI API", "Sentence Transformers ", "scikit-learn", "Matplotlib"],
+    tags: [
+      "Python",
+      "OpenAI API",
+      "Sentence Transformers ",
+      "scikit-learn",
+      "Matplotlib",
+    ],
     diagram: {
       label: "Experimental Pipeline",
       src: "/diagrams/llm-persona-pipeline.svg",
@@ -1457,8 +1463,14 @@ function Modal({ item, type, onClose, c }) {
             }}
           >
             {isProject ? (
-              <>{item.date}{item.metric && item.date ? " · " : ""}{item.metric}</>
-            ) : item.date}
+              <>
+                {item.date}
+                {item.metric && item.date ? " · " : ""}
+                {item.metric}
+              </>
+            ) : (
+              item.date
+            )}
           </p>
         </div>
         <div style={{ padding: "0 24px 24px", overflowY: "auto", flex: 1 }}>
@@ -1933,52 +1945,6 @@ function Starfield({ isDark }) {
     });
     if (containerRef.current) ro.observe(containerRef.current);
 
-    // Milky Way band
-const mwAngle = -0.35;
-const mwWidth = canvas.height * 0.28;
-ctx.save();
-ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
-ctx.rotate(mwAngle);
-
-// Core glow
-const mwGrad = ctx.createLinearGradient(0, -mwWidth, 0, mwWidth);
-mwGrad.addColorStop(0, "rgba(180, 200, 255, 0)");
-mwGrad.addColorStop(0.25, "rgba(180, 200, 255, 0.012)");
-mwGrad.addColorStop(0.4, "rgba(200, 210, 255, 0.03)");
-mwGrad.addColorStop(0.5, "rgba(220, 220, 255, 0.045)");
-mwGrad.addColorStop(0.6, "rgba(200, 210, 255, 0.03)");
-mwGrad.addColorStop(0.75, "rgba(180, 200, 255, 0.012)");
-mwGrad.addColorStop(1, "rgba(180, 200, 255, 0)");
-ctx.fillStyle = mwGrad;
-ctx.fillRect(-canvas.width, -mwWidth, canvas.width * 2, mwWidth * 2);
-
-// Dense star clusters along the band
-for (let i = 0; i < 200; i++) {
-  const sx = (Math.random() - 0.5) * canvas.width * 1.6;
-  const sy = (Math.random() - 0.5) * mwWidth * 1.2;
-  const distFromCenter = Math.abs(sy) / mwWidth;
-  const brightness = (1 - distFromCenter) * 0.35;
-  const sr = 0.3 + Math.random() * 0.8;
-  ctx.beginPath();
-  ctx.arc(sx, sy, sr, 0, Math.PI * 2);
-  ctx.fillStyle = `rgba(220, 225, 255, ${brightness * (0.3 + Math.random() * 0.5)})`;
-  ctx.fill();
-}
-
-// Subtle dust lanes (darker patches within the band)
-for (let i = 0; i < 8; i++) {
-  const dx = (Math.random() - 0.5) * canvas.width * 1.2;
-  const dy = (Math.random() - 0.5) * mwWidth * 0.4;
-  const dw = 30 + Math.random() * 60;
-  const dh = 8 + Math.random() * 15;
-  ctx.beginPath();
-  ctx.ellipse(dx, dy, dw, dh, Math.random() * Math.PI, 0, Math.PI * 2);
-  ctx.fillStyle = `rgba(0, 0, 10, ${0.03 + Math.random() * 0.02})`;
-  ctx.fill();
-}
-
-ctx.restore();
-
     function drawSaturn(t) {
       const cx = canvas.width * 0.82;
       const cy = canvas.height * 0.55;
@@ -2149,6 +2115,52 @@ ctx.restore();
       const t = time / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+          // Milky Way band
+    const mwAngle = -0.35;
+    const mwWidth = canvas.height * 0.28;
+    ctx.save();
+    ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
+    ctx.rotate(mwAngle);
+
+    // Core glow
+    const mwGrad = ctx.createLinearGradient(0, -mwWidth, 0, mwWidth);
+    mwGrad.addColorStop(0, "rgba(180, 200, 255, 0)");
+    mwGrad.addColorStop(0.25, "rgba(180, 200, 255, 0.012)");
+    mwGrad.addColorStop(0.4, "rgba(200, 210, 255, 0.03)");
+    mwGrad.addColorStop(0.5, "rgba(220, 220, 255, 0.045)");
+    mwGrad.addColorStop(0.6, "rgba(200, 210, 255, 0.03)");
+    mwGrad.addColorStop(0.75, "rgba(180, 200, 255, 0.012)");
+    mwGrad.addColorStop(1, "rgba(180, 200, 255, 0)");
+    ctx.fillStyle = mwGrad;
+    ctx.fillRect(-canvas.width, -mwWidth, canvas.width * 2, mwWidth * 2);
+
+    // Dense star clusters along the band
+    for (let i = 0; i < 200; i++) {
+      const sx = (Math.random() - 0.5) * canvas.width * 1.6;
+      const sy = (Math.random() - 0.5) * mwWidth * 1.2;
+      const distFromCenter = Math.abs(sy) / mwWidth;
+      const brightness = (1 - distFromCenter) * 0.35;
+      const sr = 0.3 + Math.random() * 0.8;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(220, 225, 255, ${brightness * (0.3 + Math.random() * 0.5)})`;
+      ctx.fill();
+    }
+
+    // Subtle dust lanes (darker patches within the band)
+    for (let i = 0; i < 8; i++) {
+      const dx = (Math.random() - 0.5) * canvas.width * 1.2;
+      const dy = (Math.random() - 0.5) * mwWidth * 0.4;
+      const dw = 30 + Math.random() * 60;
+      const dh = 8 + Math.random() * 15;
+      ctx.beginPath();
+      ctx.ellipse(dx, dy, dw, dh, Math.random() * Math.PI, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0, 0, 10, ${0.03 + Math.random() * 0.02})`;
+      ctx.fill();
+    }
+
+    ctx.restore();
+    
       // Draw planets behind stars
       drawSaturn(t);
       drawNeptune(t);
