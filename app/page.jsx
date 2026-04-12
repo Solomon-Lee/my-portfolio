@@ -1870,7 +1870,6 @@ function Starfield({ isDark }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (!isDark) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let animId;
@@ -2179,6 +2178,192 @@ function Starfield({ isDark }) {
       ctx.restore();
     }
 
+    function drawLightSun(t) {
+      const sunR = Math.min(canvas.width, canvas.height) * 0.12;
+      const sx = canvas.width * 0.12;
+      const sy = canvas.height * 0.35;
+
+      // Outer corona rays
+      ctx.save();
+      ctx.translate(sx, sy);
+      const rayCount = 12;
+      for (let i = 0; i < rayCount; i++) {
+        const angle = (i / rayCount) * Math.PI * 2 + t * 0.05;
+        const rayLen = sunR * (1.8 + Math.sin(t * 0.4 + i * 1.3) * 0.4);
+        const rayGrad = ctx.createLinearGradient(0, 0, Math.cos(angle) * rayLen, Math.sin(angle) * rayLen);
+        rayGrad.addColorStop(0, "rgba(255, 200, 50, 0.12)");
+        rayGrad.addColorStop(1, "rgba(255, 200, 50, 0)");
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(angle - 0.08) * sunR * 0.9, Math.sin(angle - 0.08) * sunR * 0.9);
+        ctx.lineTo(Math.cos(angle) * rayLen, Math.sin(angle) * rayLen);
+        ctx.lineTo(Math.cos(angle + 0.08) * sunR * 0.9, Math.sin(angle + 0.08) * sunR * 0.9);
+        ctx.fillStyle = rayGrad;
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // Large glow
+      const glow2 = ctx.createRadialGradient(sx, sy, sunR * 0.3, sx, sy, sunR * 3);
+      glow2.addColorStop(0, "rgba(255, 220, 100, 0.25)");
+      glow2.addColorStop(0.4, "rgba(255, 200, 80, 0.08)");
+      glow2.addColorStop(1, "rgba(255, 200, 80, 0)");
+      ctx.fillStyle = glow2;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sunR * 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Sun body
+      const sunGrad = ctx.createRadialGradient(sx - sunR * 0.2, sy - sunR * 0.2, sunR * 0.1, sx, sy, sunR);
+      sunGrad.addColorStop(0, "rgba(255, 250, 220, 1)");
+      sunGrad.addColorStop(0.4, "rgba(255, 220, 100, 0.95)");
+      sunGrad.addColorStop(0.8, "rgba(255, 180, 50, 0.9)");
+      sunGrad.addColorStop(1, "rgba(255, 150, 30, 0.7)");
+      ctx.beginPath();
+      ctx.arc(sx, sy, sunR, 0, Math.PI * 2);
+      ctx.fillStyle = sunGrad;
+      ctx.fill();
+    }
+
+    function drawLightSaturn(t) {
+      const cx = canvas.width * 0.75;
+      const cy = canvas.height * 0.4;
+      const planetR = Math.min(canvas.width, canvas.height) * 0.07;
+      const tilt = -0.35;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(tilt);
+
+      // Ring behind planet
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 2.2, planetR * 0.45, 0, 0, Math.PI);
+      ctx.strokeStyle = "rgba(180, 160, 120, 0.35)";
+      ctx.lineWidth = planetR * 0.18;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 1.7, planetR * 0.35, 0, 0, Math.PI);
+      ctx.strokeStyle = "rgba(190, 170, 130, 0.25)";
+      ctx.lineWidth = planetR * 0.1;
+      ctx.stroke();
+
+      // Planet body
+      const bodyGrad = ctx.createRadialGradient(-planetR * 0.3, -planetR * 0.2, planetR * 0.1, 0, 0, planetR);
+      bodyGrad.addColorStop(0, "rgba(235, 215, 175, 0.9)");
+      bodyGrad.addColorStop(0.5, "rgba(210, 185, 140, 0.8)");
+      bodyGrad.addColorStop(1, "rgba(180, 150, 100, 0.7)");
+      ctx.beginPath();
+      ctx.arc(0, 0, planetR, 0, Math.PI * 2);
+      ctx.fillStyle = bodyGrad;
+      ctx.fill();
+
+      // Banding
+      const bandAlpha = 0.1 + Math.sin(t * 0.2) * 0.03;
+      for (let i = -3; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.ellipse(0, i * planetR * 0.2, planetR * 0.95, planetR * 0.06, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 240, 200, ${bandAlpha})`;
+        ctx.fill();
+      }
+
+      // Ring in front
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 2.2, planetR * 0.45, 0, Math.PI, Math.PI * 2);
+      ctx.strokeStyle = "rgba(180, 160, 120, 0.35)";
+      ctx.lineWidth = planetR * 0.18;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(0, 0, planetR * 1.7, planetR * 0.35, 0, Math.PI, Math.PI * 2);
+      ctx.strokeStyle = "rgba(190, 170, 130, 0.25)";
+      ctx.lineWidth = planetR * 0.1;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function drawEarthCurvature(t) {
+      const w = canvas.width;
+      const h = canvas.height;
+      // Large arc at the bottom
+      const earthRadius = w * 1.8;
+      const earthCenterY = h + earthRadius - h * 0.12;
+
+      // Atmosphere glow layers
+      for (let i = 3; i >= 0; i--) {
+        const offset = i * 8;
+        const alpha = 0.04 + (3 - i) * 0.03;
+        ctx.beginPath();
+        ctx.arc(w * 0.5, earthCenterY, earthRadius + offset, Math.PI, Math.PI * 2);
+        ctx.strokeStyle = `rgba(100, 180, 255, ${alpha})`;
+        ctx.lineWidth = 6;
+        ctx.stroke();
+      }
+
+      // Thin bright atmosphere line
+      ctx.beginPath();
+      ctx.arc(w * 0.5, earthCenterY, earthRadius, Math.PI, Math.PI * 2);
+      ctx.strokeStyle = "rgba(120, 200, 255, 0.3)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Earth body (gradient from blue to darker blue)
+      const earthGrad = ctx.createRadialGradient(w * 0.5, earthCenterY, earthRadius * 0.95, w * 0.5, earthCenterY, earthRadius);
+      earthGrad.addColorStop(0, "rgba(30, 80, 160, 0.5)");
+      earthGrad.addColorStop(1, "rgba(20, 60, 130, 0.7)");
+      ctx.beginPath();
+      ctx.arc(w * 0.5, earthCenterY, earthRadius, Math.PI, Math.PI * 2);
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      ctx.fillStyle = earthGrad;
+      ctx.fill();
+
+      // Cloud wisps along the curvature
+      for (let i = 0; i < 6; i++) {
+        const angle = Math.PI + (i / 6) * Math.PI * 0.8 + 0.1;
+        const cx = w * 0.5 + Math.cos(angle) * (earthRadius + 2);
+        const cy = earthCenterY + Math.sin(angle) * (earthRadius + 2);
+        const cloudW = 40 + Math.sin(t * 0.15 + i * 2) * 10;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, cloudW, 4, angle + Math.PI * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
+        ctx.fill();
+      }
+    }
+
+    function drawLight(time) {
+      const t = time / 1000;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Sky gradient (deep space blue fading to lighter near Earth)
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      skyGrad.addColorStop(0, "#e8f0fe");
+      skyGrad.addColorStop(0.5, "#d0e2f7");
+      skyGrad.addColorStop(0.85, "#b8d4f0");
+      skyGrad.addColorStop(1, "#a0c4e8");
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Sun (left side)
+      drawLightSun(t);
+
+      // Saturn (right side, upper area)
+      drawLightSaturn(t);
+
+      // Small distant stars (faintly visible in daytime sky)
+      for (const s of stars) {
+        const alpha = s.baseAlpha * 0.08 * (Math.sin(t * s.speed + s.phase) * 0.3 + 0.7);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 0.6, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(100, 120, 160, ${alpha})`;
+        ctx.fill();
+      }
+
+      // Earth curvature at bottom
+      drawEarthCurvature(t);
+
+      animId = requestAnimationFrame(drawLight);
+    }
+
     function draw(time) {
       const t = time / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -2415,7 +2600,7 @@ function Starfield({ isDark }) {
       animId = requestAnimationFrame(draw);
     }
 
-    animId = requestAnimationFrame(draw);
+    animId = requestAnimationFrame(isDark ? draw : drawLight);
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
@@ -2425,8 +2610,6 @@ function Starfield({ isDark }) {
       }
     };
   }, [isDark]);
-
-  if (!isDark) return null;
 
   return (
     <div
