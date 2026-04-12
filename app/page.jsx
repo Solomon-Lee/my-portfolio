@@ -2014,7 +2014,7 @@ function Starfield({ isDark }) {
 
     function drawSaturn(t) {
       const cx = canvas.width * 0.82;
-      const cy = canvas.height * 0.70;
+      const cy = canvas.height * 0.80;
       const planetR = Math.min(canvas.width, canvas.height) * 0.1;
       const tilt = -0.35;
 
@@ -2459,7 +2459,7 @@ function Starfield({ isDark }) {
 
       // Spiral galaxy
       const gcx = canvas.width * 0.5;
-      const gcy = canvas.height * 0.55;
+      const gcy = canvas.height * 0.80;
       const coreR = Math.min(canvas.width, canvas.height) * 0.06;
 
       // Core glow (radial gradient)
