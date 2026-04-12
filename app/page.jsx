@@ -1933,6 +1933,52 @@ function Starfield({ isDark }) {
     });
     if (containerRef.current) ro.observe(containerRef.current);
 
+    // Milky Way band
+const mwAngle = -0.35;
+const mwWidth = canvas.height * 0.28;
+ctx.save();
+ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
+ctx.rotate(mwAngle);
+
+// Core glow
+const mwGrad = ctx.createLinearGradient(0, -mwWidth, 0, mwWidth);
+mwGrad.addColorStop(0, "rgba(180, 200, 255, 0)");
+mwGrad.addColorStop(0.25, "rgba(180, 200, 255, 0.012)");
+mwGrad.addColorStop(0.4, "rgba(200, 210, 255, 0.03)");
+mwGrad.addColorStop(0.5, "rgba(220, 220, 255, 0.045)");
+mwGrad.addColorStop(0.6, "rgba(200, 210, 255, 0.03)");
+mwGrad.addColorStop(0.75, "rgba(180, 200, 255, 0.012)");
+mwGrad.addColorStop(1, "rgba(180, 200, 255, 0)");
+ctx.fillStyle = mwGrad;
+ctx.fillRect(-canvas.width, -mwWidth, canvas.width * 2, mwWidth * 2);
+
+// Dense star clusters along the band
+for (let i = 0; i < 200; i++) {
+  const sx = (Math.random() - 0.5) * canvas.width * 1.6;
+  const sy = (Math.random() - 0.5) * mwWidth * 1.2;
+  const distFromCenter = Math.abs(sy) / mwWidth;
+  const brightness = (1 - distFromCenter) * 0.35;
+  const sr = 0.3 + Math.random() * 0.8;
+  ctx.beginPath();
+  ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(220, 225, 255, ${brightness * (0.3 + Math.random() * 0.5)})`;
+  ctx.fill();
+}
+
+// Subtle dust lanes (darker patches within the band)
+for (let i = 0; i < 8; i++) {
+  const dx = (Math.random() - 0.5) * canvas.width * 1.2;
+  const dy = (Math.random() - 0.5) * mwWidth * 0.4;
+  const dw = 30 + Math.random() * 60;
+  const dh = 8 + Math.random() * 15;
+  ctx.beginPath();
+  ctx.ellipse(dx, dy, dw, dh, Math.random() * Math.PI, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(0, 0, 10, ${0.03 + Math.random() * 0.02})`;
+  ctx.fill();
+}
+
+ctx.restore();
+
     function drawSaturn(t) {
       const cx = canvas.width * 0.82;
       const cy = canvas.height * 0.55;
