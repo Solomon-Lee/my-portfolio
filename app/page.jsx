@@ -2014,7 +2014,7 @@ function Starfield({ isDark }) {
 
     function drawSaturn(t) {
       const cx = canvas.width * 0.82;
-      const cy = canvas.height * 0.80;
+      const cy = canvas.height * 0.55;
       const planetR = Math.min(canvas.width, canvas.height) * 0.1;
       const tilt = -0.35;
 
