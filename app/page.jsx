@@ -346,6 +346,7 @@ const PROJECTS = [
     id: 1,
     name: "Hardware Chatbot — Verilog Code Generation",
     company: "Cornell — Computer Systems Lab",
+    thumbnail: "/projects/hw-chatbot-logo.svg",
     desc: [
       { 
         header: "The Problem", 
