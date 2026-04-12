@@ -299,36 +299,48 @@ const JOBS = [
 const PROJECTS = [
   {
     id: 0,
-    name: "ML Kubernetes Descheduler & Cost Panel",
-    company: "Roblox — ML Platform",
-    metric: "$1.3M saved/yr · 25% GPU efficiency ↑",
-    desc: "Roblox's ML platform runs thousands of GPU-intensive training jobs on Kubernetes. I built an ML Kubernetes Descheduler that automatically detects idle jobs and terminates them using bin-packing algorithms, plus a real-time cost dashboard with Go, Prometheus, and Grafana.",
-    tags: [
-      "Go",
-      "Kubernetes",
-      "GCP",
-      "RayJobs",
-      "Kubeflow",
-      "Prometheus",
-      "Grafana",
+    name: "FP4 Quantization Format Research",
+    company: "Cornell — Computer Systems Lab",
+    desc: [
+      {
+        header: "The Problem",
+        body: "Modern LLM deployment is bottlenecked by memory bandwidth. Quantizing model weights from 16-bit to 4-bit floating point (FP4) dramatically reduces memory footprint and improves inference throughput — but the question of which 4-bit format to use is far from settled. Nearly all existing FP4 work focuses on the E2M1 format (2 exponent bits, 1 mantissa bit), which allocates its 16 representable values with logarithmic spacing biased toward small magnitudes. But neural network weight distributions aren't uniform — they're sharply peaked near zero with heavy tails — and different formats place their quantization levels in fundamentally different positions along the number line. I investigated whether E1M2 (1 exponent bit, 2 mantissa bits), a largely overlooked format, could outperform E2M1 when combined with weight pruning.",
+        image: "/projects/fp4-quantized-values.png",
+        caption: "Standard FP4 formats (E2M1 variants) and their quantization level placements",
+      },
+      {
+        header: "Key Insight",
+        body: "E1M2 has a natural coverage gap around zero — it allocates fewer representable values to small magnitudes compared to E2M1. At first glance this seems like a disadvantage, since most neural network weights cluster near zero. But when combined with magnitude-based pruning, this gap becomes an advantage: pruning removes the smallest-magnitude weights entirely, and E1M2 can then reallocate its precision budget to the remaining (larger) unpruned values. The hypothesis was that the combination of quantization and pruning could outperform either technique alone at high compression ratios.",
+        image: "/projects/fp4-quantized-e1m2.png",
+        caption: "SF4 quantization levels shift outward as pruning ratio increases",
+      },
+      {
+        header: "Weight Distribution Profiling",
+        body: "I profiled the weight distributions across every layer and sub-channel of transformer models, fitting each to both Normal and Student's t distributions using QQ plots to assess goodness of fit. The profiling revealed that weight distributions are consistently leptokurtic (heavier-tailed than Gaussian), which informed the choice of quantization strategy.",
+        image: "/projects/fp4-profiled-values.png",
+        caption: "Quantization datatypes overlaid on weight distribution",
+      },
+      {
+        header: "Custom Format Design",
+        body: "I designed a parameterized 4-bit format called SF4 that continuously interpolates its quantization levels based on a pruning parameter. As the pruning ratio increases (more small weights removed), SF4 shifts its representable values outward to better cover the remaining distribution. At ~50% sparsity, the SF4 format with E1M2-like spacing showed theoretical advantages over standard E2M1.",
+        image: "/projects/fp4-pruned-normalized.png",
+        caption: "Per-layer weight distributions after pruning — attention and dense layers show distinct shapes",
+      },
+      {
+        header: "Datatype generator functions",
+        body: "I explored several mathematical functions for generating quantization level placements, including normal quantile mappings, Student's t quantile mappings, and power-law transformations, comparing their MSE performance against the Lloyd-Max optimal.",
+        image: "/projects/fp4-datatype-generators.png",
+        caption: "Generator functions mapping uniform inputs to quantization levels: quantile-based vs. power-law",
+      },
+      {
+        header: "Findings",
+        body: "E2M1 remains the better format for quantization alone — its logarithmic spacing naturally matches the near-zero concentration of unpruned weight distributions. However, when combined with structured 2:4 sparsity (50% pruning with GPU-accelerated support), E1M2-based formats showed promise by reallocating precision to the surviving weights. The research also identified practical challenges: advanced pruning methods don't produce clean gaps in the distribution (since they don't use pure magnitude-based pruning), and E1M2 struggles to independently fit both the inner and outer regions of the distribution with linear scaling.",
+        image: "/projects/pareto_fixed_distance.png",
+        caption: "Accuracy vs. hardware cost (MAC area) across FP4 formats — E2M1 and APoT dominate the Pareto frontier",
+      }
     ],
-  },
-  {
-    id: 1,
-    name: "AI Package Recommendation Engine",
-    company: "Google — Airlock Team",
-    metric: "Shipped in Gemini Code Assist · Gemini CLI",
-    desc: "Engineers building Java apps at Google need to find the right internal packages, but LLM coding assistants would hallucinate package names or recommend public packages not approved for internal use. I built an AI-powered recommendation engine and MCP service that acts as a tool layer between the LLM and Airlock's package registry.",
-    tags: ["Java", "GCP", "Vertex AI", "Spring", "Cloud Run", "MCP"],
-  },
-  {
-    id: 2,
-    name: "LLM Persona Belief Influence Research",
-    company: "Cornell University — Undergrad Research",
-    metric: "+55pp pro · −35pp con gap · OOD generalization",
-    desc: "I designed and built a persona-based evaluation framework to measure whether LLM belief adoption generalizes out-of-distribution. Key finding: pro personas achieve ~+55pp discrimination gap, con personas reverse to ~−35pp, holding at 4–6 hops from the root thesis.",
-    tags: ["Python", "OpenAI API", "NLP", "LLM Evaluation", "AI Safety"],
-  },
+    tags: ["Python", "PyTorch", "NumPy", "SciPy", "Matplotlib"],
+  }
 ];
 
 function useTypewriter(text, speed) {
@@ -798,46 +810,6 @@ function CornellModal({ onClose, c }) {
   );
 }
 
-function Diagram({ src, c }) {
-  const [html, setHtml] = useState("");
-  useEffect(() => {
-    fetch(src)
-      .then((r) => r.text())
-      .then((svg) =>
-        setHtml(
-          svg
-            .replaceAll("FILL_GRAY", c.chipDark)
-            .replaceAll("FILL_CARD", c.card)
-            .replaceAll("FILL_ACCENT", c.accentBadgeBg)
-            .replaceAll("FILL_PURPLE", c.accentBadgeBg)
-            .replaceAll("FILL_BLUE", c.accentBadgeBg)
-            .replaceAll("FILL_CORAL", c.accentBadgeBg)
-            .replaceAll("STROKE_GRAY", c.muted)
-            .replaceAll("STROKE_ACCENT", c.accent)
-            .replaceAll("STROKE_PURPLE", "#7F77DD")
-            .replaceAll("STROKE_BLUE", "#378ADD")
-            .replaceAll("STROKE_CORAL", "#D85A30")
-            .replaceAll("STROKE", c.border)
-            .replaceAll("MUTED", c.muted)
-            .replaceAll("TEXT", c.text)
-        )
-      );
-  }, [src, c]);
-  if (!html) return null;
-  return (
-    <div
-      style={{
-        background: c.card,
-        border: `1px solid ${c.border}`,
-        borderRadius: 10,
-        padding: "16px 12px",
-        overflow: "hidden",
-      }}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
-}
-
 function Modal({ item, type, onClose, c }) {
   const ref = useRef();
   useEffect(() => {
@@ -979,6 +951,27 @@ function Modal({ item, type, onClose, c }) {
                   >
                     {section.body}
                   </p>
+                  {section.image && (
+                    <div style={{ marginTop: 12 }}>
+                      <Image
+                        src={section.image}
+                        alt={section.header || ""}
+                        width={612}
+                        height={400}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          borderRadius: 8,
+                          border: `1px solid ${c.border}`,
+                        }}
+                      />
+                      {section.caption && (
+                        <p style={{ color: c.muted, fontSize: 11, marginTop: 6, textAlign: "center", fontStyle: "italic" }}>
+                          {section.caption}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -1011,53 +1004,6 @@ function Modal({ item, type, onClose, c }) {
               <Diagram src={diag.src} c={c} />
             </div>
           ))}
-          {isProject && (
-            <>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
-                  gap: 8,
-                  marginBottom: 12,
-                }}
-              >
-                {["[ photo ]", "[ photo ]", "[ photo ]"].map((l, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      height: 90,
-                      background: c.photoBox,
-                      border: `1px solid ${c.border}`,
-                      borderRadius: 8,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: c.muted,
-                      fontSize: 11,
-                    }}
-                  >
-                    {l}
-                  </div>
-                ))}
-              </div>
-              <div
-                style={{
-                  height: 140,
-                  background: c.photoBox,
-                  border: `1px solid ${c.border}`,
-                  borderRadius: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: c.muted,
-                  fontSize: 12,
-                  marginBottom: 20,
-                }}
-              >
-                ▶ [ video / demo ]
-              </div>
-            </>
-          )}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
             {item.tags.map((t) => (
               <span key={t} style={chip}>
@@ -2459,7 +2405,7 @@ export default function Portfolio() {
                             marginBottom: 8,
                           }}
                         >
-                          {p.desc.slice(0, 130)}...
+                          {(Array.isArray(p.desc) ? p.desc[0]?.body || "" : p.desc).slice(0, 130)}...
                         </p>
                         <div
                           style={{
