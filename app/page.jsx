@@ -1456,7 +1456,9 @@ function Modal({ item, type, onClose, c }) {
               marginBottom: 20,
             }}
           >
-            {isProject ? item.metric : item.date}
+            {isProject ? (
+              <>{item.date}{item.metric && item.date ? " · " : ""}{item.metric}</>
+            ) : item.date}
           </p>
         </div>
         <div style={{ padding: "0 24px 24px", overflowY: "auto", flex: 1 }}>
@@ -3050,6 +3052,17 @@ export default function Portfolio() {
                         >
                           {p.name}
                         </h3>
+                        {p.date && (
+                          <p
+                            style={{
+                              color: c.muted,
+                              fontSize: 11,
+                              marginBottom: 4,
+                            }}
+                          >
+                            {p.date}
+                          </p>
+                        )}
                         <p
                           style={{
                             color: c.accentSub,
