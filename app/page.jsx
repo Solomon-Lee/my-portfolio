@@ -276,6 +276,30 @@ const LIFE_PHOTOS = [
     caption: "So cool!",
     location: "Stuttgart, Germany",
     date: "April 2026",
+  },
+  {
+    src: "/life/DSC02757.jpg",
+    caption: "Photo taken by Eric!",
+    location: "Budapest, Hungary",
+    date: "March 2026"
+  },
+  {
+    src: "/life/DSC03331.jpg",
+    caption: "Drove this beauty!",
+    location: "Spielberg, Austria",
+    date: "April 2026"
+  },
+  {
+    src: "/life/DSC03413.jpg",
+    caption: "If you're wondering where we were carving",
+    location: "Stubai, Austria",
+    date: "April 2026"
+  },
+  {
+    src: "/life/DSC03128.jpg",
+    caption: "The views of the Ring",
+    location: "Spielberg, Austria",
+    date: "April 2026"
   }
 ];
 
