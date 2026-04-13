@@ -2552,9 +2552,9 @@ function Starfield({ isDark }) {
         ctx.lineTo(-sz * 0.8, sz * 2.5);
         ctx.closePath();
         const beamGrad = ctx.createLinearGradient(0, sz * 0.15, 0, sz * 2.5);
-        beamGrad.addColorStop(0, `rgba(80, 255, 140, ${beamAlpha * 2})`);
-        beamGrad.addColorStop(0.5, `rgba(100, 255, 160, ${beamAlpha})`);
-        beamGrad.addColorStop(1, `rgba(120, 255, 180, 0)`);
+        beamGrad.addColorStop(0, `rgba(255, 60, 60, ${beamAlpha * 2})`);
+        beamGrad.addColorStop(0.5, `rgba(255, 80, 80, ${beamAlpha})`);
+        beamGrad.addColorStop(1, `rgba(255, 100, 100, 0)`);
         ctx.fillStyle = beamGrad;
         ctx.fill();
 
@@ -2586,15 +2586,15 @@ function Starfield({ isDark }) {
           const lightAlpha = 0.7 + Math.sin(ufo.wobble * 3 + i) * 0.3;
           ctx.beginPath();
           ctx.arc(lx, ly, sz * 0.08, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(80, 255, 140, ${lightAlpha})`;
+          ctx.fillStyle = `rgba(255, 60, 60, ${lightAlpha})`;
           ctx.fill();
         }
 
         // Bottom center light
         const centerGlow = ctx.createRadialGradient(0, sz * 0.15, 0, 0, sz * 0.15, sz * 0.35);
-        centerGlow.addColorStop(0, `rgba(80, 255, 140, ${0.7 + Math.sin(ufo.wobble * 2) * 0.2})`);
-        centerGlow.addColorStop(0.6, `rgba(100, 255, 160, ${0.3 + Math.sin(ufo.wobble * 2) * 0.1})`);
-        centerGlow.addColorStop(1, "rgba(120, 255, 180, 0)");
+        centerGlow.addColorStop(0, `rgba(255, 60, 60, ${0.7 + Math.sin(ufo.wobble * 2) * 0.2})`);
+        centerGlow.addColorStop(0.6, `rgba(255, 80, 80, ${0.3 + Math.sin(ufo.wobble * 2) * 0.1})`);
+        centerGlow.addColorStop(1, "rgba(255, 100, 100, 0)");
         ctx.beginPath();
         ctx.arc(0, sz * 0.15, sz * 0.2, 0, Math.PI * 2);
         ctx.fillStyle = centerGlow;
