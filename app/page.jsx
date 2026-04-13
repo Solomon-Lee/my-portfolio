@@ -2921,6 +2921,8 @@ export default function Portfolio() {
   const [showLife, setShowLife] = useState(false);
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
   const [lightboxReady, setLightboxReady] = useState(false);
+  const [introVisible, setIntroVisible] = useState(true);
+  const [introSliding, setIntroSliding] = useState(false);
   const openLightbox = (photo) => {
     setLightboxPhoto(photo);
     setLightboxReady(false);
@@ -2949,6 +2951,12 @@ export default function Portfolio() {
     borderRadius: 10,
     overflow: "hidden",
   };
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setIntroSliding(true), 400);
+    const t2 = setTimeout(() => setIntroVisible(false), 1400);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
 
   useEffect(() => {
     if (!done) return;
@@ -3010,6 +3018,19 @@ export default function Portfolio() {
         transition: "background 0.2s, color 0.2s",
       }}
     >
+      {introVisible && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            background: c.bg,
+            transform: introSliding ? "translateY(-100%)" : "translateY(0)",
+            transition: "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)",
+            pointerEvents: "none",
+          }}
+        />
+      )}
       <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
         rel="stylesheet"
