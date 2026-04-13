@@ -3024,7 +3024,7 @@ export default function Portfolio() {
             position: "fixed",
             inset: 0,
             zIndex: 9999,
-            background: c.bg,
+            background: isDark ? "#0D9488" : "#0D9488",
             transform: introSliding ? "translateY(-100%)" : "translateY(0)",
             transition: "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)",
             pointerEvents: "none",
