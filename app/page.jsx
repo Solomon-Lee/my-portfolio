@@ -3085,7 +3085,7 @@ export default function Portfolio() {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontFamily: "'Inter', sans-serif",
+                          fontFamily: "'Playfair Display', serif",
                           fontSize: 48,
                           fontWeight: 700,
                           color: "#fff",
@@ -3110,7 +3110,7 @@ export default function Portfolio() {
         );
       })()}
       <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap"
         rel="stylesheet"
       />
       {modal && (
