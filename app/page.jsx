@@ -2928,17 +2928,16 @@ export default function Portfolio() {
     img.onload = () => setLightboxReady(true);
     img.src = photo.src;
   };
-  const slotReelsRef = useRef(null);
-  if (!slotReelsRef.current) {
-    const SLOT_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const [slotReels] = useState(() => {
+    const SLOT_ICONS = ["🏎️", "⛷️", "🍜", "🧋", "🐱", "✈️", "💻", "🎮", "🏔️", "🍕", "📸"];
     const slotTargets = ["S", "S", "L"];
-    slotReelsRef.current = slotTargets.map((target) => {
+    return slotTargets.map((target) => {
       const strip = [];
-      for (let j = 0; j < 30; j++) strip.push(SLOT_LETTERS[Math.floor(Math.random() * 26)]);
+      for (let j = 0; j < 30; j++) strip.push(SLOT_ICONS[Math.floor(Math.random() * SLOT_ICONS.length)]);
       strip.push(target);
       return strip;
     });
-  }
+  });
   const refs = useRef({});
   const clicking = useRef(false);
   const { displayed, done } = useTypewriter(FULL_TEXT, TYPE_SPEED);
@@ -3033,7 +3032,7 @@ export default function Portfolio() {
         const targets = ["S", "S", "L"];
         const slotHeight = 60;
         const landed = introPhase === "landed" || introPhase === "sliding";
-        const reelLetters = slotReelsRef.current;
+        const reelLetters = slotReels;
         // Staggered stop: each reel has a different duration
         const reelDurations = [1.2, 1.5, 1.8];
         return (
