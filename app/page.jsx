@@ -2928,6 +2928,17 @@ export default function Portfolio() {
     img.onload = () => setLightboxReady(true);
     img.src = photo.src;
   };
+  const slotReelsRef = useRef(null);
+  if (!slotReelsRef.current) {
+    const SLOT_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const slotTargets = ["S", "S", "L"];
+    slotReelsRef.current = slotTargets.map((target) => {
+      const strip = [];
+      for (let j = 0; j < 30; j++) strip.push(SLOT_LETTERS[Math.floor(Math.random() * 26)]);
+      strip.push(target);
+      return strip;
+    });
+  }
   const refs = useRef({});
   const clicking = useRef(false);
   const { displayed, done } = useTypewriter(FULL_TEXT, TYPE_SPEED);
@@ -3019,11 +3030,12 @@ export default function Portfolio() {
       }}
     >
       {introPhase !== "done" && (() => {
-        const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const targets = ["S", "S", "L"];
         const slotHeight = 60;
-        const staggerDelays = [0, 0.15, 0.3];
         const landed = introPhase === "landed" || introPhase === "sliding";
+        const reelLetters = slotReelsRef.current;
+        // Staggered stop: each reel has a different duration
+        const reelDurations = [1.2, 1.5, 1.8];
         return (
           <div
             style={{
@@ -3040,7 +3052,7 @@ export default function Portfolio() {
             }}
           >
             <div style={{ display: "flex", gap: 24 }}>
-              {targets.map((target, idx) => (
+              {targets.map((_, idx) => (
                 <div
                   key={idx}
                   style={{
@@ -3062,14 +3074,13 @@ export default function Portfolio() {
                       right: 0,
                       animation: landed
                         ? "none"
-                        : `slotSpin 0.4s linear infinite`,
-                      animationDelay: `${staggerDelays[idx]}s`,
-                      transform: landed ? "translateY(0)" : undefined,
-                      transition: landed ? `transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)` : "none",
+                        : `slotSpin${idx} ${reelDurations[idx]}s cubic-bezier(0.15, 0, 0.2, 1) forwards`,
+                      transform: landed ? `translateY(-${(reelLetters[idx].length - 1) * slotHeight}px)` : undefined,
                     }}
                   >
-                    {landed ? (
+                    {reelLetters[idx].map((ch, i) => (
                       <div
+                        key={i}
                         style={{
                           height: slotHeight,
                           display: "flex",
@@ -3081,36 +3092,20 @@ export default function Portfolio() {
                           color: "#fff",
                         }}
                       >
-                        {target}
+                        {ch}
                       </div>
-                    ) : (
-                      LETTERS.split("").concat(LETTERS.split("")).map((ch, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            height: slotHeight,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: 32,
-                            fontWeight: 700,
-                            color: "#fff",
-                          }}
-                        >
-                          {ch}
-                        </div>
-                      ))
-                    )}
+                    ))}
                   </div>
                 </div>
               ))}
             </div>
             <style>{`
-              @keyframes slotSpin {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(-${slotHeight * 26}px); }
-              }
+              ${reelLetters.map((reel, idx) => `
+                @keyframes slotSpin${idx} {
+                  0% { transform: translateY(0); }
+                  100% { transform: translateY(-${(reel.length - 1) * slotHeight}px); }
+                }
+              `).join("")}
             `}</style>
           </div>
         );
