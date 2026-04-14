@@ -2921,8 +2921,7 @@ export default function Portfolio() {
   const [showLife, setShowLife] = useState(false);
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
   const [lightboxReady, setLightboxReady] = useState(false);
-  const [introVisible, setIntroVisible] = useState(true);
-  const [introSliding, setIntroSliding] = useState(false);
+  const [introPhase, setIntroPhase] = useState("spinning"); // spinning | landed | sliding | done
   const openLightbox = (photo) => {
     setLightboxPhoto(photo);
     setLightboxReady(false);
@@ -2953,9 +2952,11 @@ export default function Portfolio() {
   };
 
   useEffect(() => {
-    const t1 = setTimeout(() => setIntroSliding(true), 400);
-    const t2 = setTimeout(() => setIntroVisible(false), 1400);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    // Slots spin, then land, pause, then overlay slides up
+    const t1 = setTimeout(() => setIntroPhase("landed"), 1800);
+    const t2 = setTimeout(() => setIntroPhase("sliding"), 2600);
+    const t3 = setTimeout(() => setIntroPhase("done"), 3600);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
 
   useEffect(() => {
@@ -3018,19 +3019,103 @@ export default function Portfolio() {
         transition: "background 0.2s, color 0.2s",
       }}
     >
-      {introVisible && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            background: isDark ? "#0D9488" : "#0D9488",
-            transform: introSliding ? "translateY(-100%)" : "translateY(0)",
-            transition: "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)",
-            pointerEvents: "none",
-          }}
-        />
-      )}
+      {introPhase !== "done" && (() => {
+        const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const targets = ["S", "S", "L"];
+        const slotHeight = 60;
+        const staggerDelays = [0, 0.15, 0.3];
+        const landed = introPhase === "landed" || introPhase === "sliding";
+        return (
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              background: "#0D9488",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transform: introPhase === "sliding" ? "translateY(-100%)" : "translateY(0)",
+              transition: introPhase === "sliding" ? "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
+              pointerEvents: "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: 24 }}>
+              {targets.map((target, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    width: 64,
+                    height: slotHeight,
+                    overflow: "hidden",
+                    borderRadius: 10,
+                    background: "rgba(0,0,0,0.2)",
+                    position: "relative",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      animation: landed
+                        ? "none"
+                        : `slotSpin 0.4s linear infinite`,
+                      animationDelay: `${staggerDelays[idx]}s`,
+                      transform: landed ? "translateY(0)" : undefined,
+                      transition: landed ? `transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)` : "none",
+                    }}
+                  >
+                    {landed ? (
+                      <div
+                        style={{
+                          height: slotHeight,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: 32,
+                          fontWeight: 700,
+                          color: "#fff",
+                        }}
+                      >
+                        {target}
+                      </div>
+                    ) : (
+                      LETTERS.split("").concat(LETTERS.split("")).map((ch, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            height: slotHeight,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: 32,
+                            fontWeight: 700,
+                            color: "#fff",
+                          }}
+                        >
+                          {ch}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <style>{`
+              @keyframes slotSpin {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-${slotHeight * 26}px); }
+              }
+            `}</style>
+          </div>
+        );
+      })()}
       <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
         rel="stylesheet"
