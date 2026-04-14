@@ -512,7 +512,6 @@ const JOBS = [
     thumbnail: "/experience/roblox.jpeg",
     date: "May – Aug 2024",
     tags: [
-      "Python",
       "PySpark",
       "C#",
       ".NET",
