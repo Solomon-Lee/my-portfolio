@@ -3030,7 +3030,7 @@ export default function Portfolio() {
     >
       {introPhase !== "done" && (() => {
         const targets = ["S", "S", "L"];
-        const slotHeight = 60;
+        const slotHeight = 90;
         const landed = introPhase === "landed" || introPhase === "sliding";
         const reelLetters = slotReels;
         // Staggered stop: each reel has a different duration
@@ -3055,7 +3055,7 @@ export default function Portfolio() {
                 <div
                   key={idx}
                   style={{
-                    width: 64,
+                    width: 90,
                     height: slotHeight,
                     overflow: "hidden",
                     borderRadius: 10,
@@ -3086,7 +3086,7 @@ export default function Portfolio() {
                           alignItems: "center",
                           justifyContent: "center",
                           fontFamily: "'Inter', sans-serif",
-                          fontSize: 32,
+                          fontSize: 48,
                           fontWeight: 700,
                           color: "#fff",
                         }}
