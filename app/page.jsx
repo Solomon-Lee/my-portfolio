@@ -2929,11 +2929,11 @@ export default function Portfolio() {
     img.src = photo.src;
   };
   const [slotReels] = useState(() => {
-    const SLOT_ICONS = ["🏎️", "⛷️", "🍜", "🧋", "🐱", "✈️", "💻", "🎮", "🏔️", "🍕", "📸"];
+    const SLOT_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const slotTargets = ["S", "S", "L"];
     return slotTargets.map((target) => {
       const strip = [];
-      for (let j = 0; j < 30; j++) strip.push(SLOT_ICONS[Math.floor(Math.random() * SLOT_ICONS.length)]);
+      for (let j = 0; j < 30; j++) strip.push(SLOT_LETTERS[Math.floor(Math.random() * 26)]);
       strip.push(target);
       return strip;
     });
