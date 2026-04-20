@@ -3041,7 +3041,7 @@ export default function Portfolio() {
               position: "fixed",
               inset: 0,
               zIndex: 9999,
-              background: "#0D9488",
+              background: "#000000",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
