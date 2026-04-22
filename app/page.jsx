@@ -308,7 +308,7 @@ const CORNELL = {
   courses: [
     "Machine Learning",
     "Deep Learning",
-    "Reinforcement Learning",
+    "Parallel Computing",
     "Operating Systems",
     "Probability and Statistics",
     "Computational Genomics",
