@@ -2920,7 +2920,6 @@ export default function Portfolio() {
   const [showLife, setShowLife] = useState(false);
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
   const [lightboxReady, setLightboxReady] = useState(false);
-  const [introPhase, setIntroPhase] = useState("done"); // spinning | landed | sliding | done (set to "spinning" to re-enable)
   const openLightbox = (photo) => {
     setLightboxPhoto(photo);
     setLightboxReady(false);
@@ -2928,16 +2927,6 @@ export default function Portfolio() {
     img.onload = () => setLightboxReady(true);
     img.src = photo.src;
   };
-  const [slotReels] = useState(() => {
-    const SLOT_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const slotTargets = ["S", "S", "L"];
-    return slotTargets.map((target) => {
-      const strip = [];
-      for (let j = 0; j < 30; j++) strip.push(SLOT_LETTERS[Math.floor(Math.random() * 26)]);
-      strip.push(target);
-      return strip;
-    });
-  });
   const refs = useRef({});
   const clicking = useRef(false);
   const { displayed, done } = useTypewriter(FULL_TEXT, TYPE_SPEED);
@@ -2959,14 +2948,6 @@ export default function Portfolio() {
     borderRadius: 10,
     overflow: "hidden",
   };
-
-  useEffect(() => {
-    // Slots spin, then land, pause, then overlay slides up
-    const t1 = setTimeout(() => setIntroPhase("landed"), 1800);
-    const t2 = setTimeout(() => setIntroPhase("sliding"), 2600);
-    const t3 = setTimeout(() => setIntroPhase("done"), 3600);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-  }, []);
 
   useEffect(() => {
     if (!done) return;
@@ -3028,87 +3009,6 @@ export default function Portfolio() {
         transition: "background 0.2s, color 0.2s",
       }}
     >
-      {introPhase !== "done" && (() => {
-        const targets = ["S", "S", "L"];
-        const slotHeight = 90;
-        const landed = introPhase === "landed" || introPhase === "sliding";
-        const reelLetters = slotReels;
-        // Staggered stop: each reel has a different duration
-        const reelDurations = [1.2, 1.5, 1.8];
-        return (
-          <div
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 9999,
-              background: "#000000",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transform: introPhase === "sliding" ? "translateY(-100%)" : "translateY(0)",
-              transition: introPhase === "sliding" ? "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
-              pointerEvents: "none",
-            }}
-          >
-            <div style={{ display: "flex", gap: 24 }}>
-              {targets.map((_, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    width: 90,
-                    height: slotHeight,
-                    overflow: "hidden",
-                    borderRadius: 10,
-                    background: "rgba(0,0,0,0.2)",
-                    position: "relative",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      position: "absolute",
-                      left: 0,
-                      right: 0,
-                      animation: landed
-                        ? "none"
-                        : `slotSpin${idx} ${reelDurations[idx]}s cubic-bezier(0.15, 0, 0.2, 1) forwards`,
-                      transform: landed ? `translateY(-${(reelLetters[idx].length - 1) * slotHeight}px)` : undefined,
-                    }}
-                  >
-                    {reelLetters[idx].map((ch, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          height: slotHeight,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontFamily: "'Playfair Display', serif",
-                          fontSize: 48,
-                          fontWeight: 700,
-                          color: "#fff",
-                        }}
-                      >
-                        {ch}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <style>{`
-              ${reelLetters.map((reel, idx) => `
-                @keyframes slotSpin${idx} {
-                  0% { transform: translateY(0); }
-                  100% { transform: translateY(-${(reel.length - 1) * slotHeight}px); }
-                }
-              `).join("")}
-            `}</style>
-          </div>
-        );
-      })()}
       <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap"
         rel="stylesheet"
