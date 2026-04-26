@@ -105,7 +105,7 @@ const LIFE_PHOTOS = [
   },
   {
     src: "/life/406A303F-456A-42C9-8A83-C005C4807EDC_1_105_c.jpeg",
-    caption: "Hitting Slopes with the Sis!",
+    caption: "Riding with the Sis!",
     location: "Niseko, Hokkaido",
     date: "December 2025",
   },
@@ -291,7 +291,7 @@ const LIFE_PHOTOS = [
   },
   {
     src: "/life/DSC03413.jpg",
-    caption: "If you're wondering where we were carving",
+    caption: "Fun times!",
     location: "Stubai, Austria",
     date: "April 2026"
   },
