@@ -2920,7 +2920,7 @@ export default function Portfolio() {
   const [showLife, setShowLife] = useState(false);
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
   const [lightboxReady, setLightboxReady] = useState(false);
-  const [introPhase, setIntroPhase] = useState("spinning"); // spinning | landed | sliding | done
+  const [introPhase, setIntroPhase] = useState("done"); // spinning | landed | sliding | done (set to "spinning" to re-enable)
   const openLightbox = (photo) => {
     setLightboxPhoto(photo);
     setLightboxReady(false);
